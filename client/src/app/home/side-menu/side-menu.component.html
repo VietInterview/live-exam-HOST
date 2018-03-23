@@ -7,7 +7,8 @@
     (click)="eventManager.sidebarClick()" (mouseover)="app.sidebarActive=true" (mouseleave)="app.sidebarActive=false">
     <div class="sidebar-logo">
         <a routerLink="/dashboard">
-            <img [src]='company.logo | imageBase64' width="64" height="32">
+            <!-- <img [src]='company.logo | imageBase64' width="64" height="32"> -->
+            <img [src]='src64?sanitizer.bypassSecurityTrustUrl("data:image/png;base64,"+src64):"assets/images/logo/logoCd.png"' style="margin-right: 10px;"> 
             <span class="app-name">Live-exam</span>
         </a>
         <a class="sidebar-anchor" title="Toggle Menu" (click)="eventManager.toggleMenuClick()"></a>
