@@ -6,5 +6,5 @@ const TestConfig: EnvConfig = {
   VERSION: '1.0.0'
 };
 
-export = DevConfig;
+export = TestConfig;
 

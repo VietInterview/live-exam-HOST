@@ -24,9 +24,15 @@ import { SelectItem } from 'primeng/api';
 export class DashboardComponent extends BaseComponent implements OnInit{
 
     isAdmin:boolean;
+    header:any;
 
     constructor(private eventManager: HomeEventManager) {
         super();
+        this.header = {
+            left: 'prev, today, next',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        };
     }
 
     ngOnInit() {
