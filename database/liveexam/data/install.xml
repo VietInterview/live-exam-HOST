@@ -1,0 +1,6 @@
+<odoo>
+    <data>
+        <function model="liveexam.bootstrap" name="install"/>
+    </data>
+
+</odoo>
