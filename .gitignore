@@ -16,3 +16,4 @@ public/upload/
 app.log
 app1.log
 yarn.lock
+server/app/.DS_Store
