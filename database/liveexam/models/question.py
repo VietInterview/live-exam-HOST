@@ -12,7 +12,7 @@ class Question(models.Model):
 	title = fields.Text(string="Title")
 	explanation = fields.Text(string="Explanation")
 	level = fields.Selection(
-		[('easy', 'Easy'), ('medium','Medium'), ('hard','Hard')],default='easy')
+		[('easy', 'Easy'), ('medium','Medium'), ('hard','Hard'),('xeasy', 'Very easy'), ('xhard','Very hard')],default='easy')
 	type = fields.Selection(
 		[('sc', 'Single-choice'), ('fb','Fill-the-blank'), ('ext','Open end')], required=True)
 

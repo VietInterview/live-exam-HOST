@@ -5,7 +5,6 @@ from odoo import models, fields, api
 class Exam(models.Model):
 	_name = 'liveexam.exam'
 
-	selector_id = fields.Many2one('liveexam.question_selector', string='Question selector')
 	scale = fields.Integer(string='Scale')
 	question_ids = fields.One2many('liveexam.exam_question','exam_id', string="Question list")
 	duration = fields.Integer(string='Duration')
@@ -60,18 +59,22 @@ class ExamMember(models.Model):
 class QuestionSelector(models.Model):
 	_name = 'liveexam.question_selector'
 
+	sheet_id = fields.Many2one('liveexam.question_sheet',string="Question sheet")
 	number = fields.Integer(string='Number of question')
+	score = fields.Integer(string='Question score')
 	group_id = fields.Many2one('res.groups',string="Question category")
-	include_sub_group = fields.Boolean(string='Include sub-group')
-	level = fields.Integer(string="Question level")
+	include_sub_group = fields.Boolean(string='Include sub-group', default=True)
+	level = fields.Selection(
+		[('easy', 'Easy'), ('medium','Medium'), ('hard','Hard'),('xeasy', 'Very easy'), ('xhard','Very hard')],default='easy')
 	mode = fields.Selection(
-		[('random', 'Random'), ('manual', 'Manual')])
+		[('random', 'Random'), ('manual', 'Manual')], default='random')
 
 class ExamQuestion(models.Model):
 	_name = 'liveexam.exam_question'
 
 	question_id = fields.Many2one('liveexam.question',string="Question")
-	exam_id = fields.Many2one('liveexam.exam', string='Exam')
+	exam_id = fields.Many2one('liveexam.exam', related="sheet_id.exam_id", string='Exam')
+	sheet_id = fields.Many2one('liveexam.question_sheet',string="Question sheet")
 	score = fields.Integer(string='Score')
 	order = fields.Integer(string='Order')
 	group_id = fields.Many2one('res.groups', related="question_id.group_id", string='Group', readonly=True)
@@ -83,6 +86,14 @@ class ExamQuestion(models.Model):
 	type = fields.Selection(
 		[('sc', 'Single-choice'), ('ext','Open end')],related="question_id.type", readonly=True)
 
+class QuestionSheet(models.Model):
+	_name = 'liveexam.question_sheet'
+
+	seed = fields.Integer(string="Seed")
+	finalized = fields.Boolean(string="Finalized")
+	exam_id = fields.Many2one('liveexam.exam',string="Exam")
+	question_ids = fields.One2many('liveexam.exam_question',"sheet_id", string='Exam questions')
+	selector_ids = fields.One2many('liveexam.question_selector', "sheet_id", string='Question selector')
 
 class Answer(models.Model):
 	_name = 'liveexam.answer'
