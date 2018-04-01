@@ -9,6 +9,7 @@ import { ExamQuestion } from '../../../shared/models/exam-question.model';
 import { Answer } from '../../../shared/models/answer.model';
 import { Submission } from '../../../shared/models/submission.model';
 import { Question } from '../../../shared/models/question.model';
+import { QuestionSheet } from '../../../shared/models/question-sheet.model';
 import { ExamMember } from '../../../shared/models/exam-member.model';
 import { Http, Response } from '@angular/http';
 import { QuestionContainerDirective } from '../../../assessment/question/question-template/question-container.directive';
@@ -71,13 +72,23 @@ export class AnswerSheetDialog extends BaseComponent {
     }
 
     startReview() {
-        ExamQuestion.listByExam(this, this.exam.id).subscribe(examQuestions => {
-            this.examQuestions = _.shuffle(examQuestions);
-            this.fetchAnswers().subscribe(answers => {
-                this.answers = answers;
-                this.displayQuestion(0);
+        QuestionSheet.byExam(this, this.exam.id).subscribe(sheet => {
+
+            ExamQuestion.listBySheet(this, sheet.id).map(examQuestions => {
+                var offset = this.member.id;
+                return _.map(examQuestions, (obj, order)=> {
+                    var index = (offset + sheet.seed*order)%examQuestions.length;
+                    return examQuestions[index];
+                });
+            }).subscribe(examQuestions => {
+                this.examQuestions = examQuestions;
+                this.fetchAnswers().subscribe(answers => {
+                    this.answers = answers;
+                    this.displayQuestion(0);
+                });
             });
         });
+        
     }
 
     prepareQuestion(question: ExamQuestion): Observable<any> {

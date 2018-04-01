@@ -13,7 +13,6 @@ import { Submission } from '../../../shared/models/submission.model';
 import { SelectItem } from 'primeng/api';
 import { ExamContentDialog } from '../../../cms/exam/content-dialog/exam-content.dialog.component';
 import { ExamStudyDialog} from '../exam-study/exam-study.dialog.component';
-import { ExamMarkingDialog} from '../exam-marking/exam-marking.dialog.component';
 import { ExamScoreDialog } from '../exam-score/exam-score.dialog.component';
 
 
@@ -29,7 +28,6 @@ export class ExamListComponent extends BaseComponent implements OnInit {
     EXAM_STATUS = EXAM_STATUS;
     @ViewChild(ExamContentDialog) examContentDialog:ExamContentDialog;
     @ViewChild(ExamStudyDialog) examStudyDialog:ExamStudyDialog;
-    @ViewChild(ExamMarkingDialog) markingDialog:ExamMarkingDialog;
     @ViewChild(ExamScoreDialog) scoreDialog:ExamScoreDialog;
 
     constructor() {
@@ -54,20 +52,10 @@ export class ExamListComponent extends BaseComponent implements OnInit {
                     });
                 });
                 this.exams = _.filter(exams, (exam)=> {
-                     return exam.member.role=='supervisor' || (exam.member.role=='candidate' && exam.status == 'published');
+                     return exam.member.role=='teacher' || (exam.member.role=='student' && exam.status == 'published');
                 });
             });
         });
-    }
-
-    markExam(exam:Exam) {
-       exam.containsOpenEndQuestion(this).subscribe(result => {
-           if (result) {
-               this.markingDialog.show(exam);
-           } else {
-                this.messageService.add({severity:'info', summary:'Exam Info', detail: 'Exam is not available for marking'});
-           }
-       })
     }
 
     editContent(exam:Exam) {

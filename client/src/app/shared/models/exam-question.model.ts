@@ -21,11 +21,13 @@ export class ExamQuestion extends BaseModel{
         this.exam_id = undefined;
         this.score = undefined;
         this.order = undefined;
+        this.sheet_id = undefined;
         this.group_id__DESC__ = undefined;
 	}
 
     question_id: number;
     exam_id: number;
+    sheet_id: number;
     score: number;
     order: number;
     level: string;
@@ -36,8 +38,8 @@ export class ExamQuestion extends BaseModel{
     group_id: number;
     group_id__DESC__: string;
 
-    static listByExam( context:APIContext, examId: number): Observable<any[]> {
-        return ExamQuestion.search(context,[],"[('exam_id','=',"+examId+")]");
+    static listBySheet( context:APIContext, sheetId: number): Observable<any[]> {
+        return ExamQuestion.search(context,[],"[('sheet_id','=',"+sheetId+")]");
     }
 
     static countByExam( context:APIContext, examId: number): Observable<any[]> {

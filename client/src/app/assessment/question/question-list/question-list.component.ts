@@ -43,7 +43,6 @@ export class QuestionListComponent extends BaseComponent {
         this.loadQuestions();
         this.items = [
             {label: this.translateService.instant(QUESTION_TYPE['sc']), command: ()=> { this.add('sc')}},
-            {label: this.translateService.instant(QUESTION_TYPE['ext']), command: ()=> { this.add('ext')}},
         ];
     }
 

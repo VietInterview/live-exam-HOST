@@ -20,13 +20,11 @@ export class UserProfileDialog extends BaseDialog<User> {
 
     tree: TreeNode[];
     selectedNode: TreeNode;
-    members: CourseMember[];
     @Input() role: string;
     treeUtils: TreeUtils;
 
 	constructor() {
 		super();
-		this.members = [];
 		this.treeUtils = new TreeUtils();
 	}
 

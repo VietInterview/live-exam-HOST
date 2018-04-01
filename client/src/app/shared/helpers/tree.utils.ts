@@ -24,8 +24,10 @@ export class TreeUtils {
         return true;
       if (target.parent_id)
         target = _.find(groups, (group)=> {
-        return group.id == target.parent_id;
-      });
+          return group.id == target.parent_id;
+        });
+      else
+        target = null;
     }
     return false;
   }
@@ -54,6 +56,14 @@ export class TreeUtils {
         });
     });
     return subTrees;
+  }
+
+  disableTree(tree):any {
+    for (var i = 0; i < tree.length; i++) {
+      var node = tree[i];
+      node.selectable = false;
+      this.disableTree(node);
+    }
   }
 
   findTreeNode(tree, groupId):any {

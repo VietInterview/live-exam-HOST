@@ -18,7 +18,6 @@ export class Exam extends BaseModel{
 		this.instruction = undefined;
         this.start = undefined;
         this.end = undefined;
-        this.selector_id = undefined;
         this.status = undefined;
         this.scale = undefined;
         this.duration = undefined;
@@ -50,15 +49,6 @@ export class Exam extends BaseModel{
         if (this.end.getTime() < now.getTime())
             return false;
         return true;
-    }
-
-    containsOpenEndQuestion(context:APIContext):Observable<any> {
-            return ExamQuestion.listByExam(context, this.id).flatMap(questions => {
-            var openEndQuestions = _.filter(questions, (obj:ExamQuestion)=> {
-                return obj.type == 'ext';
-            });
-            return Observable.of(openEndQuestions.length > 0);
-        })
     }
 
 }

@@ -41,16 +41,27 @@ export class ExamScoreDialog extends BaseComponent {
         this.display = false;
     }
 
+    redoExam() {
+        if (this.selectedRecord) {
+            this.selectedRecord.enroll_status = 'in-progress';
+            this.selectedRecord.save(this).subscribe(()=> {
+                this.messageService.add({ severity: 'success', summary: 'Success', detail: this.translateService.instant('Action completed.') });
+            });
+        }
+
+    }
+
     viewAnswerSheet() {
         if (this.selectedRecord)
-            this.answerSheetDialog.show(this.exam, this.selectedRecord.member);
+            this.answerSheetDialog.show(this.exam, this.selectedRecord);
     }
 
     loadAnswers() {
         ExamGrade.listByExam(this, this.exam.id).subscribe(grades => {
-            ExamMember.listCandidateByExam(this, this.exam.id).subscribe(members => {
+            ExamMember.listStudentByExam(this, this.exam.id).subscribe(members => {
                 this.records = [];
                 _.each(members, (member: ExamMember)=> {
+                    var record = member;
                     member.examScore(this, this.exam.id).subscribe(score=> {
                         record["score"] = score;
                         var grade = member.examGrade(grades, score);

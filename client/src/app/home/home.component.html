@@ -1,9 +1,9 @@
 <div class="layout-wrapper" (click)="onWrapperClick()" [ngClass]="{'layout-wrapper-static': layoutStatic,
-    'layout-wrapper-active': mobileMenuActive}">
-  <menu></menu>
+  'layout-wrapper-active': mobileMenuActive}">
+  <menu style="margin-top: 0; margin-bottom: 0;"></menu>
   <div class="layout-main">
     <navbar></navbar>
-    <div class="layout-content">
+    <div class="layout-content" style="padding-top: 82px;">
       <p-growl></p-growl>
       <router-outlet></router-outlet>
       <div class="footer">

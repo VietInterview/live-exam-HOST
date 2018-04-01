@@ -15,7 +15,6 @@ import * as _ from 'underscore';
 import { EXPORT_DATETIME_FORMAT, GROUP_CATEGORY, EXPORT_DATE_FORMAT } from '../../shared/models/constants'
 import { Report } from '../report.decorator';
 import { SelectGroupDialog } from '../../shared/components/select-group-dialog/select-group-dialog.component';
-import { SelectUsersDialog } from '../../shared/components/select-user-dialog/select-user-dialog.component';
 import { TimeConvertPipe} from '../../shared/pipes/time.pipe';
 import { ExcelService } from '../../shared/services/excel.service';
 
@@ -93,7 +92,7 @@ export class ExamResultReportComponent extends BaseComponent implements OnInit{
     	var record = {};
 	    record["user_login"] =  member.login;
 	    record["user_name"] = member.name;
-	    record["user_group"] = member.etraining_group_id__DESC__;
+	    record["user_group"] = member.class_id__DESC__;
 	    record["score"] = _.reduce(answers,  (sum, ans)=> {
     		return sum + ans.score;
 		},0);

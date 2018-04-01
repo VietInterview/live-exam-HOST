@@ -10,8 +10,6 @@ import { Http, Response } from '@angular/http';
 import { DEFAULT_DATE_LOCALE, EXAM_STATUS, EXAM_MEMBER_ROLE, EXAM_MEMBER_STATUS } from '../../../shared/models/constants'
 import {SelectItem, MenuItem} from 'primeng/api';
 import * as _ from 'underscore';
-import { ExamMemberDialog } from '../member-dialog/member-dialog.component';
-import { SelectUsersDialog } from '../../../shared/components/select-user-dialog/select-user-dialog.component';
 import { TabPanel } from 'primeng/tabview';
 
 @Component({

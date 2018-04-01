@@ -13,6 +13,8 @@ import { ExamQuestion } from '../../../shared/models/exam-question.model';
 import { ExamMember } from '../../../shared/models/exam-member.model';
 import { Group } from '../../../shared/models/group.model';
 import { ExamLog } from '../../../shared/models/log.model';
+import { QuestionSelector } from '../../../shared/models/question-selector.model';
+import { QuestionSheet } from '../../../shared/models/question-sheet.model';
 import { ClockPipe } from '../../../shared/pipes/time.pipe';
 import { SelectItem } from 'primeng/api';
 import { QuestionContainerDirective } from '../../../assessment/question/question-template/question-container.directive';
@@ -30,6 +32,7 @@ export class ExamStudyDialog extends BaseComponent {
 	display: boolean;
 	exam: Exam;
 	member: ExamMember;
+	sheet: QuestionSheet;
 	qIndex: number;
 	examQuestions: ExamQuestion[];
 	answers: Answer[];
@@ -50,6 +53,7 @@ export class ExamStudyDialog extends BaseComponent {
 		this.examQuestions = [];
 		this.answers = [];
 		this.exam = new Exam();
+		this.sheet = new QuestionSheet();
 		this.currentQuestion = new ExamQuestion();
 		this.timeLeft = 0;
 		this.progress = 0;
@@ -60,23 +64,38 @@ export class ExamStudyDialog extends BaseComponent {
 		this.exam = exam;
 		this.member = member;
 		this.qIndex = 0;
-		Submission.byMember(this, this.member.id).subscribe((submit:Submission) => {
+		this.createSubmission().subscribe((submit:Submission) => {
+			this.submission = submit;
+			QuestionSheet.byExam(this, this.exam.id).subscribe(sheet => {
+				this.sheet = sheet;
+				this.createExamQuestions().subscribe(examQuestions => {
+					this.examQuestions = examQuestions;
+					this.startExam();
+				});
+			});
+		});
+	}
+
+	createSubmission():Observable<any> {
+		return Submission.byMember(this, this.member.id).flatMap((submit:Submission) => {
 			if (!submit) {
 				submit = new Submission();
-				submit.member_id = member.id;
+				submit.member_id = this.member.id;
 				submit.start = new Date();
-				submit.save(this).subscribe(() => {
-					this.submission = submit;
-					ExamLog.startExam(this, this.member.user_id, exam.id, submit);
-					this.member.enroll_status = 'in-progress';
-					this.member.save(this).subscribe(() => {
-						this.startExam();
-					});
-				});
+				return submit.save(this);
 			} else {
-				this.submission = submit;
-				this.startExam();
+				return Observable.of(submit);
 			}
+		});
+	}
+
+	createExamQuestions():Observable<any> {
+		return ExamQuestion.listBySheet(this, this.sheet.id).map(examQuestions => {
+			var offset = this.member.id;
+			return _.map(examQuestions, (obj, order)=> {
+				var index = (offset + this.sheet.seed*order)%examQuestions.length;
+				return examQuestions[index];
+			});
 		});
 	}
 
@@ -92,13 +111,13 @@ export class ExamStudyDialog extends BaseComponent {
 	}
 
 	startExam() {
-		ExamQuestion.listByExam(this, this.exam.id).subscribe(examQuestions => {
-			this.examQuestions = _.shuffle(examQuestions);
-			this.fetchAnswers().subscribe(answers => {
-				this.answers = answers;
-				this.startTimer();
-				this.displayQuestion(0);
-			});
+		this.member.enroll_status = 'in-progress';
+		this.member.save(this).subscribe();
+		ExamLog.startExam(this, this.member.user_id, this.exam.id, this.submission);
+		this.fetchAnswers().subscribe(answers => {
+			this.answers = answers;
+			this.startTimer();
+			this.displayQuestion(0);
 		});
 	}
 

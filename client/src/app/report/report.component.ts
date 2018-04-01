@@ -5,7 +5,6 @@ import * as _ from 'underscore';
 import { SelectItem } from 'primeng/api';
 import { ReportRegister } from './report.decorator';
 import { ReportContainerDirective } from './report-container.directive';
-import { REPORT_CATEGORY } from '../shared/models/constants'
 
 
 @Component({

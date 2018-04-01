@@ -4,14 +4,13 @@ import { APIService } from '../../../shared/services/api.service';
 import { AuthService } from '../../../shared/services/auth.service';
 import { Group } from '../../../shared/models/group.model';
 import { User } from '../../../shared/models/user.model';
-import { BaseDialog } from '../../../shared/components/base/base.dialog';
+import { BaseComponent } from '../../../shared/components/base/base.component';
 import { Exam } from '../../../shared/models/exam.model';
 import { ExamMember } from '../../../shared/models/exam-member.model';
 import { Http, Response } from '@angular/http';
 import { DEFAULT_DATE_LOCALE, EXAM_STATUS, EXAM_MEMBER_ROLE, EXAM_MEMBER_STATUS } from '../../../shared/models/constants'
 import {SelectItem, MenuItem} from 'primeng/api';
 import * as _ from 'underscore';
-import { ExamMemberDialog } from '../member-dialog/member-dialog.component';
 import { SelectStudentsDialog } from '../../../shared/components/select-student-dialog/select-student-dialog.component';
 import { SelectTeachersDialog } from '../../../shared/components/select-teacher-dialog/select-teacher-dialog.component';
 
@@ -20,14 +19,14 @@ import { SelectTeachersDialog } from '../../../shared/components/select-teacher-
 	selector: 'exam-enrollment-dialog',
 	templateUrl: 'enrollment-dialog.component.html',
 })
-export class ExamEnrollDialog extends BaseDialog<Course> {
+export class ExamEnrollDialog extends BaseComponent {
 
 	display: boolean;
 	processing: boolean;
 	exam: Exam;
-    candidates: ExamMember[];
+    students: ExamMember[];
     selectedCandidate: ExamMember;
-    supervisors: ExamMember[];
+    teachers: ExamMember[];
     selectedSupervisor: ExamMember;
     EXAM_MEMBER_ROLE = EXAM_MEMBER_ROLE;
     EXAM_STATUS =  EXAM_STATUS;

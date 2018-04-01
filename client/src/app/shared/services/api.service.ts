@@ -50,14 +50,14 @@ export class APIService {
             .map((response: Response) => response.json());
     }
 
-    search(model:string, fields:string[], domain:string,cloudid:number, api_endpoint:string): Observable<any[]> {
+    search(model:string, fields:string[], domain:string): Observable<any[]> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         return this.http.post(Config.API_ENDPOINT + '/search_read', JSON.stringify({ model: model,fields:fields, domain: domain  }), options)
             .map((response: Response) => response.json());
     }
 
-    count(model:string, domain:string,cloudid:number, api_endpoint:string): Observable<any[]> {
+    count(model:string, domain:string): Observable<any[]> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         return this.http.post(Config.API_ENDPOINT + '/search_count', JSON.stringify({ model: model, domain: domain  }), options)

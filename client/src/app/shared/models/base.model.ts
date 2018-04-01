@@ -95,7 +95,7 @@ export abstract class BaseModel {
     }
 
 
-    static executeRemote(context:APIContext, method:string, paramsList: string[], paramsDict: any):Observable<any> {
+    static executeRemote(context:APIContext, method:string, paramsList?: string[], paramsDict?: any):Observable<any> {
         var model = this.Model;
         return context.apiService.execute(model, method, paramsList, paramsDict);
     }

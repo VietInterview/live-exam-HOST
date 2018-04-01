@@ -21,3 +21,4 @@ export const EXAM_MEMBER_ROLE = { 'candidate': 'Candidate', 'supervisor': 'Super
 export const EXAM_MEMBER_STATUS = { 'active': 'Active', 'withdraw': 'Withdraw', 'suspend': 'Suspended' };
 export const QUESTION_SELECTION = { 'manual': 'Manual', 'random': 'Random' };
 export const EXAM_MEMBER_ENROLL_STATUS = { 'in-progress': 'In-progress', 'complete': 'Complete', 'registered': 'Registered' };
+export const QUESTION_LEVEL = { 'xeasy': 'Very easy','easy': 'Easy', 'medium': 'Medium', 'hard': 'Hard', 'xhard': 'Very hard' };

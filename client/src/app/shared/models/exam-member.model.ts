@@ -24,8 +24,8 @@ export class ExamMember extends BaseModel{
         this.email = undefined;
         this.phone = undefined;
         this.user_id = undefined;
-        this.liveexam_group_id = undefined;
-        this.liveexam_group_id__DESC__ = undefined;
+        this.class_id = undefined;
+        this.class_id__DESC__ = undefined;
     }
 
     exam_id: number;
@@ -39,15 +39,15 @@ export class ExamMember extends BaseModel{
     date_register: Date;
     email: string;
     phone: string;
-    liveexam_group_id: number;
-    liveexam_group_id__DESC__: string;
+    class_id: number;
+    class_id__DESC__: string;
 
     static listByExam( context:APIContext, examId: number): Observable<any[]> {
         return ExamMember.search(context,[],"[('exam_id','=',"+examId+")]");
     }
 
-    static listCandidateByExam( context:APIContext, examId: number): Observable<any[]> {
-        return ExamMember.search(context,[],"[('exam_id','=',"+examId+"),('role','=','candidate')]");
+    static listStudentByExam( context:APIContext, examId: number): Observable<any[]> {
+        return ExamMember.search(context,[],"[('exam_id','=',"+examId+"),('role','=','student')]");
     }
 
     static listByUser( context:APIContext, userId: number): Observable<any[]> {
@@ -79,7 +79,7 @@ export class ExamMember extends BaseModel{
 
     examGrade(grades:ExamGrade[], score:number) {
         return _.find(grades, (obj)=> {
-            return obj.min_score <= record["score"] && obj.max_score >= record["score"]
+            return obj.min_score <= score && obj.max_score >= score;
         });
     }
 
