@@ -12,7 +12,7 @@ import { IQuestion } from '../question.interface';
 
 @Component({
 	moduleId: module.id,
-	selector: 'etraining-open-end-question',
+	selector: 'live-exam-open-end-question',
 	templateUrl: 'open-end-question.component.html',
 	styleUrls: ['open-end-question.component.css'],
 })

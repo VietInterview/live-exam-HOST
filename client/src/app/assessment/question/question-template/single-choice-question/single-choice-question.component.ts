@@ -12,7 +12,7 @@ import { IQuestion } from '../question.interface';
 
 @Component({
 	moduleId: module.id,
-	selector: 'etraining-single-choice-question',
+	selector: 'live-exam-single-choice-question',
 	templateUrl: 'single-choice-question.component.html',
 	styleUrls: ['single-choice-question.component.css'],
 })

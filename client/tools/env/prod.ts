@@ -1,7 +1,7 @@
 import { EnvConfig } from './env-config.interface';
 
 const ProdConfig: EnvConfig = {
-  API_ENDPOINT: 'http://localhost:5002/api',
+  API_ENDPOINT: 'https://cdxd-api.erp.vietinterview.com/api',
   ENV: 'PROD',
   VERSION: '1.0.0'
 };

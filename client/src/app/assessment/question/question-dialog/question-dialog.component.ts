@@ -15,7 +15,7 @@ import { QuestionRegister } from '../question-template/question.decorator';
 
 @Component({
 	moduleId: module.id,
-	selector: 'etraining-question-dialog',
+	selector: 'live-exam-question-dialog',
 	templateUrl: 'question-dialog.component.html',
 })
 export class QuestionDialog extends BaseDialog<Question> {

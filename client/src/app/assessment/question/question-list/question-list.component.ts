@@ -14,7 +14,7 @@ import { QuestionImportDialog } from '../import-dialog/import-dialog.component';
 
 @Component({
     moduleId: module.id,
-    selector: 'etraining-question-list',
+    selector: 'live-exam-question-list',
     templateUrl: 'question-list.component.html',
     styleUrls: ['question-list.component.css'],
 })

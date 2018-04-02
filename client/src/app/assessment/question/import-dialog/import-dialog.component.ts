@@ -14,7 +14,7 @@ import { ExcelService, EXCEL_TYPE } from '../../../shared/services/excel.service
 
 @Component({
 	moduleId: module.id,
-	selector: 'etraining-question-import-dialog',
+	selector: 'live-exam-question-import-dialog',
 	templateUrl: 'import-dialog.component.html',
 })
 export class QuestionImportDialog extends BaseComponent {

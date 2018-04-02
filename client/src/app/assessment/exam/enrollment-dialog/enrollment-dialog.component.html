@@ -21,9 +21,9 @@
                   <p-sortIcon [field]="'email'"></p-sortIcon>
                 </th>
                 <th>{{'Phone'|translate}}</th>
-                <th [pSortableColumn]="'etraining_group_id__DESC__'">
+                <th [pSortableColumn]="'class_id__DESC__'">
                   {{'Group'|translate}}
-                  <p-sortIcon [field]="'etraining_group_id__DESC__'"></p-sortIcon>
+                  <p-sortIcon [field]="'class_id__DESC__'"></p-sortIcon>
                 </th>
                 <th [pSortableColumn]="'status'">
                   {{'Status'|translate}}
@@ -36,7 +36,7 @@
                 <td>{{member.name}}</td>
                 <td>{{member.email}}</td>
                 <td>{{member.phone}}</td>
-                <td>{{member.etraining_group_id__DESC__}}</td>
+                <td>{{member.class_id__DESC__}}</td>
                 <td>{{EXAM_MEMBER_STATUS[member.status]}}</td>
               </tr>
             </ng-template>
@@ -73,9 +73,9 @@
                   <p-sortIcon [field]="'email'"></p-sortIcon>
                 </th>
                 <th>{{'Phone'|translate}}</th>
-                <th [pSortableColumn]="'etraining_group_id__DESC__'">
+                <th [pSortableColumn]="'class_id__DESC__'">
                   {{'Group'|translate}}
-                  <p-sortIcon [field]="'etraining_group_id__DESC__'"></p-sortIcon>
+                  <p-sortIcon [field]="'class_id__DESC__'"></p-sortIcon>
                 </th>
                 <th [pSortableColumn]="'status'">
                   {{'Status'|translate}}
@@ -88,7 +88,7 @@
                 <td>{{member.name}}</td>
                 <td>{{member.email}}</td>
                 <td>{{member.phone}}</td>
-                <td>{{member.etraining_group__DESC__}}</td>
+                <td>{{member.class__DESC__}}</td>
                 <td>{{EXAM_MEMBER_STATUS[member.status]}}</td>
               </tr>
             </ng-template>
