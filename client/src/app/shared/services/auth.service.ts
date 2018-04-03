@@ -25,13 +25,13 @@ export class AuthService {
 
     get CurrentUser(): User {
         if (localStorage.getItem('currentUser'))
-            return MapUtils.deserialize(User, JSON.parse(atob(localStorage.getItem('currentUser'))));
+            return MapUtils.deserialize(User, JSON.parse(decodeURIComponent(escape(atob(localStorage.getItem('currentUser'))))));
         else
             return new User();
     }
 
     set CurrentUser(user: User) {
-        localStorage.setItem('currentUser', btoa(JSON.stringify(user)));
+        localStorage.setItem('currentUser', btoa(unescape(encodeURIComponent(JSON.stringify(user)))));
     }
 
     get Remember(): boolean {

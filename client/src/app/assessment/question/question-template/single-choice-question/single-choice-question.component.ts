@@ -64,12 +64,10 @@ export class SingleChoiceQuestionComponent extends BaseComponent implements IQue
 	}
 
 	setOptionCorrect(option) {
-		if (option.is_correct) {
-			_.each(this.options, (option)=> {
-				option.is_correct = false;
-			});
-			option.is_correct = true;
-		}
+		_.each(this.options, (obj)=> {
+			obj.is_correct = false;
+		});
+		option.is_correct = true;
 	}
 
 	removeOption(option: QuestionOption) {
