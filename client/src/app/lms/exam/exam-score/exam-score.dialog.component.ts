@@ -48,7 +48,14 @@ export class ExamScoreDialog extends BaseComponent {
         if (this.selectedRecord) {
             this.selectedRecord.enroll_status = 'in-progress';
             this.selectedRecord.save(this).subscribe(()=> {
-                this.messageService.add({ severity: 'success', summary: 'Success', detail: this.translateService.instant('Action completed.') });
+                Submission.byMember(this, this.selectedRecord.id).subscribe((submit:Submission) => {
+                    if (submit)
+                        submit.delete(this).subscribe(()=> {
+                           this.messageService.add({ severity: 'success', summary: 'Success', detail: this.translateService.instant('Action completed.') });
+                        });
+                    elsethis.messageService.add({ severity: 'success', summary: 'Success', detail: this.translateService.instant('Action completed.') });
+                        
+                });
             });
         }
 

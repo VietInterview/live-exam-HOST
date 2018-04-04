@@ -43,6 +43,7 @@ export class ExamStudyDialog extends BaseComponent {
 	currentQuestion: ExamQuestion;
 	timeLeft: number;
 	progress: number;
+	stats: any;
 
 	@ViewChild(QuestionContainerDirective) questionHost: QuestionContainerDirective;
 	componentRef: any;
@@ -57,6 +58,11 @@ export class ExamStudyDialog extends BaseComponent {
 		this.currentQuestion = new ExamQuestion();
 		this.timeLeft = 0;
 		this.progress = 0;
+		this.stats = {
+			total:0,
+			attempt:0,
+			unattempt:0
+		}
 	}
 
 	show(exam: Exam, member: ExamMember) {
@@ -70,6 +76,7 @@ export class ExamStudyDialog extends BaseComponent {
 				this.sheet = sheet;
 				this.createExamQuestions().subscribe(examQuestions => {
 					this.examQuestions = examQuestions;
+					this.stats.total = examQuestions.length;
 					this.startExam();
 				});
 			});
@@ -93,7 +100,8 @@ export class ExamStudyDialog extends BaseComponent {
 		return ExamQuestion.listBySheet(this, this.sheet.id).map(examQuestions => {
 			var offset = this.member.id;
 			return _.map(examQuestions, (obj, order)=> {
-				var index = (offset + this.sheet.seed*order)%examQuestions.length;
+				var index = (order + this.sheet.seed*offset)%examQuestions.length;
+				console.log(index);
 				return examQuestions[index];
 			});
 		});
@@ -116,6 +124,8 @@ export class ExamStudyDialog extends BaseComponent {
 		ExamLog.startExam(this, this.member.user_id, this.exam.id, this.submission);
 		this.fetchAnswers().subscribe(answers => {
 			this.answers = answers;
+			this.stats.attempt = answers.length;
+			this.stats.unattempt = this.stats.total - this.stats.attempt;
 			this.startTimer();
 			this.displayQuestion(0);
 		});
@@ -143,6 +153,8 @@ export class ExamStudyDialog extends BaseComponent {
 			answer.question_id = question.question_id;
 			return answer.save(this).do(ans => {
 				this.answers.push(answer);
+				this.stats.attempt = this.answers.length;
+				this.stats.unattempt = this.stats.total - this.stats.attempt;
 			});
 		} else
 			return Observable.of(answer);
@@ -188,6 +200,7 @@ export class ExamStudyDialog extends BaseComponent {
 			this.currentAnswer.score = this.currentQuestion.score;
 		} else
 			this.currentAnswer.score = 0;
+
 		return this.currentAnswer.save(this).do(() => {
 			ExamLog.finishAnswer(this, this.member.user_id, this.exam.id, this.currentAnswer);
 		});

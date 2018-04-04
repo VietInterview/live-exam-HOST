@@ -64,7 +64,13 @@ export class QuestionDialog extends BaseDialog<Question> {
 				(<IQuestion>this.componentRef.instance).saveEditor().subscribe(() => {
 					this.messageService.add({ severity: 'success', summary: 'Success', detail: this.translateService.instant('Question saved.') });
 				});
-		})
+		});
+		this.onCreateCompleteReceiver.subscribe(object => {
+			if (this.componentRef)
+				(<IQuestion>this.componentRef.instance).saveEditor().subscribe(() => {
+					this.messageService.add({ severity: 'success', summary: 'Success', detail: this.translateService.instant('Question saved.') });
+				});
+		});
 	}
 
 

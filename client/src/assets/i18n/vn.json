@@ -244,6 +244,8 @@
 	"Login is required": "Tên đăng nhập là bắt buộc",
 	"Title is required": "Tiêu đề là bắt buộc",
 	"Select range dates is required": "Chọn thời hạn kì thi là bắt buộc",
+	"Exam Start Date Time": "Ngày bắt đầu kì thi",
+	"Exam End Date Time": "Ngày kết thúc kì thi",
 	"Exam schedule": "Lịch thi",
 	"Very easy": "Rất dễ",
 	"Easy": "Dễ",
