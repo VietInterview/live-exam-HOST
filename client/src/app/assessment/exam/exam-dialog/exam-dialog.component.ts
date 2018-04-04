@@ -1,5 +1,5 @@
-import { Component, OnInit, Input,ViewChild} from '@angular/core';
-import { Observable}     from 'rxjs/Observable';
+import { Component, OnInit, Input,ViewChild } from '@angular/core';
+import { Observable }     from 'rxjs/Observable';
 import { APIService } from '../../../shared/services/api.service';
 import { AuthService } from '../../../shared/services/auth.service';
 import { Group } from '../../../shared/models/group.model';
@@ -8,7 +8,7 @@ import { Exam } from '../../../shared/models/exam.model';
 import { ExamMember } from '../../../shared/models/exam-member.model';
 import { Http, Response } from '@angular/http';
 import { DEFAULT_DATE_LOCALE, EXAM_STATUS, EXAM_MEMBER_ROLE, EXAM_MEMBER_STATUS } from '../../../shared/models/constants'
-import {SelectItem, MenuItem} from 'primeng/api';
+import { SelectItem, MenuItem } from 'primeng/api';
 import * as _ from 'underscore';
 import { TabPanel } from 'primeng/tabview';
 
@@ -22,6 +22,8 @@ export class ExamDialog extends BaseDialog<Exam> {
     rangeDates: Date[];
     locale:any;
     examStatus: SelectItem[];
+    examStartDateTime: Date;
+    examEndDateTime: Date;
 
     constructor(private http: Http) {
         super();
@@ -48,9 +50,21 @@ export class ExamDialog extends BaseDialog<Exam> {
     }
 
     onDateSelect($event) {
-        if (this.rangeDates[0] && this.rangeDates[1]) {
-            this.object.start = this.rangeDates[0];
-            this.object.end = this.rangeDates[1];
+        // if (this.rangeDates[0] && this.rangeDates[1]) {
+        //     this.object.start = this.rangeDates[0];
+        //     this.object.end = this.rangeDates[1];
+        // }
+        // if(this.examStartDateTime) {
+        //     console.log('start date time'+ this.examStartDateTime.getDate() + this.examStartDateTime.getMonth() +
+        //     + this.examStartDateTime.getFullYear() + this.examStartDateTime.getHours() + this.examStartDateTime.getMinutes());
+        // }
+        // if(this.examEndDateTime) {
+        //     console.log('end date time' + this.examEndDateTime);
+        // }
+
+        if(this.examStartDateTime && this.examEndDateTime) {
+            this.object.start = this.examStartDateTime;
+            this.object.end = this.examEndDateTime;
         }
     }
 
