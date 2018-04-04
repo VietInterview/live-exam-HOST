@@ -24,11 +24,19 @@ export class Exam extends BaseModel{
         this.max_attempt = undefined;
         this.allow_navigation = undefined;
         this.publish_score = undefined;
+        this.subject = undefined;
+        this.mode = undefined;
+        this.code = undefined;
+        this.degree = undefined;
 	}
 
     name:string;
     summary: string;
     instruction: string;
+    mode: string;
+    subject: string;
+    code: string;
+    degree: string;
     @FieldProperty<Date>()
     start: Date;
     @FieldProperty<Date>()

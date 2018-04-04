@@ -18,7 +18,12 @@ class Exam(models.Model):
 	grade_ids = fields.One2many('liveexam.exam_grade','exam_id', string="Grade list")
 	status = fields.Selection(
 		[('draft', 'Draft'), ('published', 'Published'),  ('unpublished', 'unpublished')], default="draft")
+	mode = fields.Selection(
+		[ ('online', 'Online'),  ('offline', 'Offlie')], default="online")
 	publish_score = fields.Boolean(string="Publish score", default=False)
+	subject = fields.Char(string='Subject')
+	degree = fields.Char(string='Degree')
+	code = fields.Char(string='Code')
 
 class ExamGrade(models.Model):
 	_name = 'liveexam.exam_grade'
@@ -75,7 +80,7 @@ class ExamQuestion(models.Model):
 	question_id = fields.Many2one('liveexam.question',string="Question")
 	exam_id = fields.Many2one('liveexam.exam', related="sheet_id.exam_id", string='Exam')
 	sheet_id = fields.Many2one('liveexam.question_sheet',string="Question sheet")
-	score = fields.Integer(string='Score')
+	score = fields.Float(string='Score')
 	order = fields.Integer(string='Order')
 	group_id = fields.Many2one('res.groups', related="question_id.group_id", string='Group', readonly=True)
 	option_ids = fields.One2many('liveexam.option','question_id', related="question_id.option_ids", string="Options", readonly=True)
