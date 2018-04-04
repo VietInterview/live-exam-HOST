@@ -1,4 +1,4 @@
-<p-dialog header="{{'Exam enrollment'|translate}}" [(visible)]="display" modal="true" width="960" [responsive]="true" positionTop="65" positionLeft="245">
+<p-dialog header="{{'Exam enrollment'|translate}}" [(visible)]="display" modal="true" width="1100" [responsive]="true">
   <p-scrollPanel [style]="{ height: '450px'}">
     <p-tabView [style]="{ height: '450px'}">
       <p-tabPanel header="{{'Students'|translate}}" leftIcon="ui-icon-people">
@@ -16,7 +16,7 @@
                   {{'Name'|translate}}
                   <p-sortIcon [field]="'name'"></p-sortIcon>
                 </th>
-                <th [pSortableColumn]="'email'">
+                <th width="250px" [pSortableColumn]="'email'">
                   {{'Email'|translate}}
                   <p-sortIcon [field]="'email'"></p-sortIcon>
                 </th>
@@ -33,8 +33,8 @@
             </ng-template>
             <ng-template pTemplate="body" let-member>
               <tr [pSelectableRow]="member ">
-                <td>{{member.name}}</td>
-                <td>{{member.email}}</td>
+                <td style="text-align: left;">{{member.name}}</td>
+                <td style="text-align: left;" width="250px">{{member.email}}</td>
                 <td>{{member.phone}}</td>
                 <td>{{member.class_id__DESC__}}</td>
                 <td>{{EXAM_MEMBER_STATUS[member.status]}}</td>
