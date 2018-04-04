@@ -5,7 +5,7 @@
         <div class="ui-toolbar-group-left ">
           <button pButton type="button " label="{{ 'Answer sheet'|translate}} " class="purple-btn " icon="ui-icon-content-paste" (click)="viewAnswerSheet() " [disabled]="!selectedRecord "></button>
           <button pButton type="button " label="{{ 'Print answer'|translate}} " class="purple-btn " icon="ui-icon-print" (click)="printAnswerSheet() " [disabled]="!selectedRecord "></button>
-          <button pButton type="button " label="{{ 'Re-entrance'|translate}} " class="purple-btn " icon="ui-icon-redo" (click)="redoExam() " [disabled]="!selectedRecord "></button>
+          <button pButton type="button " label="{{ 'Re-entrance'|translate}} " class="purple-btn " icon="ui-icon-redo" (click)="redoExam() " [disabled]="!selectedRecord ||selectedRecord.enroll_status!='completed' "></button>
         </div>
       </p-toolbar>
       <p-table #scoreTable [value]="records" [paginator]="true " [rows]="10" selectionMode="single" [(selection)]="selectedRecord" [responsive]="true " sortField="role">

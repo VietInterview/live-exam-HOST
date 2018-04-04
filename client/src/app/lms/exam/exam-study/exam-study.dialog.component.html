@@ -7,7 +7,31 @@
         <span class="exam-timer"><i class="material-icons">access_time</i> {{ timeLeft | clock  }}</span>
         <p-progressBar [value]="progress"></p-progressBar>
       </p-header>
-        <ng-template question-container></ng-template>
+        <div class="ui-g">
+          <div class="ui-g-8">
+            <ng-template question-container></ng-template>
+          </div>
+          <div class="ui-g-4">
+            <ul class="list-cmt">
+                <li class="clearfix">
+                  <span class="cmt-title">{{'Total question'|translate}}</span>
+                  <span class="cmt-detail">{{stats.total}}</span>
+                </li>
+                <li class="clearfix">
+                  <span class="cmt-title">{{'Total attempt'|translate}}</span>
+                  <span class="cmt-detail">{{stats.attempt}}</span>
+                </li>
+                <li class="clearfix">
+                  <span class="cmt-title">{{'Total unattempt'|translate}}</span>
+                  <span class="cmt-detail">{{stats.unattempt}}</span>
+                </li>
+              </ul>
+              <div>
+              <button type="button" pButton *ngFor="let question of examQuestions; let i = index" (click)="displayQuestion(i)">{{i}}</button>
+            </div>
+          </div>
+        </div>
+        
       <p-footer>
           <button pButton type="button" icon="ui-icon-navigate-before" title="{{'Previous'|translate}}" label="{{'Previous'|translate}}" class=" purple-btn" style="margin-right:4px;" (click)="prev()" *ngIf="qIndex >0 "></button>
           <button pButton type="button" icon="ui-icon-navigate-next" title="{{'Next'|translate}}" label="{{'Next'|translate}}" class=" purple-btn" style="margin-right:4px;" (click)="next()" *ngIf="qIndex < examQuestions.length-1"></button>

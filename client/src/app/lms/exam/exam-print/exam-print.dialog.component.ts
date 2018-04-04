@@ -33,6 +33,7 @@ export class ExamPrintDialog extends BaseComponent {
     company: Company;
 
      @ViewChildren(QuestionContainerDirective) questionsComponents: QueryList<QuestionContainerDirective>;
+     @ViewChild('printSection') printSection;
 
     constructor(private componentFactoryResolver:ComponentFactoryResolver) {
         super();
@@ -80,7 +81,7 @@ export class ExamPrintDialog extends BaseComponent {
 
     print() {
         let printContents, popupWin;
-        printContents = document.getElementById('print-section').innerHTML;
+        printContents = this.printSection.nativeElement.innerHTML;
         popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
         popupWin.document.open();
         popupWin.document.write(`

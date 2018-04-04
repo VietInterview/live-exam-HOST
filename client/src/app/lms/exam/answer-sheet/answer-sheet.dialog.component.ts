@@ -77,7 +77,7 @@ export class AnswerSheetDialog extends BaseComponent {
             ExamQuestion.listBySheet(this, sheet.id).map(examQuestions => {
                 var offset = this.member.id;
                 return _.map(examQuestions, (obj, order)=> {
-                    var index = (offset + sheet.seed*order)%examQuestions.length;
+                    var index = (order + sheet.seed*offset)%examQuestions.length;
                     return examQuestions[index];
                 });
             }).subscribe(examQuestions => {
