@@ -51,3 +51,82 @@ body .language .ui-dropdown .ui-dropdown-trigger{
 .language .fa{
   line-height: 30px;
 }
+
+.card h1{
+  margin: 16px 0;
+}
+
+.ui-table .ui-table-tbody > tr:nth-child(even){
+  background-color: #fff;
+}
+
+.ui-table .ui-table-tbody > tr:nth-child(even).ui-state-highlight{
+  background-color: #ffef8f;
+}
+
+.ui-treetable td.group-code{
+  text-align: center;
+}
+
+/*dropdown report*/
+body .ui-dropdown.report-items {
+  height: 29px;
+  padding: 4px 10px;
+  border-radius: 3px;
+  background-color: #337ab7;
+  margin-top: 0;
+  /*border-color: #2e6da4;*/
+}
+
+.ui-dropdown.report-items:not(.ui-state-disabled):hover{
+  background-color: #337ab7;
+}
+
+.report-items .ui-inputtext{
+  color: #fff;
+}
+
+body .ui-dropdown.report-items .ui-dropdown-trigger{
+  background-color: #337ab7;
+  height: 27px;
+  margin-top: 0;
+}
+
+body .ui-dropdown.report-items .ui-dropdown-trigger .fa{
+  color: #fff;
+  line-height: 30px;
+}
+
+body .ui-dropdown.report-exam-items{
+  height: 29px;
+  padding: 4px 10px;
+  border-radius: 3spx;
+  margin-top: 0;
+}
+
+body .ui-dropdown.report-exam-items .ui-dropdown-trigger{
+  height: 27px;
+  margin-top: 0;
+}
+
+body .ui-dropdown.report-exam-items .ui-dropdown-trigger .fa{
+  line-height: 30px;
+}
+
+/**/
+
+.options-question .md-inputfield .ui-inputtext{
+  width: 550px;
+}
+
+.layout-wrapper .layout-main .layout-topbar{
+  z-index: 999;
+}
+
+.layout-wrapper .layout-sidebar{
+  z-index: 1000;
+}
+
+.ui-tree{
+  width: 40%;
+}

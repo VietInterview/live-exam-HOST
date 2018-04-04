@@ -4,7 +4,7 @@ import { BaseComponent } from '../../../shared/components/base/base.component';
 import { APIService } from '../../../shared/services/api.service';
 import { AuthService } from '../../../shared/services/auth.service';
 import * as _ from 'underscore';
-import { QUESTION_TYPE, GROUP_CATEGORY } from '../../../shared/models/constants'
+import { QUESTION_TYPE, GROUP_CATEGORY, QUESTION_LEVEL } from '../../../shared/models/constants'
 import { Question } from '../../../shared/models/question.model';
 import { Group } from '../../../shared/models/group.model';
 import { QuestionDialog } from '../question-dialog/question-dialog.component';
@@ -30,6 +30,7 @@ export class QuestionListComponent extends BaseComponent {
     selectedNode: TreeNode;
     QUESTION_TYPE = QUESTION_TYPE;
     treeUtils: TreeUtils;
+    QUESTION_LEVEL = QUESTION_LEVEL;
 
     constructor() {
         super();
