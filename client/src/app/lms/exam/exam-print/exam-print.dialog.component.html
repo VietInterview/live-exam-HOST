@@ -1,23 +1,23 @@
 <p-dialog header="{{'Exam paper'|translate}}" [(visible)]="display" modal="true" width="960"  [responsive]="true">
   <p-scrollPanel [style]="{width: '100%', height: '520px'}">
     <div class="ui-g" #printSection>
-        <div class="ui-g-6">
+        <div class="ui-g-6 name">
           <span>{{company.name}}</span>
         </div>
-        <div class="ui-g-6">
+        <div class="ui-g-6 name">
           <span>{{exam.name}}</span>
         </div>
         <div class="ui-g-4">
-          <span>{{'Subject'|translate}}:{{exam.subject}}</span>
+          <span class="label">{{'Subject'|translate}}: </span><span class="title">{{exam.subject}}</span>
         </div>
         <div class="ui-g-4">
-          <span>{{'Degree'|translate}}:{{exam.degree}}</span>
+          <span class="label">{{'Degree'|translate}}: </span><span class="title">{{exam.degree}}</span>
         </div>
         <div class="ui-g-4">
-          <span>{{'Code'|translate}}:{{exam.code}}</span>
+          <span class="label">{{'Code'|translate}}: </span><span class="title">{{exam.code}}</span>
         </div>
         <div class="ui-g-12">
-          <span>{{'Duration'|translate}}:{{company.name}} {{'minutes'|translate}}</span>
+          <span class="label">{{'Duration'|translate}}: </span><span>{{company.duration}} {{'minutes'|translate}}</span>
         </div>
         <div class="ui-g-12">
           <span>{{exam.instruction}}</span>

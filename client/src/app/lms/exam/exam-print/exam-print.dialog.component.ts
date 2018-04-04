@@ -23,6 +23,7 @@ import { QuestionSheet } from '../../../shared/models/question-sheet.model';
     moduleId: module.id,
     selector: 'exam-print-dialog',
     templateUrl: 'exam-print.dialog.component.html',
+    styleUrls: ['exam-print.dialog.component.css'],
 })
 export class ExamPrintDialog extends BaseComponent {
 
