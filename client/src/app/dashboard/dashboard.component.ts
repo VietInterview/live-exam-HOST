@@ -24,6 +24,9 @@ export class DashboardComponent extends BaseComponent implements OnInit{
 
     isAdmin:boolean;
     header:any;
+    events: any;
+    exams: Exam[];
+    selectedExam: any;
 
     @ViewChild(ExamDialog) examDialog: ExamDialog;
 

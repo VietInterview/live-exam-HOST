@@ -16,9 +16,8 @@ import { QuestionContainerDirective } from '../../../assessment/question/questio
 import { IQuestion } from '../../../assessment/question/question-template/question.interface';
 import { QuestionRegister } from '../../../assessment/question/question-template/question.decorator';
 import * as _ from 'underscore';
-import { Question } from '../../../shared/models/question.model';
 import { QuestionSheet } from '../../../shared/models/question-sheet.model';
-import { ExamQuestion } from '../../../shared/models/exam-question.model';
+
 
 @Component({
     moduleId: module.id,

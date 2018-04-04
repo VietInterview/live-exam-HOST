@@ -53,8 +53,9 @@ export class ExamScoreDialog extends BaseComponent {
                         submit.delete(this).subscribe(()=> {
                            this.messageService.add({ severity: 'success', summary: 'Success', detail: this.translateService.instant('Action completed.') });
                         });
-                    elsethis.messageService.add({ severity: 'success', summary: 'Success', detail: this.translateService.instant('Action completed.') });
-                        
+                    else
+                        this.messageService.add({ severity: 'success', summary: 'Success', detail: this.translateService.instant('Action completed.') });
+
                 });
             });
         }
