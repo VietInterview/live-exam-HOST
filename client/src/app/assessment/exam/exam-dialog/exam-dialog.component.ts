@@ -7,8 +7,8 @@ import { BaseDialog } from '../../../shared/components/base/base.dialog';
 import { Exam } from '../../../shared/models/exam.model';
 import { ExamMember } from '../../../shared/models/exam-member.model';
 import { Http, Response } from '@angular/http';
-import { DEFAULT_DATE_LOCALE, EXAM_STATUS, EXAM_MEMBER_ROLE, EXAM_MEMBER_STATUS } from '../../../shared/models/constants'
-import { SelectItem, MenuItem } from 'primeng/api';
+import { DEFAULT_DATE_LOCALE, EXAM_STATUS, EXAM_MODE, EXAM_MEMBER_ROLE, EXAM_MEMBER_STATUS } from '../../../shared/models/constants'
+import {SelectItem, MenuItem} from 'primeng/api';
 import * as _ from 'underscore';
 import { TabPanel } from 'primeng/tabview';
 
@@ -24,13 +24,14 @@ export class ExamDialog extends BaseDialog<Exam> {
     examStatus: SelectItem[];
     examStartDateTime: Date;
     examEndDateTime: Date;
+    EXAM_MODE =  EXAM_MODE;
 
     constructor(private http: Http) {
         super();
         this.locale = DEFAULT_DATE_LOCALE;
         this.examStatus = _.map(EXAM_STATUS, (val, key)=> {
             return {
-                label: val,
+                label: this.translateService.instant(val),
                 value: key
             }
         });

@@ -4,6 +4,7 @@
       <p-toolbar>
         <div class="ui-toolbar-group-left ">
           <button pButton type="button " label="{{ 'Answer sheet'|translate}} " class="purple-btn " icon="ui-icon-content-paste" (click)="viewAnswerSheet() " [disabled]="!selectedRecord "></button>
+          <button pButton type="button " label="{{ 'Print answer'|translate}} " class="purple-btn " icon="ui-icon-print" (click)="printAnswerSheet() " [disabled]="!selectedRecord "></button>
           <button pButton type="button " label="{{ 'Re-entrance'|translate}} " class="purple-btn " icon="ui-icon-redo" (click)="redoExam() " [disabled]="!selectedRecord "></button>
         </div>
       </p-toolbar>
@@ -50,6 +51,7 @@
     </div>
   </p-scrollPanel>
   <answer-sheet-dialog></answer-sheet-dialog>
+  <answer-print-dialog></answer-print-dialog>
   <p-footer>
     <button type="button" pButton icon="fa-close" (click)="hide()" label="{{'Close'|translate}}"></button>
   </p-footer>

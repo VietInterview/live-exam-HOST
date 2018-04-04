@@ -1,35 +1,45 @@
 <p-dialog header="{{'Exam'|translate}}" [(visible)]="display" modal="false" width="960" [responsive]="true" appendTo="body"
   positionTop="15%" positionLeft="15%">
-  <form novalidate (ngSubmit)="f.form.valid && save()" #f="ngForm" autocomplete="off">
-    <p-scrollPanel [style]="{width: '100%', height: '60vh'}">
-      <div class="ui-g ui-fluid form-group">
-        <div class="ui-g-12">
-          <p-selectButton [options]="examStatus" [(ngModel)]="object.status" name="status"></p-selectButton>
-        </div>
-        <div class="ui-g-6">
-          <span class="md-inputfield">
-            <input type="text" pInputText [(ngModel)]="object.name" #name="ngModel" name="name" required>
-            <label>{{'Name'|translate}}</label>
-            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="ui-message ui-messages-error ui-corner-all">
-              <div *ngIf="name.errors.required">
-                {{'Name is required' | translate}}
+  <p-dialog header="{{'Exam'|translate}}" [(visible)]="display" modal="false" width="960" [responsive]="true" appendTo="body">
+    <form novalidate (ngSubmit)="f.form.valid && save()" #f="ngForm" autocomplete="off">
+      <p-scrollPanel [style]="{width: '100%'}">
+        <div class="ui-g ui-fluid form-group">
+          <div class="ui-g-12">
+            <p-selectButton [options]="examStatus" [(ngModel)]="object.status" name="status"></p-selectButton>
+          </div>
+          <div class="ui-g-6">
+            <span class="md-inputfield">
+              <input type="text" pInputText [(ngModel)]="object.name" #name="ngModel" name="name" required>
+              <label>{{'Name'|translate}}</label>
+              <div *ngIf="name.invalid && (name.dirty || name.touched)" class="ui-message ui-messages-error ui-corner-all">
+                <div *ngIf="name.errors.required">
+                  {{'Name is required' | translate}}
+                </div>
               </div>
-            </div>
-          </span>
-        </div>
-        <div class="ui-g-6">
-          <span class="md-inputfield">
-            <input type="text" pInputText [(ngModel)]="object.summary" name="summary">
-            <label>{{'Summary'|translate}}</label>
-          </span>
-        </div>
-        <div class="ui-g-7">
-          <div>
+            </span>
+          </div>
+          <div class="ui-g-6">
+            <span class="md-inputfield">
+              <input type="text" pInputText [(ngModel)]="object.summary" name="summary">
+              <label>{{'Summary'|translate}}</label>
+            </span>
+          </div>
+          <div class="ui-g-6">
+            <label>{{'Exam Start Date Time'|translate}}</label>
+            <p-calendar [(ngModel)]="examStartDateTime" #range="ngModel" selectionMode="single" readonlyInput="true" name="examStartDateTime"
+              required [locale]="locale" dateFormat="dd/mm/yy" showTime="true" hourFormat="24" (onSelect)="onDateSelect($event)"></p-calendar>
+          </div>
+          <div class="ui-g-6">
+            <label>{{'Exam End Date Time'|translate}}</label>
+            <p-calendar [(ngModel)]="examEndDateTime" #range="ngModel" selectionMode="single" readonlyInput="true" name="examEndDateTime"
+              required [locale]="locale" dateFormat="dd/mm/yy" showTime="true" hourFormat="24" (onSelect)="onDateSelect($event)"></p-calendar>
+          </div>
+          <div class="ui-g-12">
             <label>{{'Instruction'|translate}}</label>
             <p-editor [(ngModel)]="object.instruction" [style]="{'height':'120px'}" name="instruction">
             </p-editor>
           </div>
-          <div style="margin-top: 50px">
+          <div class="ui-g-6">
             <span class="md-inputfield">
               <input type="text" pInputText [(ngModel)]="object.duration" #duration="ngModel" name="duration" pKeyFilter="pint" required>
               <label>{{'Duration (in minutes)'|translate}}</label>
@@ -40,29 +50,40 @@
               </div>
             </span>
           </div>
-        </div>
-        <div class="ui-g-5">
-          <div>
-            <label>{{'Exam Start Date Time'|translate}}</label>
-            <p-calendar [(ngModel)]="examStartDateTime" #range="ngModel" selectionMode="single" readonlyInput="true" name="examStartDateTime" required
-              [locale]="locale" dateFormat="dd/mm/yy" showTime="true" hourFormat="24" (onSelect)="onDateSelect($event)"></p-calendar>
+          <div class="ui-g-6">
+            <span class="md-inputfield">
+              <input type="text" pInputText [(ngModel)]="object.subject" #name="ngModel" name="subject">
+              <label>{{'Subject'|translate}}</label>
+            </span>
           </div>
-          <div class="mt20" style="margin-top:20px">
-            <label>{{'Exam End Date Time'|translate}}</label>
-            <p-calendar [(ngModel)]="examEndDateTime" #range="ngModel" selectionMode="single" readonlyInput="true" name="examEndDateTime" required
-              [locale]="locale" dateFormat="dd/mm/yy" showTime="true" hourFormat="24" (onSelect)="onDateSelect($event)"></p-calendar>
+          <div class="ui-g-6">
+            <span class="md-inputfield">
+              <input type="text" pInputText [(ngModel)]="object.degree" #name="ngModel" name="degree">
+              <label>{{'Degree'|translate}}</label>
+            </span>
           </div>
-          <!-- <div *ngIf="range.invalid" class="ui-message ui-messages-error ui-corner-all" style="margin: 10px 0 20px;">
-            <div *ngIf="range.errors.required">
-              {{'Select range dates is required' | translate}}
+          <div class="ui-g-6">
+            <span class="md-inputfield">
+              <input type="text" pInputText [(ngModel)]="object.code" #name="ngModel" name="code">
+              <label>{{'Code'|translate}}</label>
+            </span>
+          </div>
+          <div class="ui-g-6">
+            <label>{{'Mode'|translate}}</label>
+            <div style="margin-top: 20px;">
+              <div style="float: left;">
+                <p-radioButton name="level" value="online" label="{{'Online'|translate}}" [(ngModel)]="object.mode" inputId="opt1"></p-radioButton>
+              </div>
+              <div style="float: left;">
+                <p-radioButton name="level" value="offline" label="{{'Offline'|translate}}" [(ngModel)]="object.mode" inputId="opt2"></p-radioButton>
+              </div>
             </div>
-          </div> -->
+          </div>
         </div>
-      </div>
-    </p-scrollPanel>
-  </form>
-  <p-footer>
-    <button type="button" pButton icon="fa-check" label="{{'Save'|translate}}" (click)="f.ngSubmit.emit()"></button>
-    <button type="button" pButton icon="fa-close" (click)="hide()" label="{{'Close'|translate}}"></button>
-  </p-footer>
-</p-dialog>
+      </p-scrollPanel>
+    </form>
+    <p-footer>
+      <button type="button" pButton icon="fa-check" label="{{'Save'|translate}}" (click)="f.ngSubmit.emit()"></button>
+      <button type="button" pButton icon="fa-close" (click)="hide()" label="{{'Close'|translate}}"></button>
+    </p-footer>
+  </p-dialog>

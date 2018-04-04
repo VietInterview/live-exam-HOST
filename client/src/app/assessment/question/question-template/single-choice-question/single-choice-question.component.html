@@ -57,3 +57,18 @@
     </p-fieldset>
   </div>
 </div>
+<div *ngIf="mode=='print'">
+    <div class="ui-g-12 ">
+    <label>{{'Content'|translate}}</label>
+    <p [innerHTML]="question.content"></p>
+  </div>
+  <div class="ui-g-12">
+    <p-fieldset legend="{{'Options'|translate}}">
+      <ul class="options-question">
+        <li *ngFor="let option of options">
+          <p-radioButton [(ngModel)]="answer.option_id" inputId="{{option.id}}" value="{{option.id}}" name="option_answer" label="{{option.content}}" [disabled]="true"></p-radioButton>
+        </li>
+      </ul>
+    </p-fieldset>
+  </div>
+</div>

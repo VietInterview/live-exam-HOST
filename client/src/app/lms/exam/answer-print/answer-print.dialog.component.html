@@ -1,0 +1,40 @@
+<p-dialog header="{{'Exam paper'|translate}}" [(visible)]="display" modal="true" width="960" height="100%" [responsive]="true">
+  <p-scrollPanel [style]="{width: '100%', height: '520px'}">
+    <div class="ui-g" id="print-section">
+        <div class="ui-g-6">
+          <span>{{company.name}}</span>
+        </div>
+        <div class="ui-g-6">
+          <span>{{exam.name}}</span>
+        </div>
+        <div class="ui-g-4">
+          <span>{{'Subject'|translate}}:{{exam.subject}}</span>
+        </div>
+        <div class="ui-g-4">
+          <span>{{'Degree'|translate}}:{{exam.degree}}</span>
+        </div>
+        <div class="ui-g-4">
+          <span>{{'Code'|translate}}:{{exam.code}}</span>
+        </div>
+        <div class="ui-g-12">
+          <span>{{'Duration'|translate}}:{{company.name}} {{'minutes'|translate}}</span>
+        </div>
+        <div class="ui-g-12">
+          <span>{{exam.instruction}}</span>
+        </div>
+        <div class="ui-g-12">
+          <span>{{'Student'|translate}}: {{member.name}}</span>
+        </div>
+        <p-dataList [value]="examQuestions" [rows]="examQuestions.length">
+          <ng-template let-question pTemplate="item" question-container>
+            <div question-container></div>
+          </ng-template>
+        </p-dataList>
+    </div>
+  </p-scrollPanel>
+  <p-footer>
+    <button type="button" pButton icon="ui-icon-print" (click)="print()" label="{{'Print'|translate}}"></button>
+    <button type="button" pButton icon="fa-close" (click)="hide()" label="{{'Close'|translate}}"></button>
+  </p-footer>
+  
+</p-dialog>
