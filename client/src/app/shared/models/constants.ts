@@ -15,6 +15,7 @@ export const DEFAULT_DATE_LOCALE = {
 	clear: 'Clear'
 };
 export const EXAM_STATUS = { 'draft': 'Draft', 'published': 'Published', 'unpublished': 'Unpublished' };
+export const EXAM_MODE = { 'online': 'Online', 'offline': 'Offline' };
 export const EXPORT_DATETIME_FORMAT = "'dd-MM-yyyy'HH:mm:ss";
 export const EXPORT_DATE_FORMAT = "'dd-MM-yyyy";
 export const EXAM_MEMBER_ROLE = { 'candidate': 'Candidate', 'supervisor': 'Supervisor' };

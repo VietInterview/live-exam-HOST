@@ -7,7 +7,7 @@ import { BaseDialog } from '../../../shared/components/base/base.dialog';
 import { Exam } from '../../../shared/models/exam.model';
 import { ExamMember } from '../../../shared/models/exam-member.model';
 import { Http, Response } from '@angular/http';
-import { DEFAULT_DATE_LOCALE, EXAM_STATUS, EXAM_MEMBER_ROLE, EXAM_MEMBER_STATUS } from '../../../shared/models/constants'
+import { DEFAULT_DATE_LOCALE, EXAM_STATUS, EXAM_MODE, EXAM_MEMBER_ROLE, EXAM_MEMBER_STATUS } from '../../../shared/models/constants'
 import {SelectItem, MenuItem} from 'primeng/api';
 import * as _ from 'underscore';
 import { TabPanel } from 'primeng/tabview';
@@ -22,6 +22,7 @@ export class ExamDialog extends BaseDialog<Exam> {
     rangeDates: Date[];
     locale:any;
     examStatus: SelectItem[];
+    EXAM_MODE =  EXAM_MODE;
 
     constructor(private http: Http) {
         super();

@@ -52,7 +52,7 @@ export class ExamListComponent extends BaseComponent implements OnInit {
                     });
                 });
                 this.exams = _.filter(exams, (exam)=> {
-                     return exam.member.role=='teacher' || (exam.member.role=='student' && exam.status == 'published');
+                     return exam.member.role=='teacher' || (exam.member.role=='student' && exam.status == 'published'  && exam.mode == 'online');
                 });
             });
         });

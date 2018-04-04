@@ -45,10 +45,38 @@
         <div class="ui-g-5">
           <label>{{'Datetime'|translate}}</label>
           <p-calendar [(ngModel)]="rangeDates" #range="ngModel" selectionMode="range" readonlyInput="true" name="date" required [inline]="true" [locale]="locale" (onSelect)="onDateSelect($event)"></p-calendar>
-          <div *ngIf="range.invalid" 
-                class="ui-message ui-messages-error ui-corner-all" style="margin: 10px 0 20px;">
+          <div *ngIf="range.invalid" class="ui-message ui-messages-error ui-corner-all" style="margin: 10px 0 20px;">
             <div *ngIf="range.errors.required">
-                {{'Select range dates is required' | translate}}
+              {{'Select range dates is required' | translate}}
+            </div>
+          </div>
+        </div>
+        <div class="ui-g-6">
+          <span class="md-inputfield">
+            <input type="text" pInputText [(ngModel)]="object.subject" #name="ngModel" name="subject" >
+            <label>{{'Subject'|translate}}</label>
+        </span>
+        </div>
+        <div class="ui-g-6">
+          <span class="md-inputfield">
+            <input type="text" pInputText [(ngModel)]="object.degree" #name="ngModel" name="degree" >
+            <label>{{'Degree'|translate}}</label>
+        </span>
+        </div>
+        <div class="ui-g-6">
+          <span class="md-inputfield">
+            <input type="text" pInputText [(ngModel)]="object.code" #name="ngModel" name="code" >
+            <label>{{'Code'|translate}}</label>
+        </span>
+        </div>
+        <div class="ui-g-6">
+          <label>{{'Mode'|translate}}</label>
+          <div style="margin-top: 20px;">
+            <div style="float: left;">
+              <p-radioButton name="level" value="online" label="{{'Online'|translate}}" [(ngModel)]="object.mode" inputId="opt1"></p-radioButton>
+            </div>
+            <div style="float: left;">
+              <p-radioButton name="level" value="offline" label="{{'Offline'|translate}}" [(ngModel)]="object.mode" inputId="opt2"></p-radioButton>
             </div>
           </div>
         </div>
