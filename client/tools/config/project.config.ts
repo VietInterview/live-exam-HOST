@@ -50,6 +50,7 @@ export class ProjectConfig extends SeedConfig {
             { src: 'quill/dist/quill.core.css', inject: true },
             { src: 'quill/dist/quill.snow.css', inject: true },
             { src: 'quill/dist/quill.js', inject: true },
+            { src: 'file-saver/FileSaver.js', inject: true },
         ];
 
         // Add `local` third-party libraries to be injected/bundled.

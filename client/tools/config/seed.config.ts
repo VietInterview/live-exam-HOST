@@ -464,7 +464,6 @@ export class SeedConfig {
     },
      map: {
           'xlsx': this.BUILD_TYPE === BUILD_TYPES.PRODUCTION ? 'node_modules/xlsx/xlsx.min.js' : 'node_modules/xlsx/dist/xlsx.full.min.js',
-          'file-saver': 'node_modules/file-saver/FileSaver.js',
           'fs': this.BUILD_TYPE === BUILD_TYPES.PRODUCTION ? '@node/fs' : '', // <-- systemjs doesn't seem to automatically suppress node core
           'crypto': this.BUILD_TYPE === BUILD_TYPES.PRODUCTION ? '@node/crypto' : '',
           'stream': this.BUILD_TYPE === BUILD_TYPES.PRODUCTION ? '@node/stream' : '',
@@ -515,7 +514,6 @@ export class SeedConfig {
     },
     map: {
        'xlsx': this.BUILD_TYPE === BUILD_TYPES.DEVELOPMENT ? 'node_modules/xlsx/xlsx.min.js' : 'node_modules/xlsx/dist/xlsx.full.min.js',
-      'file-saver': 'node_modules/file-saver/FileSaver.js',
       'fs': '@node/fs',
       'crypto': '@node/crypto',
       'stream': '@node/stream'
