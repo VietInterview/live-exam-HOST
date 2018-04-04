@@ -1,0 +1,13 @@
+.name{
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.label{
+	font-weight: bold;
+}
+
+.title{
+	text-transform: uppercase;
+}
