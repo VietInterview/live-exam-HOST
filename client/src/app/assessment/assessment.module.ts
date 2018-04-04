@@ -18,7 +18,7 @@ import { ExamEnrollDialog } from './exam/enrollment-dialog/enrollment-dialog.com
     				QuestionListComponent, QuestionDialog, QuestionContainerDirective,
     				SingleChoiceQuestionComponent, OpenEndQuestionComponent, QuestionImportDialog, ExamEnrollDialog],
     providers: [],
-    exports: [QuestionContainerDirective, ExamDialog],
+    exports: [QuestionContainerDirective, ExamDialog, SingleChoiceQuestionComponent, OpenEndQuestionComponent],
     entryComponents: [SingleChoiceQuestionComponent, OpenEndQuestionComponent]
 })
 export class AssessmentModule {

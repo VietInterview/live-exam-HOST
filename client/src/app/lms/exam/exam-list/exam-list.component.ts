@@ -14,6 +14,8 @@ import { SelectItem } from 'primeng/api';
 import { ExamContentDialog } from '../../../cms/exam/content-dialog/exam-content.dialog.component';
 import { ExamStudyDialog} from '../exam-study/exam-study.dialog.component';
 import { ExamScoreDialog } from '../exam-score/exam-score.dialog.component';
+import { ExamPrintDialog } from '../exam-print/exam-print.dialog.component';
+import { QuestionSheet } from '../../../shared/models/question-sheet.model';
 
 
 @Component({
@@ -29,6 +31,7 @@ export class ExamListComponent extends BaseComponent implements OnInit {
     @ViewChild(ExamContentDialog) examContentDialog:ExamContentDialog;
     @ViewChild(ExamStudyDialog) examStudyDialog:ExamStudyDialog;
     @ViewChild(ExamScoreDialog) scoreDialog:ExamScoreDialog;
+    @ViewChild(ExamPrintDialog) printDialog:ExamPrintDialog;
 
     constructor() {
         super();
@@ -64,6 +67,16 @@ export class ExamListComponent extends BaseComponent implements OnInit {
 
     viewScore(exam:Exam) {
         this.scoreDialog.show(exam);
+    }
+
+    printExam(exam:Exam) {
+        QuestionSheet.byExam(this, exam.id).subscribe(sheet => {
+            if (!sheet || !sheet.finalized) {
+                this.messageService.add({ severity: 'error', summary: 'Error', detail: this.translateService.instant('Exam not finalized.') });
+                return;
+            }
+            this.printDialog.show(exam);
+        });
     }
 
     startExam(exam:Exam, member: ExamMember) {

@@ -11,6 +11,8 @@ import { Submission } from '../../../shared/models/submission.model';
 import { ExamMember } from '../../../shared/models/exam-member.model';
 import { Http, Response } from '@angular/http';
 import { AnswerSheetDialog } from '../answer-sheet/answer-sheet.dialog.component';
+import { AnswerPrintDialog } from '../answer-print/answer-print.dialog.component';
+
 import * as _ from 'underscore';
 
 @Component({
@@ -26,6 +28,7 @@ export class ExamScoreDialog extends BaseComponent {
     selectedRecord: any;
 
     @ViewChild(AnswerSheetDialog) answerSheetDialog:AnswerSheetDialog;
+    @ViewChild(AnswerPrintDialog) answerPrintDialog:AnswerPrintDialog;
 
     constructor() {
         super();
@@ -54,6 +57,11 @@ export class ExamScoreDialog extends BaseComponent {
     viewAnswerSheet() {
         if (this.selectedRecord)
             this.answerSheetDialog.show(this.exam, this.selectedRecord);
+    }
+
+    printAnswerSheet() {
+        if (this.selectedRecord)
+            this.answerPrintDialog.show(this.exam, this.selectedRecord);
     }
 
     loadAnswers() {
