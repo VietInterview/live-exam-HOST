@@ -21,6 +21,7 @@ import { QuestionContainerDirective } from '../../../assessment/question/questio
 import { IQuestion } from '../../../assessment/question/question-template/question.interface';
 import { QuestionRegister } from '../../../assessment/question/question-template/question.decorator';
 import 'rxjs/add/observable/timer';
+declare var $: any;
 
 @Component({
 	moduleId: module.id,
@@ -44,6 +45,7 @@ export class ExamStudyDialog extends BaseComponent {
 	timeLeft: number;
 	progress: number;
 	stats: any;
+	height: number;
 
 	@ViewChild(QuestionContainerDirective) questionHost: QuestionContainerDirective;
 	componentRef: any;
@@ -70,6 +72,7 @@ export class ExamStudyDialog extends BaseComponent {
 		this.exam = exam;
 		this.member = member;
 		this.qIndex = 0;
+		this.height =  $(window).height();
 		this.createSubmission().subscribe((submit:Submission) => {
 			this.submission = submit;
 			QuestionSheet.byExam(this, this.exam.id).subscribe(sheet => {
