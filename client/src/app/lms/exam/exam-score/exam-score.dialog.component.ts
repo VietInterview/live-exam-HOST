@@ -75,15 +75,13 @@ export class ExamScoreDialog extends BaseComponent {
     loadAnswers() {
         ExamGrade.listByExam(this, this.exam.id).subscribe(grades => {
             ExamMember.listStudentByExam(this, this.exam.id).subscribe(members => {
-                this.records = [];
+                this.records = members;
                 _.each(members, (member: ExamMember)=> {
-                    var record = member;
                     member.examScore(this, this.exam.id).subscribe(score=> {
-                        record["score"] = score;
+                        member["score"] = score;
                         var grade = member.examGrade(grades, score);
                         if (grade)
-                                record["grade"] = grade.name;
-                            this.records.push(record);
+                              member["grade"] = grade.name;
                     });
                 });
             });

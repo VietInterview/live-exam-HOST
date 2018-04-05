@@ -36,7 +36,10 @@ export class SingleChoiceQuestionComponent extends BaseComponent implements IQue
 		this.answer =  answer;
 		if (this.question.id)
 			QuestionOption.listByQuestion(this, question.id).subscribe((options: QuestionOption[]) => {
-				this.options = options;
+				if (this.mode=='study')
+					this.options = _.shuffle(options);
+				else
+					this.options = options;
 			});
 	}
 
