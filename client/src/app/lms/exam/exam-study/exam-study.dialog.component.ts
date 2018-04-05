@@ -100,7 +100,7 @@ export class ExamStudyDialog extends BaseComponent {
 		return ExamQuestion.listBySheet(this, this.sheet.id).map(examQuestions => {
 			var offset = this.member.id;
 			return _.map(examQuestions, (obj, order)=> {
-				var index = (order + this.sheet.seed*offset)%examQuestions.length;
+				var index = (order + this.sheet.seed + offset)%examQuestions.length;
 				console.log(index);
 				return examQuestions[index];
 			});
