@@ -59,6 +59,7 @@ export class UserImportDialog extends BaseComponent {
 					user.class_id = group.id;
 					subscriptions.push(user.save(this));
 				}
+				user.role = this.role;
 			});
 			Observable.forkJoin(...subscriptions).subscribe(()=> {
 				this.importing = false;

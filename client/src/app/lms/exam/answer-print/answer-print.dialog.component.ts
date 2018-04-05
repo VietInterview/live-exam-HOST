@@ -44,8 +44,6 @@ export class AnswerPrintDialog extends BaseComponent {
         this.exam = new Exam();
         this.company = new Company();
         this.member = new ExamMember();
-        this.currentQuestion = new ExamQuestion();
-        this.currentAnswer =  new Answer();
     }
 
     show(exam: Exam, member: ExamMember) {
