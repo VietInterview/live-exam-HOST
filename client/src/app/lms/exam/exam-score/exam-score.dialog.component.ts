@@ -64,11 +64,6 @@ export class ExamScoreDialog extends BaseComponent {
 
     viewAnswerSheet() {
         if (this.selectedRecord)
-            this.answerSheetDialog.show(this.exam, this.selectedRecord);
-    }
-
-    printAnswerSheet() {
-        if (this.selectedRecord)
             this.answerPrintDialog.show(this.exam, this.selectedRecord);
     }
 
