@@ -90,18 +90,8 @@ export class ExamContentDialog extends BaseComponent {
 		});
 	}
 
-	removeOldQUestion():Observable<any> {
-		var subscriptions = _.map(this.examQuestions, (question=> {
-			return question.delete(this);
-		}));
-		if (subscriptions.length)
-			return Observable.forkJoin(subscriptions);
-		else
-			return Observable.of(true);
-	}
-
 	generateQuestion() {
-		this.removeOldQUestion().subscribe(()=> {
+		this.sheet.save(this).subscribe(()=> {
 			this.examQuestions = [];
 			var subscriptions =[];
 			_.each(this.selector, (sel:QuestionSelector)=> {
@@ -117,7 +107,6 @@ export class ExamContentDialog extends BaseComponent {
 							questions = questions.slice(0, sel.number);
 						}
 						this.createExamQuestionFromQuestionBank(questions, sel.score).subscribe(examQuestions => {
-							console.log(examQuestions);
 							this.examQuestions =  this.examQuestions.concat(examQuestions);
 							this.totalScore =  _.reduce(examQuestions, (memo, q:ExamQuestion)=>{ return memo + +q.score; }, 0);
 						});
@@ -165,11 +154,8 @@ export class ExamContentDialog extends BaseComponent {
 				
 			}
 			else {
-				var newSheet = new QuestionSheet();
-				newSheet.exam_id = exam.id;
-				newSheet.save(this).subscribe(()=> {
-					this.sheet = newSheet;
-				});
+				this.sheet = new QuestionSheet();
+				this.sheet.exam_id = exam.id;
 			}
 		});
 	}

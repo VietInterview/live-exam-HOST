@@ -50,6 +50,7 @@ export class UserImportDialog extends BaseComponent {
 			this.importing = true;
 			_.each(this.records, (record)=> {
 				var user = new User();
+				user.role = this.role;
 				Object.assign(user, record);
 				user["password"] = DEFAULT_PASSWORD;
 				var group = _.find(groups, (obj:Group)=> {
@@ -59,7 +60,6 @@ export class UserImportDialog extends BaseComponent {
 					user.class_id = group.id;
 					subscriptions.push(user.save(this));
 				}
-				user.role = this.role;
 			});
 			Observable.forkJoin(...subscriptions).subscribe(()=> {
 				this.importing = false;
