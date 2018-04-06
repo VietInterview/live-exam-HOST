@@ -18,7 +18,6 @@ import { QuestionRegister } from '../../../assessment/question/question-template
 import * as _ from 'underscore';
 import { QuestionSheet } from '../../../shared/models/question-sheet.model';
 
-
 @Component({
     moduleId: module.id,
     selector: 'exam-print-dialog',
@@ -87,12 +86,49 @@ export class ExamPrintDialog extends BaseComponent {
         popupWin.document.write(`
           <html>
             <head>
-              <title>Exam paper</title>
-              <style>
-              //........Customized style.......
-              </style>
+                <title>Exam paper</title>
+                <style>
+                  //........Customized style.......
+                    .header{}
+                    .name-c{
+                        float: left;
+                    }
+
+                    .name-c, .name-e{
+                        text-align: center; 
+                        text-transform: uppercase; 
+                        font-weight: bold; 
+                        margin-bottom: 10px; 
+                    }
+                    
+                    .label{
+                        float: left;
+                        font-weight: bold;
+                        
+                    }
+
+                    .title{
+                        text-transform: uppercase;
+                        float: left;
+                        margin-right:40px;
+                    }
+
+                    .f-print{
+                        border:none;
+                        padding-top: 0;
+                    }
+                    
+                    .l-question{
+                        padding-bottom: 0;
+                        margin-bottom: 0;
+                    }
+
+                    .l-question li{
+                        list-style-type: decimal;
+                    }
+                </style>
             </head>
-        <body onload="window.print();window.close()">${printContents}</body>
+            <body onload="window.print();window.close()">${printContents}</body>
           </html>`
         );
         popupWin.document.close();

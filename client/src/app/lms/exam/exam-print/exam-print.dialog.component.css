@@ -1,7 +1,7 @@
-.name{
-	text-align: center;
-	text-transform: uppercase;
-	font-weight: bold;
+.name-c, .name-e{
+	text-align: center; 
+	text-transform: uppercase; 
+	font-weight: bold; 
 }
 
 .label{

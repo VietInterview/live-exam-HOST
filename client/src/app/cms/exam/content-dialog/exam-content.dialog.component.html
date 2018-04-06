@@ -9,7 +9,7 @@
           <div *ngFor="let level of QUESTION_LEVEL | keys" class="ui-g-12">
             <p-fieldset>
               <p-header>{{QUESTION_LEVEL[level]|translate}}</p-header>
-              <div class="ui-g-12">
+              <div class="ui-g-12" style="margin-bottom: 10px;">
                 <label>{{'Group'|translate}}</label>
                 <p-tree [value]="tree[level]" selectionMode="single" [(selection)]="selectedNode[level]" (onNodeSelect)="nodeSelect($event,level)"></p-tree>
               </div>
