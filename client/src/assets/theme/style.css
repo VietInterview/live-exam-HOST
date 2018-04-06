@@ -31,7 +31,7 @@ body p-schedule .ui-state-highlight{
   background-color: #161e840d;
 }
 
-.ui-scrollpanel-bar-x{
+.ui-scrollpanel-bar{
   display: none;
 }
 
@@ -129,4 +129,27 @@ body .ui-dropdown.report-exam-items .ui-dropdown-trigger .fa{
 
 .ui-tree{
   width: 40%;
+}
+
+body .ui-fieldset .ui-fieldset-legend{
+  background-color: #fff;
+}
+
+body .ui-fieldset.f-print{
+  border: none;
+  padding: 0;
+}
+
+body .ui-fieldset.f-print .ui-fieldset-legend{
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.question p, .content-question p{
+  margin: 0;
+}
+
+.card-exam .ui-button{
+  margin-right: 0;
 }

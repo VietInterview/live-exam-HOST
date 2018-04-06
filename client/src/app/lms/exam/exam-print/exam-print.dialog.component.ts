@@ -89,26 +89,44 @@ export class ExamPrintDialog extends BaseComponent {
                 <title>Exam paper</title>
                 <style>
                   //........Customized style.......
-                    .name{
-                        text-align: center;
-                        text-transform: uppercase;
-                        font-weight: bold;
+                    .header{}
+                    .name-c{
                         float: left;
-                        margin: 0 30px;
                     }
 
+                    .name-c, .name-e{
+                        text-align: center; 
+                        text-transform: uppercase; 
+                        font-weight: bold; 
+                        margin-bottom: 10px; 
+                    }
+                    
                     .label{
-                        font-weight: bold;
                         float: left;
+                        font-weight: bold;
+                        
                     }
 
                     .title{
                         text-transform: uppercase;
                         float: left;
-                        margin-right: 30px; 
+                        margin-right:40px;
+                    }
+
+                    .f-print{
+                        border:none;
+                        padding-top: 0;
+                    }
+                    
+                    .l-question{
+                        padding-bottom: 0;
+                        margin-bottom: 0;
+                    }
+
+                    .l-question li{
+                        list-style-type: decimal;
                     }
                 </style>
-                <link rel="stylesheet" type="text/css" href="exam-print.css" />
             </head>
             <body onload="window.print();window.close()">${printContents}</body>
           </html>`

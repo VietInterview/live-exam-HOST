@@ -22,6 +22,7 @@ import 'rxjs/add/observable/timer'; import * as _ from 'underscore';
     moduleId: module.id,
     selector: 'answer-print-dialog',
     templateUrl: 'answer-print.dialog.component.html',
+    styleUrls: ['answer-print.dialog.component.css'],
 })
 export class AnswerPrintDialog extends BaseComponent {
 

@@ -6,3 +6,8 @@
 /*.ui-toolbar-group-left p-splitButton{
 	vertical-align: 7.3px;
 }*/
+
+.content-question{
+	text-align: left;
+	width: 800px;
+}
