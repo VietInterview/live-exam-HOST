@@ -89,16 +89,22 @@ export class ExamPrintDialog extends BaseComponent {
                 <title>Exam paper</title>
                 <style>
                   //........Customized style.......
-                    .header{}
+                    .header{
+                    }
                     .name-c{
                         float: left;
+                        width: 55%;
+                    }
+
+                    .name-e{
+                        height: 40px;
                     }
 
                     .name-c, .name-e{
                         text-align: center; 
                         text-transform: uppercase; 
                         font-weight: bold; 
-                        margin-bottom: 10px; 
+                        margin-bottom: 10px;
                     }
                     
                     .label{
@@ -113,9 +119,14 @@ export class ExamPrintDialog extends BaseComponent {
                         margin-right:40px;
                     }
 
+                    .ins p{
+                        text-indent: 25px;
+                    }
+
                     .f-print{
                         border:none;
-                        padding-top: 0;
+                        padding: 0;
+                        margin-top: -10px;
                     }
                     
                     .l-question{

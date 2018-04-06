@@ -150,6 +150,10 @@ body .ui-fieldset.f-print .ui-fieldset-legend{
   margin: 0;
 }
 
+.ins p{
+  margin-top: 0;
+}
+
 .card-exam .ui-button{
   margin-right: 0;
 }
