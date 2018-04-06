@@ -76,9 +76,10 @@ export class QuestionImportDialog extends BaseComponent {
 						var subscription =  question.createWithOption(this,options);
 						subscriptions.push(subscription);
 					} 
-					i += optionLength + 1;
+					i += optionLength ;
 				} else
 					i++;
+
 			}
 			Observable.forkJoin(...subscriptions).subscribe(()=> {
 				this.importing = false;

@@ -281,5 +281,7 @@
 	"Exam Name": "Tên kỳ thi",
 	"Name Member": "Tên học viên",
 	"Exam Date": "Ngày thi",
-	"Exam Code": "Mã đề"
+	"Exam Code": "Mã đề",
+	"Exam start time is required": "Thời gian bắt đầu kì thi là bắt buộc",
+	"Exam end time is required": "Thời gian kết thúc kì thi là bắt buộc"
 }
