@@ -4,6 +4,7 @@ import { Observable, Subject } from 'rxjs/Rx';
 import { Model } from './decorator';
 import { APIContext } from './context';
 import * as _ from 'underscore';
+import { QuestionOption } from './option.model';
 
 @Model('liveexam.question')
 export class Question extends BaseModel{
@@ -26,6 +27,16 @@ export class Question extends BaseModel{
     type: string;
     level: string;
     group_id: number;
+
+    createWithOption(context: APIContext, options:QuestionOption[]):Observable<any> {
+        return this.save(context).flatMap(()=> {
+            var subscriptions = _.map(options,(opt)=> {
+                opt.question_id = this.id;
+                return opt.save(context);
+            });
+            return Observable.forkJoin(subscriptions);
+        });
+    }
 
     static listByGroup(context:APIContext, groupId):Observable<any> {
         return Question.search(context,[], "[('group_id','=',"+groupId+")]");

@@ -62,27 +62,20 @@ export class QuestionImportDialog extends BaseComponent {
 					question.group_id = group.id;
 					question.type = type;
 					var options = [];
-					var optionLength =record["option"]? +record["option"]:0;
+					var optionLength = 1;
+					while (i + optionLength < this.records.length && !this.records[i + optionLength]["group_code"])
+						optionLength++;
 					if (type =="sc" && optionLength) {
-						for (var j=1;j<= optionLength && i < this.records.length;j++) {
+						for (var j=0;j< optionLength && i < this.records.length;j++) {
 							var optionRecord = this.records[j+i];
 							var option = new QuestionOption();
 							option.is_correct = j==0;
 							option.content = optionRecord["option"];
 							options.push(option);
 						}
-						var subscription =  question.save(this).flatMap(() => {
-							var optionSubscription = [];
-							_.each(options, (obj:QuestionOption)=> {
-								obj.question_id =  question.id;
-								optionSubscription.push(option.save(this));
-							});
-							return Observable.forkJoin(...optionSubscription);
-						});
+						var subscription =  question.createWithOption(this,options);
 						subscriptions.push(subscription);
 					} 
-					else
-						subscriptions.push(question.save(this));
 					i += optionLength + 1;
 				} else
 					i++;

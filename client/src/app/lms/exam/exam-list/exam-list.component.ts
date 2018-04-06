@@ -16,6 +16,7 @@ import { ExamStudyDialog} from '../exam-study/exam-study.dialog.component';
 import { ExamScoreDialog } from '../exam-score/exam-score.dialog.component';
 import { ExamPrintDialog } from '../exam-print/exam-print.dialog.component';
 import { QuestionSheet } from '../../../shared/models/question-sheet.model';
+import { CheckinSheetDialog } from '../checkin-sheet/checkin-sheet.dialog.component';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class ExamListComponent extends BaseComponent implements OnInit {
     @ViewChild(ExamStudyDialog) examStudyDialog:ExamStudyDialog;
     @ViewChild(ExamScoreDialog) scoreDialog:ExamScoreDialog;
     @ViewChild(ExamPrintDialog) printDialog:ExamPrintDialog;
+    @ViewChild(CheckinSheetDialog) checkinDialog:CheckinSheetDialog;
 
     constructor() {
         super();
@@ -80,6 +82,10 @@ export class ExamListComponent extends BaseComponent implements OnInit {
             }
             this.printDialog.show(exam);
         });
+    }
+
+    printCheckin(exam:Exam) {
+        this.checkinDialog.show(exam);
     }
 
     startExam(exam:Exam, member: ExamMember) {
