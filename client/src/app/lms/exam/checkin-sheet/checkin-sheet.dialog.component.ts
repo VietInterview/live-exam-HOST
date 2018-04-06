@@ -19,6 +19,7 @@ import 'rxjs/add/observable/timer'; import * as _ from 'underscore';
     moduleId: module.id,
     selector: 'checkin-sheet-dialog',
     templateUrl: 'checkin-sheet.dialog.component.html',
+    styleUrls: ['checkin-sheet.dialog.component.css'],
 })
 export class CheckinSheetDialog extends BaseComponent {
 
@@ -26,6 +27,8 @@ export class CheckinSheetDialog extends BaseComponent {
     exam: Exam;
     members: ExamMember[];
     company: Company;
+
+    @ViewChild('printSection') printSection;
 
     constructor() {
         super();
@@ -59,42 +62,68 @@ export class CheckinSheetDialog extends BaseComponent {
                 <title>Exam paper</title>
                 <style>
                   //........Customized style.......
-                    .header{}
-                    .name-c{
-                        float: left;
+                    .a{}
+                    .header{
+                        text-align: center;
+                        font-weight: bold; 
+                        margin-bottom: 10px;
                     }
 
-                    .name-c, .name-e{
+                    .header p{
+                        margin: 0;
+                    }
+
+                    .name-c{
+                        float: left;
+                        width: 50%;
+                    }
+
+                    .name-e{
+
+                    }
+
+                    .name-c, name-e{
                         text-align: center; 
                         text-transform: uppercase; 
                         font-weight: bold; 
                         margin-bottom: 10px; 
                     }
-                    
+
+                    .date{
+                        margin-right: 50px;
+                    }
+
+                    .date span{
+                        font-style: italic;
+                        text-align: right;
+                    }
+
                     .label{
-                        float: left;
-                        font-weight: bold;
-                        
+                        float: left;    
                     }
 
                     .title{
-                        text-transform: uppercase;
+                        font-weight: bold;
                         float: left;
                         margin-right:40px;
                     }
 
-                    .f-print{
-                        border:none;
-                        padding-top: 0;
+                    .center{
+                        text-align: center;
                     }
                     
-                    .l-question{
-                        padding-bottom: 0;
-                        margin-bottom: 0;
+                    table {
+                        width: 100%;
+                        margin-top: 20px;
+                        border-collapse: collapse;
                     }
 
-                    .l-question li{
-                        list-style-type: decimal;
+                    table tr, th, td{
+                        border: 1px solid black;
+                    }
+
+                    .total{
+                        display: none;
                     }
                 </style>
             </head>

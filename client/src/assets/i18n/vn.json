@@ -279,5 +279,12 @@
 	"Print answer": "In phiếu trả lời",
 	"Are you sure to start ?": "Bạn có chắc chắn muốn thi?",
 	"Exam start time is required": "Thời gian bắt đầu kì thi là bắt buộc",
-	"Exam end time is required": "Thời gian kết thúc kì thi là bắt buộc"
+	"Exam end time is required": "Thời gian kết thúc kì thi là bắt buộc",
+	"Print check-in": "In danh sách",
+	"Print exam paper": "In đề thi",
+	"Signature": "Chữ ký",
+	"Note": "Ghi chú",
+	"Student list": "Danh sách sinh viên",
+	"Supervisory 1": "Giám thị 1",
+	"Supervisory 2": "Giám thị 2"
 }

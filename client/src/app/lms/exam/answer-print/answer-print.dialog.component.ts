@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChildren, QueryList, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ViewChildren, QueryList, ComponentFactoryResolver } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { APIService } from '../../../shared/services/api.service';
 import { AuthService } from '../../../shared/services/auth.service';
@@ -36,6 +36,7 @@ export class AnswerPrintDialog extends BaseComponent {
     submission: Submission;
 
      @ViewChildren(QuestionContainerDirective) questionsComponents: QueryList<QuestionContainerDirective>;
+     @ViewChild('printSection') printSection;
 
     constructor(private componentFactoryResolver: ComponentFactoryResolver) {
         super();
@@ -122,6 +123,76 @@ export class AnswerPrintDialog extends BaseComponent {
             
         });
     }
+
+    print() {
+        let printContents, popupWin;
+        printContents = this.printSection.nativeElement.innerHTML;
+        popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+        popupWin.document.open();
+        popupWin.document.write(`
+          <html>
+            <head>
+                <title>Exam paper</title>
+                <style>
+                  //........Customized style.......
+                    .header{
+                    }
+                    .name-c{
+                        float: left;
+                        width: 55%;
+                    }
+
+                    .name-e{
+                        height: 40px;
+                    }
+
+                    .name-c, .name-e{
+                        text-align: center; 
+                        text-transform: uppercase; 
+                        font-weight: bold; 
+                        margin-bottom: 10px;
+                    }
+                    
+                    .label{
+                        float: left;
+                        font-weight: bold;
+                        
+                    }
+
+                    .title{
+                        text-transform: uppercase;
+                        float: left;
+                        margin-right:40px;
+                    }
+
+                    .ins p{
+                        text-indent: 25px;
+                    }
+
+                    .f-print{
+                        border:none;
+                        padding: 0;
+                        margin-top: -10px;
+                    }
+                    
+                    .l-question{
+                        padding-bottom: 0;
+                        margin-bottom: 0;
+                    }
+
+                    .l-question li{
+                        list-style-type: decimal;
+                    }
+                </style>
+            </head>
+            <body onload="window.print();window.close()">${printContents}</body>
+          </html>`
+        );
+        popupWin.document.close();
+    }
+}
+
+
 
 }
 
