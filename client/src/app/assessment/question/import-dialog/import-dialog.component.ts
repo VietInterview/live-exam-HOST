@@ -56,7 +56,8 @@ export class QuestionImportDialog extends BaseComponent {
 				var group = _.find(groups, (obj:Group)=> {
 					return obj.code == record["group_code"];
 				});
-				var type = record["type"];
+				//var type = 'record["type"]';
+				var type ='sc';
 				if (group && type) {
 					question.group_id = group.id;
 					var options = [];
