@@ -91,6 +91,7 @@ export class ExamContentDialog extends BaseComponent {
 	}
 
 	generateQuestion() {
+		this.sheet.finalized = true;
 		this.sheet.save(this).subscribe(()=> {
 			this.examQuestions = [];
 			var subscriptions =[];
@@ -117,7 +118,6 @@ export class ExamContentDialog extends BaseComponent {
 	}
 
 	saveAndFinalize() {
-		this.sheet.finalized = true;
 		this.sheet.save(this).subscribe(()=> {
 			this.save();
 		});
