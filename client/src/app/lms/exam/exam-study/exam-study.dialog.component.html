@@ -1,32 +1,25 @@
-<style>
-  .remove-background {
-    background: #ffffff;
-  } 
-
-  .remove-border {
-    border: none;
-  }
-</style>
 <p-dialog header="{{exam.name}}" [(visible)]="display" modal="true" [(height)]="height" positionLeft="0" positionTop="0"
   styleClass="ui-g-12" [responsive]="true" [closeOnEscape]="false" [closable]="false">
-  <div class="ui-g-6">
+  <div class="ui-g-12">
+    <div class="ui-g-6">
       <div class="ui-g-6">
         <h1 class="mt10">Title</h1>
       </div>
-  </div>
-  <div class="ui-g-6">
+    </div>
+    <div class="ui-g-6">
 
+    </div>
   </div>
   <p-card>
     <p-header>
-      <span class="exam-question-title" style="float:left; margin-top: 5px; margin-left:5px; font-weight: bold">
+      <span class="exam-question-title fLeft mt5 ml5 txtBold">
         {{'Question'|translate}} {{(qIndex+1) +'/' + examQuestions.length}} {{'-' + currentQuestion.title}}
       </span>
-      <div class="exam-timer fRight" style="float:right; margin-right: 5px; font-weight: bold">
-        <i class="material-icons" style="float:left; margin-top:3px">access_time</i>
-        <span style="margin-top:5px; display:inline-block">{{ timeLeft | clock }}</span>
+      <div class="exam-timer fRight ml5 txtBold">
+        <i class="material-icons fLeft mt3">access_time</i>
+        <span class="mt5 dpInB">{{ timeLeft | clock }}</span>
       </div>
-      <div style="clear:both"></div>
+      <div class="clear"></div>
       <p-progressBar [value]="progress"></p-progressBar>
     </p-header>
     <div class="ui-g">
@@ -49,7 +42,7 @@
           </li>
         </ul>
         <div>
-          <button type="button" pButton style="line-height:2.25em; margin-top:10px" *ngFor="let question of examQuestions; let i = index"
+          <button type="button" pButton class="mt10 lineHeight2-25" *ngFor="let question of examQuestions; let i = index"
             (click)="displayQuestion(i)">{{ i + 1 }}</button>
         </div>
       </div>
