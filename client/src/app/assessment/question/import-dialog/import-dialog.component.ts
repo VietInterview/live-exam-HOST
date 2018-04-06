@@ -60,6 +60,7 @@ export class QuestionImportDialog extends BaseComponent {
 				var type ='sc';
 				if (group && type) {
 					question.group_id = group.id;
+					question.type = type;
 					var options = [];
 					var optionLength =record["option"]? +record["option"]:0;
 					if (type =="sc" && optionLength) {
