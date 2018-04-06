@@ -44,7 +44,7 @@ export class ExamListComponent extends BaseComponent implements OnInit {
         ExamMember.listByUser(this, this.authService.CurrentUser.id).subscribe(members => {
             members = _.filter(members, (member => {
                 return member.exam_id;
-            });
+            }));
             var examIds = _.pluck(members,'exam_id');
             Exam.array(this, examIds)
             .subscribe(exams => {

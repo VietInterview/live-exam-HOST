@@ -27,6 +27,8 @@ export class CheckinSheetDialog extends BaseComponent {
     members: ExamMember[];
     company: Company;
 
+    @ViewChild('printSection') printSection;
+
     constructor() {
         super();
         this.display = false;
