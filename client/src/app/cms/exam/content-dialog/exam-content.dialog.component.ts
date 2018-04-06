@@ -54,7 +54,7 @@ export class ExamContentDialog extends BaseComponent {
 		this.selectedNode = {};
 		this.examStatus = _.map(EXAM_STATUS, (val, key)=> {
             return {
-                label: val,
+                label: this.translateService.instant(val),
                 value: key
             }
         });
