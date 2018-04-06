@@ -9,11 +9,11 @@
       <button pButton type="button" icon="ui-icon-add" class="secondary-btn" (click)="addOption()" pTooltip="{{'Add option'|translate}}"></button>
       <ul class="options-question">
         <li *ngFor="let option of options">
-          <p-checkbox (click)="setOptionCorrect(option)" binary="true" name="option_is_correct"  [(ngModel)]="option.is_correct" ></p-checkbox>
+          <p-checkbox (click)="setOptionCorrect(option)" binary="true" name="option_is_correct" [(ngModel)]="option.is_correct"></p-checkbox>
           <span class="md-inputfield">
             <input type="text" pInputText [(ngModel)]="option.content" name="option_content">
             <label>{{'Content'|translate}}</label>
-        </span>
+          </span>
           <button pButton type="button" icon="ui-icon-close" title="{{Remove|translate}}" (click)="removeOption(option)" class="remove-btn"></button>
         </li>
       </ul>
@@ -26,8 +26,8 @@
   </div>
 </div>
 <div *ngIf="mode=='study'">
-    <div class="ui-g-12 ">
-    <label>{{'Content'|translate}}</label>
+  <div class="ui-g-12 removePd">
+    <!-- <label>{{'Content'|translate}}</label> -->
     <p [innerHTML]="question.content"></p>
   </div>
   <div class="ui-g-12">
@@ -35,14 +35,13 @@
       <ul class="options-question">
         <li *ngFor="let option of options">
           <p-radioButton [(ngModel)]="answer.option_id" inputId="{{option.id}}" value="{{option.id}}" name="option_answer" label="{{option.content}}"></p-radioButton>
-          <i class="material-icons" *ngIf="answer.is_correct">done</i>
         </li>
       </ul>
     </p-fieldset>
   </div>
 </div>
 <div *ngIf="mode=='review'">
-    <div class="ui-g-12 ">
+  <div class="ui-g-12 ">
     <label>{{'Content'|translate}}</label>
     <p [innerHTML]="question.content"></p>
   </div>
@@ -50,7 +49,8 @@
     <p-fieldset legend="{{'Options'|translate}}">
       <ul class="options-question">
         <li *ngFor="let option of options">
-          <p-radioButton [(ngModel)]="answer.option_id" inputId="{{option.id}}" value="{{option.id}}" name="option_answer" label="{{option.content}}" [disabled]="true"></p-radioButton>
+          <p-radioButton [(ngModel)]="answer.option_id" inputId="{{option.id}}" value="{{option.id}}" name="option_answer" label="{{option.content}}"
+            [disabled]="true"></p-radioButton>
           <i class="material-icons" *ngIf="answer.is_correct">done</i>
         </li>
       </ul>
@@ -59,8 +59,8 @@
 </div>
 <div *ngIf="mode=='print'">
   <div class="ui-g-12">
-  <!-- <label>{{'Question'|translate}}</label> -->
-  <p class="question" [innerHTML]="question.content"></p>
+    <!-- <label>{{'Question'|translate}}</label> -->
+    <p class="question" [innerHTML]="question.content"></p>
   </div>
   <div class="ui-g-12">
     <p-fieldset styleClass="f-print">
