@@ -66,7 +66,7 @@ class QuestionSelector(models.Model):
 
 	sheet_id = fields.Many2one('liveexam.question_sheet',string="Question sheet")
 	number = fields.Integer(string='Number of question')
-	score = fields.Integer(string='Question score')
+	score = fields.Float(string='Question score')
 	group_id = fields.Many2one('res.groups',string="Question category")
 	include_sub_group = fields.Boolean(string='Include sub-group', default=True)
 	level = fields.Selection(
