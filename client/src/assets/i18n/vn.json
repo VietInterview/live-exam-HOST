@@ -278,6 +278,10 @@
 	"Print": "In",
 	"Print answer": "In phiếu trả lời",
 	"Are you sure to start ?": "Bạn có chắc chắn muốn thi?",
+	"Exam Name": "Tên kỳ thi",
+	"Name Member": "Tên học viên",
+	"Exam Date": "Ngày thi",
+	"Exam Code": "Mã đề",
 	"Exam start time is required": "Thời gian bắt đầu kì thi là bắt buộc",
 	"Exam end time is required": "Thời gian kết thúc kì thi là bắt buộc"
 }
