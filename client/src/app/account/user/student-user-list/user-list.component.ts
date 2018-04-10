@@ -33,6 +33,7 @@ export class StudentUserListComponent extends BaseComponent {
     filterGroups: Group[];
     selectedGroupNodes: TreeNode[];
     treeUtils: TreeUtils;
+    selectedNode: TreeNode;
 
     constructor() {
         super();
@@ -41,7 +42,7 @@ export class StudentUserListComponent extends BaseComponent {
     }
 
     ngOnInit() {
-        Group.listByCategory(this,GROUP_CATEGORY.USER).subscribe(groups => {
+        Group.listByCategory(this, GROUP_CATEGORY.USER).subscribe(groups => {
             this.tree = this.treeUtils.buildTree(groups);
         });
         this.loadUsers();
@@ -83,16 +84,26 @@ export class StudentUserListComponent extends BaseComponent {
 
     import() {
         this.userImportDialog.show();
-        this.userImportDialog.onImportComplete.subscribe(()=> {
+        this.userImportDialog.onImportComplete.subscribe(() => {
             this.loadUsers();
         });
     }
 
     loadUsers() {
-        User.listStudent(this).subscribe(users => {
-            this.users = users;
-        });
+        if (this.selectedNode) {
+            User.listByClass(this, this.selectedNode.data.id).subscribe(users => {
+                this.users = users;
+                console.log(this.selectedNode);
+            });
+        }
+        else
+            User.listStudent(this).subscribe(users => {
+                this.users = users;
+            });
     }
 
+    nodeSelect(event:any) {
+        this.loadUsers();
+    }
 
 }

@@ -11,17 +11,17 @@
               <p-header>{{QUESTION_LEVEL[level]|translate}}</p-header>
               <div class="ui-g-12" style="margin-bottom: 10px;">
                 <label>{{'Group'|translate}}</label>
-                <p-tree [value]="tree[level]" selectionMode="single" [(selection)]="selectedNode[level]" (onNodeSelect)="nodeSelect($event,level)"></p-tree>
+                <p-tree [value]="tree[level]" selectionMode="checkbox" [(selection)]="selectedNodes[level]" (onNodeSelect)="nodeSelect($event,level)"></p-tree>
               </div>
               <div class="ui-g-6">
                 <span class="md-inputfield">
-                <input type="text" pInputText [(ngModel)]="selector[level].number" name="number" pKeyFilter="pint" [disabled]="sheet.finalized">
+                <input type="text" pInputText [(ngModel)]="selectorGroups[level].number" name="number" pKeyFilter="pint" [disabled]="sheet.finalized">
                 <label>{{'Number of question'|translate}}</label>
                 </span>
               </div>
               <div class="ui-g-6">
                 <span class="md-inputfield">
-                <input type="text" pInputText [(ngModel)]="selector[level].score" name="number" pKeyFilter="num" [disabled]="sheet.finalized">
+                <input type="text" pInputText [(ngModel)]="selectorGroups[level].score" name="number" pKeyFilter="num" [disabled]="sheet.finalized">
                 <label>{{'Question score'|translate}}</label>
                 </span>
               </div>
@@ -98,7 +98,6 @@
     </p-tabView>
   </p-scrollPanel>
   <p-footer>
-    <button type="button" pButton icon="fa-check" label="{{'Finalize'|translate}}" (click)="saveAndFinalize()" [disabled]="sheet.finalized"></button>
     <button type="button" pButton icon="fa-check" label="{{'Save'|translate}}" (click)="save()"></button>
     <button type="button" pButton icon="fa-close" (click)="hide()" label="{{'Close'|translate}}"></button>
   </p-footer>
