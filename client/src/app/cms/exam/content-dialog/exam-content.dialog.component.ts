@@ -72,8 +72,8 @@ export class ExamContentDialog extends BaseComponent {
 
 	nodeSelect(event: any, level) {
 		this.selectorGroups[level]["group_ids"] = _.map(this.selectedNodes[level], (nodes=> {
-			return _.map(nodes, (node=> {
-				return node.data.id;
+			return _.map(nodes, ((node:any) => {
+				return node["data"].id;
 			}));
 		}));
 	}
@@ -177,16 +177,16 @@ export class ExamContentDialog extends BaseComponent {
 			subscriptions.push(grade.save(this));
 		});
 		_.each(QUESTION_LEVEL, (val, key)=> {
-			var delSelectors = _.find(this.selectors, (sel=> {
+			let delSelectors:any = _.find(this.selectors, ((sel: QuestionSelector) => {
 				return sel.level == key && !_.contains(this.selectorGroups[key]["group_ids"], sel.group_id);
 			}));
-			_.each(delSelectors, (sel:QuestionSelector)=> {
+			_.each(delSelectors, ((sel:QuestionSelector)=> {
 				subscriptions.push(sel.delete(this));
-			});
-			var updateSelectors = _.find(this.selectors, (sel=> {
+			}));
+			let updateSelectors:any = _.find(this.selectors, ((sel: QuestionSelector) => {
 				return sel.level == key && _.contains(this.selectorGroups[key]["group_ids"], sel.group_id);
 			}));
-			_.each(updateSelectors, (sel=> {
+			_.each(updateSelectors, ((sel:QuestionSelector)=> {
 				sel.sheet_id = this.sheet.id;
 				sel.number =  this.selectorGroups[key]["number"];
 				sel.score =  this.selectorGroups[key]["score"];
@@ -195,7 +195,7 @@ export class ExamContentDialog extends BaseComponent {
 			}));
 			var addSelectors = [];
 			_.each(this.selectorGroups[key]["group_ids"], (group_id=> {
-				var sel = _.find(this.selectors, (sel=> {
+				var sel = _.find(this.selectors, ((sel:QuestionSelector) => {
 					return sel.level == key && sel.group_id == group_id;
 				}));
 				if (!sel) {
