@@ -30,7 +30,7 @@ export class DashboardComponent extends BaseComponent implements OnInit{
 
     @ViewChild(ExamDialog) examDialog: ExamDialog;
 
-    constructor(private eventManager: HomeEventManager) {
+    constructor() {
         super();
         this.header = {
             left: 'prev, today, next',

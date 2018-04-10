@@ -49,7 +49,7 @@
     <p-fieldset legend="{{'Options'|translate}}">
       <ul class="options-question">
         <li *ngFor="let option of options">
-          <p-radioButton [(ngModel)]="answer.option_id" inputId="{{option.id}}" value="{{option.id}}" name="option_answer" label="{{option.content}}"
+          <p-radioButton [(ngModel)]="answer.option_id" inputId="{{option.id}}" value="{{option.id}}" name="option_answer{{question.id}}" label="{{option.content}}"
             [disabled]="true"></p-radioButton>
           <i class="material-icons" *ngIf="answer.is_correct">done</i>
         </li>

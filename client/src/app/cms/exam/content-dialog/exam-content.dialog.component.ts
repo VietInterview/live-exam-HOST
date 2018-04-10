@@ -26,8 +26,9 @@ export class ExamContentDialog extends BaseComponent {
 
 	display: boolean;
 	tree: any;
-	selector:any;
-	selectedNode: any;
+	selectors:any;
+	selectorGroups:any;
+	selectedNodes: any;
 	exam: Exam;
 	sheet: QuestionSheet;
 	grades: ExamGrade[];
@@ -50,8 +51,9 @@ export class ExamContentDialog extends BaseComponent {
 		this.examQuestions = [];
 		this.exam = new Exam();
 		this.tree = {};
-		this.selector = {};
-		this.selectedNode = {};
+		this.selectors = [];
+		this.selectorGroups = {};
+		this.selectedNodes = {};
 		this.examStatus = _.map(EXAM_STATUS, (val, key)=> {
             return {
                 label: this.translateService.instant(val),
@@ -59,20 +61,21 @@ export class ExamContentDialog extends BaseComponent {
             }
         });
         _.each(QUESTION_LEVEL, (val, key)=> {
-        	this.selector[key] =  new QuestionSelector();
-        	this.selector[key].level = key;
-        	this.selector[key].include_sub_group = true;
-        	Group.listByCategory(this,GROUP_CATEGORY.QUESTION).subscribe(groups => {
-	            this.tree[key] = this.treeUtils.buildTree(groups);
-	        });
-        	this.selectedNode[key] =  {};
+        	this.selectorGroups[key] = {};
+        	this.selectorGroups[key]["number"] = 0;
+        	this.selectorGroups[key]["score"] = 0;
+        	this.selectorGroups[key]["include_sub_group"] = true;
+        	this.selectorGroups[key]["group_ids"] = [];
+        	this.selectedNodes[key] =  [];
         });
 	}
 
 	nodeSelect(event: any, level) {
-		if (this.selectedNode[level]) {
-			this.selector[level].group_id = this.selectedNode[level].data.id;
-		}
+		this.selectorGroups[level]["group_ids"] = _.map(this.selectedNodes[level], (nodes=> {
+			return _.map(nodes, (node=> {
+				return node.data.id;
+			}));
+		}));
 	}
 
 	createExamQuestionFromQuestionBank(questions: Question[], score):Observable<any> {
@@ -84,7 +87,6 @@ export class ExamContentDialog extends BaseComponent {
 			return examQuestion.save(this);
 		});
 		return Observable.zip(...createSubscriptions).flatMap(objArr => {
-			console.log(objArr);
 			var examQuestionIds = _.pluck(objArr, 'id');
 			return ExamQuestion.array(this, examQuestionIds);
 		});
@@ -95,7 +97,7 @@ export class ExamContentDialog extends BaseComponent {
 		this.sheet.save(this).subscribe(()=> {
 			this.examQuestions = [];
 			var subscriptions =[];
-			_.each(this.selector, (sel:QuestionSelector)=> {
+			_.each(this.selectors, (sel:QuestionSelector)=> {
 				if (sel.group_id) {
 					var selectedGroups = this.treeUtils.getSubGroup(this.groups, sel.group_id);
 					var groupIds = _.pluck(selectedGroups, 'id');
@@ -117,12 +119,6 @@ export class ExamContentDialog extends BaseComponent {
 		});
 	}
 
-	saveAndFinalize() {
-		this.sheet.save(this).subscribe(()=> {
-			this.save();
-		});
-	}
-
 	show(exam: Exam) {
 		this.initControl();
 		this.display = true;
@@ -140,22 +136,33 @@ export class ExamContentDialog extends BaseComponent {
 				Group.listByCategory(this, GROUP_CATEGORY.QUESTION).subscribe(groups => {
 					this.groups = groups;
 					QuestionSelector.listBySheet(this, this.sheet.id).subscribe(selectors=> {
+						this.selectors = selectors;
 						_.each(selectors, (sel)=> {
-							this.selector[sel.level] = sel;
-								this.tree[sel.level] = this.treeUtils.buildTree(groups);
-								if (sel.group_id) {
-									this.selectedNode[sel.level] = this.treeUtils.findTreeNode(this.tree[sel.level], sel.group_id);
-								}
-								if (sheet.finalized)
-									this.treeUtils.disableTree(this.tree[sel.level]);
-							});
+							this.selectorGroups[sel.level]["number"] = sel.number;
+        					this.selectorGroups[sel.level]["score"] = sel.score;
+        					this.selectorGroups[sel.level]["include_sub_group"] = sel.include_sub_group;
+        					if (sel.group_id)
+        						this.selectorGroups[sel.level]["group_ids"].push(sel.group_id);
 						});
+						_.each(QUESTION_LEVEL, (val, key)=> {
+							this.tree[key] = this.treeUtils.buildTree(groups);
+							if (sheet.finalized) 
+								this.treeUtils.disableTree(this.tree[key]);
+							this.selectedNodes[key] = _.map(this.selectorGroups[key]["group_ids"], (group_id=> {
+								return this.treeUtils.findTreeNode(this.tree[key], group_id);
+							}));
+							console.log(this.selectedNodes[key] , key);
+						});
+					});
 				});
 				
 			}
 			else {
 				this.sheet = new QuestionSheet();
 				this.sheet.exam_id = exam.id;
+				this.sheet.save(this).subscribe(sheet=> {
+					this.sheet = sheet;
+				});
 			}
 		});
 	}
@@ -169,9 +176,37 @@ export class ExamContentDialog extends BaseComponent {
 		_.each(this.grades, (grade:ExamGrade)=> {
 			subscriptions.push(grade.save(this));
 		});
-		_.each(this.selector, (sel:QuestionSelector)=> {
-			sel.sheet_id = this.sheet.id;
-			subscriptions.push(sel.save(this));
+		_.each(QUESTION_LEVEL, (val, key)=> {
+			var delSelectors = _.find(this.selectors, (sel=> {
+				return sel.level == key && !_.contains(this.selectorGroups[key]["group_ids"], sel.group_id);
+			}));
+			_.each(delSelectors, (sel:QuestionSelector)=> {
+				subscriptions.push(sel.delete(this));
+			});
+			var updateSelectors = _.find(this.selectors, (sel=> {
+				return sel.level == key && _.contains(this.selectorGroups[key]["group_ids"], sel.group_id);
+			}));
+			_.each(updateSelectors, (sel=> {
+				sel.sheet_id = this.sheet.id;
+				sel.number =  this.selectorGroups[key]["number"];
+				sel.score =  this.selectorGroups[key]["score"];
+				sel.include_sub_group = this.selectorGroups[key]["include_sub_group"];		
+				subscriptions.push(sel.save(this));
+			}));
+			var addSelectors = [];
+			_.each(this.selectorGroups[key]["group_ids"], (group_id=> {
+				var sel = _.find(this.selectors, (sel=> {
+					return sel.level == key && sel.group_id == group_id;
+				}));
+				if (!sel) {
+					var newSel = new QuestionSelector();
+					newSel.sheet_id = this.sheet.id;
+					newSel.number =  this.selectorGroups[key]["number"];
+					newSel.score =  this.selectorGroups[key]["score"];
+					newSel.include_sub_group = this.selectorGroups[key]["include_sub_group"];
+					subscriptions.push(newSel.save(this));
+				}
+			}));
 		});
 		return Observable.forkJoin(...subscriptions).subscribe(() => {
 			this.hide();

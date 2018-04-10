@@ -31,13 +31,17 @@ export class SingleChoiceQuestionComponent extends BaseComponent implements IQue
 		this.options = [];
 	}
 
-	render(question, answer?) {
+	render(question, answer?, params?) {
 		this.question = question;
 		this.answer =  answer;
 		if (this.question.id)
 			QuestionOption.listByQuestion(this, question.id).subscribe((options: QuestionOption[]) => {
-				if (this.mode=='study')
-					this.options = _.shuffle(options);
+				if (this.mode=='study' && params && params['seed']) {
+					this.options = _.map(options, (opt, order)=> {
+						var index = +params['seed'] + order;
+						return options[index];
+					});
+				}
 				else
 					this.options = options;
 			});

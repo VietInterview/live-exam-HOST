@@ -193,7 +193,7 @@ export class ExamStudyDialog extends BaseComponent {
 					viewContainerRef.clear();
 					this.componentRef = viewContainerRef.createComponent(componentFactory);
 					(<IQuestion>this.componentRef.instance).mode = 'study';
-					(<IQuestion>this.componentRef.instance).render(question, this.currentAnswer);
+					(<IQuestion>this.componentRef.instance).render(question, this.currentAnswer, {seed:this.member.id});
 					this.updateProgress();
 				}
 			});

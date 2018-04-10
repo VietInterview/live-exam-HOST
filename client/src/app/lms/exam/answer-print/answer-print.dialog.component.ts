@@ -49,6 +49,8 @@ export class AnswerPrintDialog extends BaseComponent {
 
     show(exam: Exam, member: ExamMember) {
         this.display = true;
+        this.examQuestions = [];
+        this.answers = [];
         this.exam = exam;
         this.member = member;
         this.qIndex = 0;
@@ -76,7 +78,7 @@ export class AnswerPrintDialog extends BaseComponent {
             ExamQuestion.listBySheet(this, sheet.id).map(examQuestions => {
                 var offset = this.member.id;
                 return _.map(examQuestions, (obj, order)=> {
-                    var index = (offset + sheet.seed*order)%examQuestions.length;
+                    var index = (offset + sheet.seed+order)%examQuestions.length;
                     return examQuestions[index];
                 });
             }).subscribe(examQuestions => {
@@ -116,7 +118,7 @@ export class AnswerPrintDialog extends BaseComponent {
                     viewContainerRef.clear();
                     var componentRef = viewContainerRef.createComponent(componentFactory);
                     (<IQuestion>componentRef.instance).mode = 'review';
-                    (<IQuestion>componentRef.instance).render(question,answer);
+                    (<IQuestion>componentRef.instance).render(question,answer, {seed:this.member.id});
                 }
             });
             
