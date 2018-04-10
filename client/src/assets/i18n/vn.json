@@ -286,5 +286,14 @@
 	"Note": "Ghi chú",
 	"Student list": "Danh sách sinh viên",
 	"Supervisory 1": "Giám thị 1",
-	"Supervisory 2": "Giám thị 2"
+	"Supervisory 2": "Giám thị 2",
+	"Confirm paper": "Giấy xác nhận",
+	"Exam Name": "Tên kì thi",
+	"Name Member": "Tên thí sinh",
+	"Exam Date": "Ngày thi",
+	"Exam Code": "Mã kì thi",
+	"Total question": "Tổng số câu hỏi",
+	"Total attempt": "Tổng số câu hỏi đã trả lời",
+	"Total unattempt": "Tổng số câu hỏi chưa trả lời",
+	"Are you sure to submit ?": "Bạn có chắc chắn muốn nộp bài"
 }

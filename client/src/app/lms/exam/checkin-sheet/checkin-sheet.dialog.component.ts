@@ -63,7 +63,7 @@ export class CheckinSheetDialog extends BaseComponent {
                 <style>
                   //........Customized style.......
                     .a{}
-                    .header{
+                    .header, .p-sign, .sup{
                         text-align: center;
                         font-weight: bold; 
                         margin-bottom: 10px;
@@ -73,7 +73,7 @@ export class CheckinSheetDialog extends BaseComponent {
                         margin: 0;
                     }
 
-                    .name-c{
+                    .name-c, .p-sign{
                         float: left;
                         width: 50%;
                     }
@@ -82,7 +82,7 @@ export class CheckinSheetDialog extends BaseComponent {
 
                     }
 
-                    .name-c, name-e{
+                    .name-c, .name-e{
                         text-align: center; 
                         text-transform: uppercase; 
                         font-weight: bold; 
@@ -90,12 +90,11 @@ export class CheckinSheetDialog extends BaseComponent {
                     }
 
                     .date{
-                        margin-right: 50px;
+                        text-align: right;
                     }
 
                     .date span{
                         font-style: italic;
-                        text-align: right;
                     }
 
                     .label{
@@ -105,14 +104,10 @@ export class CheckinSheetDialog extends BaseComponent {
                     .title{
                         font-weight: bold;
                         float: left;
-                        margin-right:40px;
-                    }
-
-                    .center{
-                        text-align: center;
+                        margin-right:70px;
                     }
                     
-                    table {
+                    table{
                         width: 100%;
                         margin-top: 20px;
                         border-collapse: collapse;
@@ -124,6 +119,16 @@ export class CheckinSheetDialog extends BaseComponent {
 
                     .total{
                         display: none;
+                    }
+
+                    .t-sign{
+                        float: right;
+                        width: 50%;
+                        text-align: center;
+                    }
+
+                    .sign1{
+                        padding-right: 100px;
                     }
                 </style>
             </head>

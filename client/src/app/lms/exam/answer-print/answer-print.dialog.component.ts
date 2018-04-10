@@ -25,7 +25,6 @@ import 'rxjs/add/observable/timer'; import * as _ from 'underscore';
     styleUrls: ['answer-print.dialog.component.css'],
 })
 export class AnswerPrintDialog extends BaseComponent {
-
     display: boolean;
     qIndex: number;
     examQuestions: ExamQuestion[];
@@ -49,6 +48,7 @@ export class AnswerPrintDialog extends BaseComponent {
     }
 
     show(exam: Exam, member: ExamMember) {
+        this.company = this.cacheService.UserCompany;
         this.display = true;
         this.exam = exam;
         this.member = member;
@@ -175,6 +175,10 @@ export class AnswerPrintDialog extends BaseComponent {
                         margin-top: -10px;
                     }
                     
+                    .f-print ul{
+                        padding-left: 10px;
+                    }
+
                     .l-question{
                         padding-bottom: 0;
                         margin-bottom: 0;
@@ -182,6 +186,20 @@ export class AnswerPrintDialog extends BaseComponent {
 
                     .l-question li{
                         list-style-type: decimal;
+                    }
+
+                    .bold{
+                        font-weight: bold;
+                    }
+
+                    .student{
+                        float: left;
+                        margin-right:100px;
+                    }
+
+                    .radio{
+                        float: left;
+                        padding-right: 5px;
                     }
                 </style>
             </head>
@@ -193,6 +211,4 @@ export class AnswerPrintDialog extends BaseComponent {
 }
 
 
-
-}
 
