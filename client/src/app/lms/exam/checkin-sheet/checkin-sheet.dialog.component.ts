@@ -19,6 +19,7 @@ import 'rxjs/add/observable/timer'; import * as _ from 'underscore';
     moduleId: module.id,
     selector: 'checkin-sheet-dialog',
     templateUrl: 'checkin-sheet.dialog.component.html',
+    styleUrls: ['checkin-sheet.dialog.component.css'],
 })
 export class CheckinSheetDialog extends BaseComponent {
 
@@ -61,9 +62,24 @@ export class CheckinSheetDialog extends BaseComponent {
                 <title>Exam paper</title>
                 <style>
                   //........Customized style.......
-                    .header{}
-                    .name-c{
+                    .a{}
+                    .header, .p-sign, .sup{
+                        text-align: center;
+                        font-weight: bold; 
+                        margin-bottom: 10px;
+                    }
+
+                    .header p{
+                        margin: 0;
+                    }
+
+                    .name-c, .p-sign{
                         float: left;
+                        width: 50%;
+                    }
+
+                    .name-e{
+
                     }
 
                     .name-c, .name-e{
@@ -72,31 +88,47 @@ export class CheckinSheetDialog extends BaseComponent {
                         font-weight: bold; 
                         margin-bottom: 10px; 
                     }
-                    
+
+                    .date{
+                        text-align: right;
+                    }
+
+                    .date span{
+                        font-style: italic;
+                    }
+
                     .label{
-                        float: left;
-                        font-weight: bold;
-                        
+                        float: left;    
                     }
 
                     .title{
-                        text-transform: uppercase;
+                        font-weight: bold;
                         float: left;
-                        margin-right:40px;
-                    }
-
-                    .f-print{
-                        border:none;
-                        padding-top: 0;
+                        margin-right:70px;
                     }
                     
-                    .l-question{
-                        padding-bottom: 0;
-                        margin-bottom: 0;
+                    table{
+                        width: 100%;
+                        margin-top: 20px;
+                        border-collapse: collapse;
                     }
 
-                    .l-question li{
-                        list-style-type: decimal;
+                    table tr, th, td{
+                        border: 1px solid black;
+                    }
+
+                    .total{
+                        display: none;
+                    }
+
+                    .t-sign{
+                        float: right;
+                        width: 50%;
+                        text-align: center;
+                    }
+
+                    .sign1{
+                        padding-right: 100px;
                     }
                 </style>
             </head>

@@ -1,13 +1,17 @@
-.name{
+.name-c, .name-e{
 	text-align: center;
 	text-transform: uppercase;
 	font-weight: bold;
 }
 
-.label{
+.label, .bold{
 	font-weight: bold;
 }
 
 .title{
 	text-transform: uppercase;
+}
+
+.ins{
+    text-indent: 50px;
 }

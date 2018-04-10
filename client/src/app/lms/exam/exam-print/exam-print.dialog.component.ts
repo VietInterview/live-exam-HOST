@@ -25,7 +25,6 @@ import { QuestionSheet } from '../../../shared/models/question-sheet.model';
     styleUrls: ['exam-print.dialog.component.css'],
 })
 export class ExamPrintDialog extends BaseComponent {
-
     display: boolean;
     exam: Exam;
     examQuestions: ExamQuestion[];

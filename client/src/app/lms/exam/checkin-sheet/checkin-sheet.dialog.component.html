@@ -1,48 +1,64 @@
-<p-dialog header="{{'Exam paper'|translate}}" [(visible)]="display" modal="true" width="960"  [responsive]="true">
+<p-dialog header="{{'Confirm paper'|translate}}" [(visible)]="display" modal="true" width="960"  [responsive]="true">
   <p-scrollPanel [style]="{width: '100%', height: '460px'}">
     <div class="ui-g" #printSection>
         <div class="ui-g-6 name-c">
           <span>{{company.name}}</span>
         </div>
-        <div class="ui-g-6 name-e">
-          <span>{{exam.name}}</span>
+        <div class="ui-g-6 header">
+          <p>Cộng hòa xã hội chủ nghĩa Việt Nam</p>
+          <p>Độc lập - Tự do - Hạnh phúc</p>
         </div>
-        <div class="ui-g-4">
-          <span class="label">{{'Subject'|translate}}:</span> <span class="title"> {{exam.subject}}</span>
+        <div class="ui-g-12 date">
+          <span>Bắc Ninh, Ngày &emsp; Tháng &emsp; Năm &emsp; </span>
         </div>
-        <div class="ui-g-4">
-          <span class="label">{{'Degree'|translate}}:</span> <span class="title"> {{exam.degree}}</span>
+        <div class="ui-g-12 name-e">
+          <span>{{'Student list'|translate}}</span>
         </div>
-        <div class="ui-g-4">
-          <span class="label">{{'Code'|translate}}:</span> <span class="title"> {{exam.code}}</span>
+        <div class="ui-g-4 center">
+          <span class="label">{{'Subject'|translate}}:&nbsp;</span> <span class="title"> {{exam.subject}}</span>
+        </div>
+        <div class="ui-g-4 center">
+          <span class="label">{{'Degree'|translate}}:&nbsp;</span> <span class="title"> {{exam.degree}}</span>
+        </div>
+        <div class="ui-g-4 center">
+          <span class="label">{{'Date'|translate}}:&nbsp;</span> <span class="title"> {{exam.start | date : "dd/MM/yyyy"}}</span>
         </div>
         <div class="ui-g-12">
-          <span class="label">{{'Duration'|translate}}:</span> <span> {{exam.duration}} {{'minutes'|translate}}</span>
+          <p-table #memberTable [value]="members" [responsive]="true">
+            <ng-template pTemplate="header">
+                <tr>
+                  <th>TT</th>
+                  <th [pSortableColumn]="'name'">
+                      {{'Name'|translate}}
+                      <p-sortIcon [field]="'name'"></p-sortIcon>
+                  </th>
+                  <th>{{'Code'|translate}}</th>
+                  <th>{{'Signature'|translate}}</th>
+                  <th>{{'Note'|translate }}</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-member let-rowIndex="rowIndex">
+                <tr [pSelectableRow]="question">
+                  <td style="text-align: center;">{{rowIndex+1}}</td>
+                  <td style="text-align: left;">{{member.name}}</td>
+                  <td>{{exam.code}}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+              <div class="total">{{'Total members'|translate}} : {{members?.length}}</div>
+            </ng-template>
+          </p-table>
         </div>
-        <div class="ui-g-12">
-        <p-table #memberTable [value]="members">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th [pSortableColumn]="'name'">
-                            {{'Name'|translate}}
-                            <p-sortIcon [field]="'name'"></p-sortIcon>
-                        </th>
-                        <th >
-                          {{'Signature'|translate}}
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-member>
-                    <tr [pSelectableRow]="question">
-                        <td style="text-align: left;">{{member.name}}</td>
-                        <td></td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="summary">
-                    {{'Total members'|translate}} : {{members?.length}}
-                </ng-template>
-            </p-table>
-      </div>
+        <div class="ui-g-6 p-sign">
+          <p>Phòng KT &amp; KĐCL</p>
+        </div>
+        <div class="ui-g-6 t-sign">
+          <p class="sup">Giám thị</p>
+          <p>Kí ghi rõ họ tên</p>
+          <p><span class="sign1">Số 1</span><span>Số 2</span></p>
+        </div>
     </div>
   </p-scrollPanel>
   <p-footer>

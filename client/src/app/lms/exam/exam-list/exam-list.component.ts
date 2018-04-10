@@ -12,7 +12,7 @@ import { Group } from '../../../shared/models/group.model';
 import { Submission } from '../../../shared/models/submission.model';
 import { SelectItem } from 'primeng/api';
 import { ExamContentDialog } from '../../../cms/exam/content-dialog/exam-content.dialog.component';
-import { ExamStudyDialog} from '../exam-study/exam-study.dialog.component';
+import { ExamStudyDialog } from '../exam-study/exam-study.dialog.component';
 import { ExamScoreDialog } from '../exam-score/exam-score.dialog.component';
 import { ExamPrintDialog } from '../exam-print/exam-print.dialog.component';
 import { QuestionSheet } from '../../../shared/models/question-sheet.model';
@@ -29,11 +29,11 @@ export class ExamListComponent extends BaseComponent implements OnInit {
 
     exams: Exam[];
     EXAM_STATUS = EXAM_STATUS;
-    @ViewChild(ExamContentDialog) examContentDialog:ExamContentDialog;
-    @ViewChild(ExamStudyDialog) examStudyDialog:ExamStudyDialog;
-    @ViewChild(ExamScoreDialog) scoreDialog:ExamScoreDialog;
-    @ViewChild(ExamPrintDialog) printDialog:ExamPrintDialog;
-    @ViewChild(CheckinSheetDialog) checkinDialog:CheckinSheetDialog;
+    @ViewChild(ExamContentDialog) examContentDialog: ExamContentDialog;
+    @ViewChild(ExamStudyDialog) examStudyDialog: ExamStudyDialog;
+    @ViewChild(ExamScoreDialog) scoreDialog: ExamScoreDialog;
+    @ViewChild(ExamPrintDialog) printDialog: ExamPrintDialog;
+    @ViewChild(CheckinSheetDialog) checkinDialog: CheckinSheetDialog;
 
     constructor() {
         super();
@@ -45,36 +45,45 @@ export class ExamListComponent extends BaseComponent implements OnInit {
             members = _.filter(members, (member => {
                 return member.exam_id;
             }));
-            var examIds = _.pluck(members,'exam_id');
+            var examIds = _.pluck(members, 'exam_id');
             Exam.array(this, examIds)
-            .subscribe(exams => {
-                _.each(exams, (exam)=> {
-                    exam.member = _.find(members, (member:ExamMember)=> {
-                        return member.exam_id == exam.id;
+                .subscribe(exams => {
+                    _.each(exams, (exam) => {
+                        exam.member = _.find(members, (member: ExamMember) => {
+                            return member.exam_id == exam.id;
+                        });
+                        exam.member.examScore(this, exam.id).subscribe(score => {
+                            exam.member.score = score;
+                        });
+                        ExamQuestion.countByExam(this, exam.id).subscribe(count => {
+                            exam.question_count = count;
+                        });
                     });
-                    exam.member.examScore(this, exam.id).subscribe(score=> {
-                        exam.member.score = score;
+                    this.exams = _.filter(exams, (exam) => {
+                        return exam.member.role == 'teacher' || (exam.member.role == 'student' && exam.status == 'published' && exam.mode == 'online');
                     });
-                    ExamQuestion.countByExam(this, exam.id).subscribe(count => {
-                        exam.question_count = count;
+
+                    this.exams.sort((exam1, exam2): any => {
+                        if (exam1.create_date > exam2.create_date) 
+                            return -1;
+                        else if (exam1.create_date < exam2.create_date)
+                            return 1;
+                        else   
+                            return 0;
                     });
                 });
-                this.exams = _.filter(exams, (exam)=> {
-                     return exam.member.role=='teacher' || (exam.member.role=='student' && exam.status == 'published'  && exam.mode == 'online');
-                });
-            });
         });
     }
 
-    editContent(exam:Exam) {
+    editContent(exam: Exam) {
         this.examContentDialog.show(exam);
     }
 
-    viewScore(exam:Exam) {
+    viewScore(exam: Exam) {
         this.scoreDialog.show(exam);
     }
 
-    printExam(exam:Exam) {
+    printExam(exam: Exam) {
         QuestionSheet.byExam(this, exam.id).subscribe(sheet => {
             if (!sheet || !sheet.finalized) {
                 this.messageService.add({ severity: 'error', summary: 'Error', detail: this.translateService.instant('Exam not finalized.') });
@@ -84,17 +93,17 @@ export class ExamListComponent extends BaseComponent implements OnInit {
         });
     }
 
-    printCheckin(exam:Exam) {
+    printCheckin(exam: Exam) {
         this.checkinDialog.show(exam);
     }
 
-    startExam(exam:Exam, member: ExamMember) {
+    startExam(exam: Exam, member: ExamMember) {
         this.confirmationService.confirm({
-                message: this.translateService.instant('Are you sure to start ?'),
-                accept: () => {
-                    this.examStudyDialog.show(exam, member);
-                }
-            });
-        
+            message: this.translateService.instant('Are you sure to start ?'),
+            accept: () => {
+                this.examStudyDialog.show(exam, member);
+            }
+        });
+
     }
 }

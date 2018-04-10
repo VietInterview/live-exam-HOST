@@ -283,5 +283,21 @@
 	"Exam Date": "Ngày thi",
 	"Exam Code": "Mã đề",
 	"Exam start time is required": "Thời gian bắt đầu kì thi là bắt buộc",
-	"Exam end time is required": "Thời gian kết thúc kì thi là bắt buộc"
+	"Exam end time is required": "Thời gian kết thúc kì thi là bắt buộc",
+	"Print check-in": "In danh sách",
+	"Print exam paper": "In đề thi",
+	"Signature": "Chữ ký",
+	"Note": "Ghi chú",
+	"Student list": "Danh sách sinh viên",
+	"Supervisory 1": "Giám thị 1",
+	"Supervisory 2": "Giám thị 2",
+	"Confirm paper": "Giấy xác nhận",
+	"Exam Name": "Tên kì thi",
+	"Name Member": "Tên thí sinh",
+	"Exam Date": "Ngày thi",
+	"Exam Code": "Mã kì thi",
+	"Total question": "Tổng số câu hỏi",
+	"Total attempt": "Tổng số câu hỏi đã trả lời",
+	"Total unattempt": "Tổng số câu hỏi chưa trả lời",
+	"Are you sure to submit ?": "Bạn có chắc chắn muốn nộp bài"
 }
