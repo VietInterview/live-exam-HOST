@@ -53,8 +53,8 @@
                 <button pButton type="button" icon="ui-icon-arrow-forward" title="{{'Join'| translate}}" label="{{'Join'|translate}}" class=" green-btn" (click)="startExam(exam, exam.member)" *ngIf="exam.member.role=='student'" [disabled]="!exam.IsAvailable || exam.member.enroll_status=='completed'"></button>
                 <button pButton type="button" icon="ui-icon-edit" title="{{'Edit content'| translate}}" label="{{'Edit content'|translate}}" class=" purple-btn" (click)="editContent(exam)" *ngIf="exam.member.role=='teacher'"></button>
                 <button pButton type="button" icon="ui-icon-timeline" title="{{'Result'| translate}}" label="{{'Result'|translate}}" class="orange-btn" *ngIf="exam.member.role=='teacher'" (click)="viewScore(exam)"></button>
-                <button pButton type="button" icon="ui-icon-print" title="{{'Print exam paper'| translate}}" label="{{'Print exam paper'|translate}}" class="purple-btn" *ngIf="exam.member.role=='teacher'" (click)="printExam(exam)"></button>
-                <button pButton type="button" icon="ui-icon-print" title="{{'Print check-in'| translate}}" label="{{'Print check-in'|translate}}" class="purple-btn" *ngIf="exam.member.role=='teacher'" (click)="printCheckin(exam)"></button>
+                <button pButton type="button" icon="ui-icon-print" title="{{'Print exam paper'| translate}}" label="{{'Print exam paper'|translate}}" class="indigo-btn" *ngIf="exam.member.role=='teacher'" (click)="printExam(exam)"></button>
+                <button pButton type="button" icon="ui-icon-print" title="{{'Print check-in'| translate}}" label="{{'Print check-in'|translate}}" class="indigo-btn" *ngIf="exam.member.role=='teacher'" (click)="printCheckin(exam)"></button>
               </p-footer>
             </p-card>
           </div>
