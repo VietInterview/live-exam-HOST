@@ -26,7 +26,7 @@ export class ExamListComponent extends BaseComponent {
     exams: Exam[];
     events: any[];
     header: any;
-    EXAM_STATUS =  EXAM_STATUS;
+    EXAM_STATUS = EXAM_STATUS;
 
     constructor() {
         super();
@@ -79,7 +79,8 @@ export class ExamListComponent extends BaseComponent {
     loadExams() {
         Exam.all(this).subscribe(exams => {
             this.exams = exams;
-            this.events = _.map(exams, (exam)=> {
+
+            this.events = _.map(exams, (exam) => {
                 return {
                     title: exam.name,
                     start: exam.start,
@@ -87,6 +88,15 @@ export class ExamListComponent extends BaseComponent {
                     id: exam.id,
                     allDay: true
                 }
+            });
+
+            this.exams.sort((exam1, exam2): any => {
+                if (exam1.create_date > exam2.create_date)
+                    return -1;
+                else if (exam1.create_date < exam2.create_date)
+                    return 1;
+                else
+                    return 0;
             });
         });
     }
