@@ -157,3 +157,7 @@ body .ui-fieldset.f-print .ui-fieldset-legend{
 .card-exam .ui-button{
   margin-bottom: 5px;
 }
+
+.table-content{
+  margin-bottom: 20px;
+}
