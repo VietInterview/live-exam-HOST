@@ -29,7 +29,7 @@ export class OpenEndQuestionComponent extends BaseComponent implements IQuestion
 		super();
 	}
 
-	render(question, answer?) {
+	render(question, answer?,param?) {
 		this.question = question;
 		this.answer = answer;
 	}
