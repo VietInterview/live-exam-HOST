@@ -26,8 +26,8 @@ export class ExamContentDialog extends BaseComponent {
 
 	display: boolean;
 	tree: any;
-	selectors:any;
-	selectorGroups:any;
+	selectors: any;
+	selectorGroups: any;
 	selectedNodes: any;
 	exam: Exam;
 	sheet: QuestionSheet;
@@ -36,7 +36,7 @@ export class ExamContentDialog extends BaseComponent {
 	groups: Group[];
 	examStatus: SelectItem[];
 	treeUtils: TreeUtils;
-	QUESTION_LEVEL=QUESTION_LEVEL;
+	QUESTION_LEVEL = QUESTION_LEVEL;
 	totalScore: number;
 
 	constructor() {
@@ -45,7 +45,7 @@ export class ExamContentDialog extends BaseComponent {
 	}
 
 	initControl() {
-		this.treeUtils =  new TreeUtils();
+		this.treeUtils = new TreeUtils();
 		this.sheet = new QuestionSheet();
 		this.grades = [];
 		this.examQuestions = [];
@@ -54,30 +54,35 @@ export class ExamContentDialog extends BaseComponent {
 		this.selectors = [];
 		this.selectorGroups = {};
 		this.selectedNodes = {};
-		this.examStatus = _.map(EXAM_STATUS, (val, key)=> {
-            return {
-                label: this.translateService.instant(val),
-                value: key
-            }
-        });
-        _.each(QUESTION_LEVEL, (val, key)=> {
-        	this.selectorGroups[key] = {};
-        	this.selectorGroups[key]["number"] = 0;
-        	this.selectorGroups[key]["score"] = 0;
-        	this.selectorGroups[key]["include_sub_group"] = true;
-        	this.selectorGroups[key]["group_ids"] = [];
-        	this.selectedNodes[key] =  [];
-        });
+		this.examStatus = _.map(EXAM_STATUS, (val, key) => {
+			return {
+				label: this.translateService.instant(val),
+				value: key
+			}
+		});
+		_.each(QUESTION_LEVEL, (val, key) => {
+			this.selectorGroups[key] = {};
+			this.selectorGroups[key]["number"] = 0;
+			this.selectorGroups[key]["score"] = 0;
+			this.selectorGroups[key]["include_sub_group"] = true;
+			this.selectorGroups[key]["group_ids"] = [];
+			this.selectedNodes[key] = [];
+		});
 	}
 
 	nodeSelect(event: any, level) {
+<<<<<<< HEAD
 		this.selectorGroups[level]["group_ids"] = _.map(this.selectedNodes[level], (node=> {
 			return node["data"].id;
+=======
+		this.selectorGroups[level]["group_ids"] = _.map(this.selectedNodes[level], (node => {
+			return node['data']['id'];
+>>>>>>> 57d0a61ed62a3b521b6331c4aa6c25dcb9312528
 		}));
 	}
 
-	createExamQuestionFromQuestionBank(questions: Question[], score):Observable<any> {
-		var createSubscriptions = _.map(questions, (question)=> {
+	createExamQuestionFromQuestionBank(questions: Question[], score): Observable<any> {
+		var createSubscriptions = _.map(questions, (question) => {
 			var examQuestion = new ExamQuestion();
 			examQuestion.sheet_id = this.sheet.id;
 			examQuestion.question_id = question.id;
@@ -92,9 +97,8 @@ export class ExamContentDialog extends BaseComponent {
 
 	generateQuestion() {
 		this.sheet.finalized = true;
-		this.sheet.save(this).subscribe(()=> {
+		this.sheet.save(this).subscribe(() => {
 			this.examQuestions = [];
-			var subscriptions =[];
 			_.each(QUESTION_LEVEL, (val, key)=> {
 				var selectors = _.filter(this.selectors, (sel=> {
 					return sel.level == key;
@@ -115,8 +119,8 @@ export class ExamContentDialog extends BaseComponent {
 						});
 						questions = questions.slice(0, selectors[0].number);
 						this.createExamQuestionFromQuestionBank(questions, sel.score).subscribe(examQuestions => {
-							this.examQuestions =  this.examQuestions.concat(examQuestions);
-							this.totalScore =  _.reduce(examQuestions, (memo, q:ExamQuestion)=>{ return memo + +q.score; }, 0);
+							this.examQuestions = this.examQuestions.concat(examQuestions);
+							this.totalScore = _.reduce(examQuestions, (memo, q: ExamQuestion) => { return memo + +q.score; }, 0);
 						});
 					});
 			});
@@ -133,41 +137,49 @@ export class ExamContentDialog extends BaseComponent {
 		QuestionSheet.byExam(this, exam.id).subscribe(sheet => {
 			if (sheet) {
 				this.sheet = sheet;
-				ExamQuestion.listBySheet(this, this.sheet.id).subscribe(examQuestions=> {
+				ExamQuestion.listBySheet(this, this.sheet.id).subscribe(examQuestions => {
 					this.examQuestions = examQuestions;
-					this.totalScore =  _.reduce(examQuestions, (memo, q)=>{ return memo + +q.score; }, 0);
+					this.totalScore = _.reduce(examQuestions, (memo, q) => { return memo + +q.score; }, 0);
 				});
 				Group.listByCategory(this, GROUP_CATEGORY.QUESTION).subscribe(groups => {
 					this.groups = groups;
-					QuestionSelector.listBySheet(this, this.sheet.id).subscribe(selectors=> {
+					QuestionSelector.listBySheet(this, this.sheet.id).subscribe(selectors => {
 						this.selectors = selectors;
-						_.each(selectors, (sel)=> {
+						_.each(selectors, (sel) => {
 							this.selectorGroups[sel.level]["number"] = sel.number;
-        					this.selectorGroups[sel.level]["score"] = sel.score;
-        					this.selectorGroups[sel.level]["include_sub_group"] = sel.include_sub_group;
-        					if (sel.group_id)
-        						this.selectorGroups[sel.level]["group_ids"].push(sel.group_id);
+							this.selectorGroups[sel.level]["score"] = sel.score;
+							this.selectorGroups[sel.level]["include_sub_group"] = sel.include_sub_group;
+							if (sel.group_id)
+								this.selectorGroups[sel.level]["group_ids"].push(sel.group_id);
 						});
-						_.each(QUESTION_LEVEL, (val, key)=> {
+						_.each(QUESTION_LEVEL, (val, key) => {
 							this.tree[key] = this.treeUtils.buildTree(groups);
-							if (sheet.finalized) 
+							if (sheet.finalized)
 								this.treeUtils.disableTree(this.tree[key]);
-							this.selectedNodes[key] = _.map(this.selectorGroups[key]["group_ids"], (group_id=> {
+							this.selectedNodes[key] = _.map(this.selectorGroups[key]["group_ids"], (group_id => {
 								return this.treeUtils.findTreeNode(this.tree[key], group_id);
 							}));
+<<<<<<< HEAD
+=======
+							// console.log(this.selectedNodes[key], key);
+>>>>>>> 57d0a61ed62a3b521b6331c4aa6c25dcb9312528
 						});
 					});
 				});
-				
+
 			}
 			else {
 				this.sheet = new QuestionSheet();
 				this.sheet.exam_id = exam.id;
-				this.sheet.save(this).subscribe(sheet=> {
+				this.sheet.save(this).subscribe(sheet => {
 					this.sheet = sheet;
 					Group.listByCategory(this, GROUP_CATEGORY.QUESTION).subscribe(groups => {
+<<<<<<< HEAD
 						this.groups = groups;
 						_.each(QUESTION_LEVEL, (val, key)=> {
+=======
+						this.groups = groups; _.each(QUESTION_LEVEL, (val, key) => {
+>>>>>>> 57d0a61ed62a3b521b6331c4aa6c25dcb9312528
 							this.tree[key] = this.treeUtils.buildTree(groups);
 						});
 					});
@@ -182,38 +194,52 @@ export class ExamContentDialog extends BaseComponent {
 
 	save() {
 		var subscriptions = [];
-		_.each(this.grades, (grade:ExamGrade)=> {
+		_.each(this.grades, (grade: ExamGrade) => {
 			subscriptions.push(grade.save(this));
 		});
+<<<<<<< HEAD
 		_.each(QUESTION_LEVEL, (val, key)=> {
 			let delSelectors:any = _.filter(this.selectors, ((sel: QuestionSelector) => {
+=======
+		_.each(QUESTION_LEVEL, (val, key) => {
+			let delSelectors: any = _.filter(this.selectors, ((sel: QuestionSelector) => {
+>>>>>>> 57d0a61ed62a3b521b6331c4aa6c25dcb9312528
 				return sel.level == key && !_.contains(this.selectorGroups[key]["group_ids"], sel.group_id);
 			}));
-			_.each(delSelectors, ((sel:QuestionSelector)=> {
+			_.each(delSelectors, ((sel: QuestionSelector) => {
 				subscriptions.push(sel.delete(this));
 			}));
+<<<<<<< HEAD
 			let updateSelectors:any = _.filter(this.selectors, ((sel: QuestionSelector) => {
+=======
+			let updateSelectors: any = _.filter(this.selectors, ((sel: QuestionSelector) => {
+>>>>>>> 57d0a61ed62a3b521b6331c4aa6c25dcb9312528
 				return sel.level == key && _.contains(this.selectorGroups[key]["group_ids"], sel.group_id);
 			}));
-			_.each(updateSelectors, ((sel:QuestionSelector)=> {
+			_.each(updateSelectors, ((sel: QuestionSelector) => {
 				sel.sheet_id = this.sheet.id;
-				sel.number =  this.selectorGroups[key]["number"];
-				sel.score =  this.selectorGroups[key]["score"];
-				sel.include_sub_group = this.selectorGroups[key]["include_sub_group"];		
+				sel.number = this.selectorGroups[key]["number"];
+				sel.score = this.selectorGroups[key]["score"];
+				sel.include_sub_group = this.selectorGroups[key]["include_sub_group"];
 				subscriptions.push(sel.save(this));
 			}));
 			var addSelectors = [];
-			_.each(this.selectorGroups[key]["group_ids"], (group_id=> {
-				var sel = _.find(this.selectors, ((sel:QuestionSelector) => {
+			_.each(this.selectorGroups[key]["group_ids"], (group_id => {
+				var sel = _.find(this.selectors, ((sel: QuestionSelector) => {
 					return sel.level == key && sel.group_id == group_id;
 				}));
 				if (!sel) {
 					var newSel = new QuestionSelector();
+<<<<<<< HEAD
 					newSel.level = key;
 					newSel.group_id = +group_id;
+=======
+					newSel.group_id = +group_id;
+					newSel.level = key;
+>>>>>>> 57d0a61ed62a3b521b6331c4aa6c25dcb9312528
 					newSel.sheet_id = this.sheet.id;
-					newSel.number =  this.selectorGroups[key]["number"];
-					newSel.score =  this.selectorGroups[key]["score"];
+					newSel.number = this.selectorGroups[key]["number"];
+					newSel.score = this.selectorGroups[key]["score"];
 					newSel.include_sub_group = this.selectorGroups[key]["include_sub_group"];
 					subscriptions.push(newSel.save(this));
 				}
@@ -234,12 +260,12 @@ export class ExamContentDialog extends BaseComponent {
 	removeGrade(grade: ExamGrade) {
 		if (grade.id) {
 			grade.delete(this).subscribe(() => {
-				this.grades = _.reject(this.grades, (obj)=> {
+				this.grades = _.reject(this.grades, (obj) => {
 					return obj == grade;
 				});
 			})
 		} else
-			this.grades = _.reject(this.grades, (obj)=> {
+			this.grades = _.reject(this.grades, (obj) => {
 				return obj == grade;
 			});
 	}

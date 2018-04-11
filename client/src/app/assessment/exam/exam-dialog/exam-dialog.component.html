@@ -26,22 +26,20 @@
           </div>
           <div class="ui-g-6">
             <label>{{'Exam Start Date Time'|translate}}</label>
-            <p-calendar [(ngModel)]="examStartDateTime" #range="ngModel" selectionMode="single" readonlyInput="true" name="examStartDateTime"
-              required [locale]="locale" dateFormat="dd/mm/yy" showTime="true" hourFormat="24" (onSelect)="onDateSelect($event)"></p-calendar>
-              <div *ngIf="range.invalid && (range.dirty || range.touched)" 
+            <p-calendar [(ngModel)]="object.start" #start="ngModel" selectionMode="single" readonlyInput="true" name="examStartDateTime" required [locale]="locale" dateFormat="dd/mm/yy" showTime="true" hourFormat="24" (onSelect)="onDateSelect($event)"></p-calendar>
+              <div *ngIf="start.invalid && (start.dirty || start.touched)" 
               class="ui-message ui-messages-error ui-corner-all">
-                <div *ngIf="range.errors.required">
+                <div *ngIf="start.errors.required">
                   {{'Exam start time is required' | translate}}
                 </div>
               </div>
           </div>
           <div class="ui-g-6">
             <label>{{'Exam End Date Time'|translate}}</label>
-            <p-calendar [(ngModel)]="examEndDateTime" #range="ngModel" selectionMode="single" readonlyInput="true" name="examEndDateTime"
-              required [locale]="locale" dateFormat="dd/mm/yy" showTime="true" hourFormat="24" (onSelect)="onDateSelect($event)"></p-calendar>
-              <div *ngIf="range.invalid && (range.dirty || range.touched)" 
+            <p-calendar [(ngModel)]="object.end" #end="ngModel" selectionMode="single" readonlyInput="true" name="examEndDateTime" required [locale]="locale" dateFormat="dd/mm/yy" showTime="true" hourFormat="24" (onSelect)="onDateSelect($event)"></p-calendar>
+              <div *ngIf="end.invalid && (end.dirty || end.touched)" 
               class="ui-message ui-messages-error ui-corner-all">
-                <div *ngIf="range.errors.required">
+                <div *ngIf="end.errors.required">
                   {{'Exam end time is required' | translate}}
                 </div>
               </div>
