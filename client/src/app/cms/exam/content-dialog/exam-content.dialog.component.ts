@@ -91,11 +91,11 @@ export class ExamContentDialog extends BaseComponent {
 	}
 
 	generateQuestion() {
-		// this.sheet.finalized = true;
+		this.sheet.finalized = true;
 		this.sheet.save(this).subscribe(() => {
 			this.examQuestions = [];
 			_.each(QUESTION_LEVEL, (val, key)=> {
-				var selectors = _.filter(this.selectors, (sel=> {
+				var selectors = _.filter(this.selectors, ((sel:any)=> {
 					return sel.level == key;
 				}));
 				var groupIds  = [];
