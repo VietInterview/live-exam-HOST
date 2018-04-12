@@ -163,6 +163,7 @@ body .ui-fieldset.f-print .ui-fieldset-legend{
   margin-bottom: 20px;
 }
 
-.l-question{
-  margin-bottom: 20px;
+.ui-state-default{
+  border: none;
+  background: none;
 }
