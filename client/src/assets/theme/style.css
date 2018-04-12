@@ -138,6 +138,7 @@ body .ui-fieldset .ui-fieldset-legend{
 body .ui-fieldset.f-print{
   border: none;
   padding: 0;
+  margin-top: -10px;
 }
 
 body .ui-fieldset.f-print .ui-fieldset-legend{
@@ -159,5 +160,9 @@ body .ui-fieldset.f-print .ui-fieldset-legend{
 }
 
 .table-content{
+  margin-bottom: 20px;
+}
+
+.l-question{
   margin-bottom: 20px;
 }
