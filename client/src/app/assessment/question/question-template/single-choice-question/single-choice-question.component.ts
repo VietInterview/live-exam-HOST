@@ -38,7 +38,7 @@ export class SingleChoiceQuestionComponent extends BaseComponent implements IQue
 			QuestionOption.listByQuestion(this, question.id).subscribe((options: QuestionOption[]) => {
 				if (this.mode=='study' && params && params['seed']) {
 					this.options = _.map(options, (opt, order)=> {
-						var index = +params['seed'] + order;
+						var index = ( +params['seed'] + order) % options.length;
 						return options[index];
 					});
 				}

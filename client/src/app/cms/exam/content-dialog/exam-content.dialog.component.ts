@@ -71,8 +71,8 @@ export class ExamContentDialog extends BaseComponent {
 	}
 
 	nodeSelect(event: any, level) {
-		this.selectorGroups[level]["group_ids"] = _.map(this.selectedNodes[level], (node=> {
-			return node["data"].id;
+		this.selectorGroups[level]["group_ids"] = _.map(this.selectedNodes[level], (node => {
+			return node['data']['id'];
 		}));
 	}
 
@@ -95,10 +95,10 @@ export class ExamContentDialog extends BaseComponent {
 		this.sheet.save(this).subscribe(() => {
 			this.examQuestions = [];
 			_.each(QUESTION_LEVEL, (val, key)=> {
-				var selectors = _.filter(this.selectors, (sel=> {
+				var selectors = _.filter(this.selectors, ((sel:any)=> {
 					return sel.level == key;
 				}));
-				var groupsIds  = [];
+				var groupIds  = [];
 				_.each(selectors, (sel:QuestionSelector)=> {
 					if (sel.group_id) {
 						var selectedGroups = this.treeUtils.getSubGroup(this.groups, sel.group_id);
@@ -112,8 +112,9 @@ export class ExamContentDialog extends BaseComponent {
 						questions = _.filter(questions, (obj:Question)=> {
 							return obj.level == selectors[0].level;
 						});
+						var score = selectors[0].score;
 						questions = questions.slice(0, selectors[0].number);
-						this.createExamQuestionFromQuestionBank(questions, sel.score).subscribe(examQuestions => {
+						this.createExamQuestionFromQuestionBank(questions, score).subscribe(examQuestions => {
 							this.examQuestions = this.examQuestions.concat(examQuestions);
 							this.examQuestions = _.shuffle(this.examQuestions);
 							this.totalScore = _.reduce(examQuestions, (memo, q: ExamQuestion) => { return memo + +q.score; }, 0);

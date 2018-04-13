@@ -31,7 +31,7 @@
       </p-tabPanel>
       <p-tabPanel header="{{'Exam content'|translate}}">
         <button pButton type="button" label="{{'Generate question'|translate}}" class="orange-btn" icon="ui-icon-check" (click)="generateQuestion()" [disabled]="!sheet.id ||  sheet.finalized"></button>
-        <p-table #examQuestionTable [value]="examQuestions" [responsive]="true">
+        <p-table #examQuestionTable [value]="examQuestions" [responsive]="true" styleClass="table-content">
           <ng-template pTemplate="header">
             <tr>
               <th>#</th>
