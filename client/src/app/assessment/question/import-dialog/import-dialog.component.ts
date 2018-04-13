@@ -73,6 +73,7 @@ export class QuestionImportDialog extends BaseComponent {
 							option.content = optionRecord["option"];
 							options.push(option);
 						}
+						options = _.shuffle(options);
 						var subscription =  question.createWithOption(this,options);
 						subscriptions.push(subscription);
 					} 
