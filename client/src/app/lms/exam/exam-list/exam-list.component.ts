@@ -59,16 +59,18 @@ export class ExamListComponent extends BaseComponent implements OnInit {
                             exam.question_count = count;
                         });
                     });
+
+                    var currentDate = new Date();
                     this.exams = _.filter(exams, (exam) => {
-                        return exam.member.role == 'teacher' || (exam.member.role == 'student' && exam.status == 'published' && exam.mode == 'online');
+                        return exam.member.role == 'teacher' || (exam.member.role == 'student' && exam.status == 'published' && exam.mode == 'online' && exam.start < currentDate);
                     });
 
                     this.exams.sort((exam1, exam2): any => {
-                        if (exam1.create_date > exam2.create_date) 
+                        if (exam1.create_date > exam2.create_date)
                             return -1;
                         else if (exam1.create_date < exam2.create_date)
                             return 1;
-                        else   
+                        else
                             return 0;
                     });
                 });
