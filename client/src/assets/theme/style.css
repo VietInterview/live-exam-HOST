@@ -167,3 +167,7 @@ body .ui-fieldset.f-print .ui-fieldset-legend{
   border: none;
   background: none;
 }
+
+.language .ui-state-default {
+    background: #d7ebf9;
+}
