@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ComponentFactoryResolver, AnimationKeyframesSequenceMetadata } from '@angular/core';
 import { Observable, Subject } from 'rxjs/Rx';
 import { BaseComponent } from '../../../shared/components/base/base.component';
 import { APIService } from '../../../shared/services/api.service';
@@ -47,6 +47,7 @@ export class ExamStudyDialog extends BaseComponent {
 	stats: any;
 	height: number;
 	examCode: any;
+	validAnswer: number;
 
 	@ViewChild(QuestionContainerDirective) questionHost: QuestionContainerDirective;
 	componentRef: any;
@@ -68,6 +69,7 @@ export class ExamStudyDialog extends BaseComponent {
 			attempt: 0,
 			unattempt: 0
 		}
+		this.validAnswer = 0;
 	}
 
 	show(exam: Exam, member: ExamMember) {
@@ -108,7 +110,6 @@ export class ExamStudyDialog extends BaseComponent {
 			var offset = this.member.id;
 			return _.map(examQuestions, (obj, order) => {
 				var index = (order + this.sheet.seed + offset) % examQuestions.length;
-				console.log(index);
 				return examQuestions[index];
 			});
 		});
@@ -131,7 +132,16 @@ export class ExamStudyDialog extends BaseComponent {
 		ExamLog.startExam(this, this.member.user_id, this.exam.id, this.submission);
 		this.fetchAnswers().subscribe(answers => {
 			this.answers = answers;
-			this.stats.attempt = answers.length;
+			var validAnswers = _.filter(this.answers, (ans: any) => {
+				return ans.option_id != "" && ans.option_id != "0";
+			});
+			// console.log(validAnswers);
+			if (validAnswers.length > 0) {
+				this.validAnswer = validAnswers.length;
+			} else {
+				this.validAnswer = 0;
+			}
+			this.stats.attempt = this.validAnswer;
 			this.stats.unattempt = this.stats.total - this.stats.attempt;
 			this.startTimer();
 			this.displayQuestion(0);
@@ -156,11 +166,15 @@ export class ExamStudyDialog extends BaseComponent {
 		});
 		if (!answer) {
 			var answer = new Answer();
+			answer.option_id = 0;
 			answer.submission_id = this.submission.id;
 			answer.question_id = question.question_id;
 			return answer.save(this).do(ans => {
 				this.answers.push(answer);
-				this.stats.attempt = this.answers.length;
+				if (answer.option_id != '' && typeof answer.option_id != '0') {
+					this.validAnswer = this.validAnswer + 1;
+				}
+				this.stats.attempt = this.validAnswer;
 				this.stats.unattempt = this.stats.total - this.stats.attempt;
 			});
 		} else
@@ -172,11 +186,14 @@ export class ExamStudyDialog extends BaseComponent {
 	}
 
 	updateProgress() {
-		var validAnswers = _.filter(this.answers, (ans: Answer) => {
-			return ans.option_id != null || ans.text != null;
+		var validAnswers = _.filter(this.answers, (ans: any) => {
+			return ans.option_id != "" && typeof ans.option_id != '0';
 		});
-		if (this.examQuestions.length)
-			this.progress = Math.floor(validAnswers.length / this.examQuestions.length * 100)
+		// console.log(validAnswers);
+		if (this.examQuestions.length) {
+			this.validAnswer = validAnswers.length;
+			this.progress = Math.floor(this.validAnswer / this.examQuestions.length * 100);
+		}
 	}
 
 	displayQuestion(index: number) {
@@ -186,6 +203,14 @@ export class ExamStudyDialog extends BaseComponent {
 			this.prepareAnswer(this.currentQuestion).subscribe(answer => {
 				ExamLog.startAnswer(this, this.member.user_id, this.exam.id, answer);
 				this.currentAnswer = answer;
+				var validAnswers = _.filter(this.answers, (ans: any) => {
+					return ans.option_id != "" && ans.option_id != '0';
+				});
+				if (this.examQuestions.length) {
+					this.validAnswer = validAnswers.length;
+					this.progress = Math.floor(this.validAnswer / this.examQuestions.length * 100);
+				}
+				this.checkAnswer();
 				var detailComponent = QuestionRegister.Instance.lookup(question.type);
 				let viewContainerRef = this.questionHost.viewContainerRef;
 				if (detailComponent) {
@@ -193,12 +218,11 @@ export class ExamStudyDialog extends BaseComponent {
 					viewContainerRef.clear();
 					this.componentRef = viewContainerRef.createComponent(componentFactory);
 					(<IQuestion>this.componentRef.instance).mode = 'study';
-					(<IQuestion>this.componentRef.instance).render(question, this.currentAnswer, {seed:this.member.id});
+					(<IQuestion>this.componentRef.instance).render(question, this.currentAnswer, { seed: this.member.id });
 					this.updateProgress();
 				}
 			});
 		});
-
 	}
 
 	submitAnswer(): Observable<any> {
@@ -259,5 +283,18 @@ export class ExamStudyDialog extends BaseComponent {
 				});
 		}
 
+	}
+
+	checkAnswer() {
+		var validQuestion = _.filter(this.answers, (ans: any) => {
+			return ans.option_id != "" && ans.option_id != '0';
+		});
+		this.examQuestions.forEach((ques: any) => {
+			validQuestion.forEach(answer => {
+				if (answer.question_id === ques.question_id) {
+					ques.checkAnswer = true;
+				}
+			})
+		});
 	}
 }
