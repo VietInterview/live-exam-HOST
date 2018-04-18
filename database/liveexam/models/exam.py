@@ -107,7 +107,7 @@ class Answer(models.Model):
 	is_correct = fields.Boolean(default=False, string="Is correct")
 	option_id = fields.Many2one('liveexam.option', string='Option')
 	text = fields.Text(string="Text")
-	score = fields.Integer(string="Score")
+	score = fields.Float(string="Score")
 	submission_id = fields.Many2one('liveexam.submission',string="Submission")
 
 
