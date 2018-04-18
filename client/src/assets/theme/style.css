@@ -96,23 +96,24 @@ body .ui-dropdown.report-items .ui-dropdown-trigger .fa{
   color: #fff;
   line-height: 30px;
 }
+/**/
 
-body .ui-dropdown.report-exam-items{
+/*dropdown report exam*/
+body .drop-report .ui-dropdown{
   height: 29px;
   padding: 4px 10px;
-  border-radius: 3spx;
+  border-radius: 2px;
   margin-top: 0;
 }
 
-body .ui-dropdown.report-exam-items .ui-dropdown-trigger{
+body .drop-report .ui-dropdown .ui-dropdown-trigger{
   height: 27px;
   margin-top: 0;
 }
 
-body .ui-dropdown.report-exam-items .ui-dropdown-trigger .fa{
+body .drop-report .ui-dropdown .ui-dropdown-trigger .fa{
   line-height: 30px;
 }
-
 /**/
 
 .options-question .md-inputfield .ui-inputtext{
@@ -168,6 +169,6 @@ body .ui-fieldset.f-print .ui-fieldset-legend{
   background: none;
 }
 
-.language .ui-state-default {
+.language .ui-state-default, .drop-report .ui-state-default {
     background: #d7ebf9;
 }

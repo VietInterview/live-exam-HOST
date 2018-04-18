@@ -154,7 +154,7 @@ export class AnswerPrintDialog extends BaseComponent {
                         font-weight: bold; 
                         margin-bottom: 10px;
                     }
-                    
+
                     .label{
                         float: left;
                         font-weight: bold;
@@ -176,7 +176,7 @@ export class AnswerPrintDialog extends BaseComponent {
                         padding: 0;
                         margin-top: -10px;
                     }
-                    
+
                     .f-print ul{
                         padding-left: 10px;
                     }
@@ -202,10 +202,15 @@ export class AnswerPrintDialog extends BaseComponent {
                     .radio{
                         float: left;
                         padding-right: 5px;
+                    } 
+
+                    input[type="radio"]:checked{
+                        background-color: #000;
                     }
                 </style>
             </head>
-            <body onload="window.print();window.close()">${printContents}</body>
+            <body onload="window.print();window.close()">${printContents}
+            </body>
           </html>`
         );
         popupWin.document.close();
