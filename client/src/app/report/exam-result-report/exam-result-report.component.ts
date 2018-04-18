@@ -60,32 +60,41 @@ export class ExamResultReportComponent extends BaseComponent implements OnInit{
 
     selectExam() {
     	if (this.selectedExam) {
-    		ExamMember.listByExam(this, this.selectedExam.id).subscribe(members => {
+    		ExamMember.listStudentByExam(this, this.selectedExam.id).subscribe(members => {
 				ExamGrade.listByExam(this,this.selectedExam.id).subscribe(grades => {
-					this.generateReport(this.selectedExam, grades, members).subscribe(records => {
-		    			this.records = records;
-		    		});
-				});
+					// this.generateReport(this.selectedExam, grades, members).subscribe(records => {
+		   //           	this.records = records;
+		   //           });
+                this.records = members;
+                _.each(members, (member: ExamMember)=> {
+                    member["user_login"] =  member.login;
+                    member["user_name"] = member.name;
+                    member["user_group"] = member.class_id__DESC__;
+                    member.examScore(this, this.selectedExam.id).subscribe(score=> {
+                        member["score"] = score;
+                        });
+                    });
+                });
 			});	
     	}
     }
 
 
-    generateReport(exam: Exam, grades: ExamGrade[], members: ExamMember[]):Observable<any> {
+    /*generateReport(exam: Exam, grades: ExamGrade[], members: ExamMember[]):Observable<any> {
         var subscriptions =[];
-    	_.each(members, (member:ExamMember)=> {
-    		var subscription = ExamLog.userExamActivity(this, member.user_id, exam.id).flatMap(logs => {
-    			return Submission.byMember(this, member.id).flatMap((submit:Submission) => {
+        _.each(members, (member:ExamMember)=> {
+            var subscription = ExamLog.userExamActivity(this, member.user_id, exam.id).flatMap(logs => {
+                return Submission.byMember(this, member.id).flatMap((submit:Submission) => {
                     if (!submit)
                         return Observable.of([]);
-    				return Answer.listBySubmit(this, submit.id).map(answers => {
-    					return this.generateReportRow(exam, grades, member, answers, logs);
-    				});
-    			});
-    		});	
-    		subscriptions.push(subscription);	
-    	});		
-    	return Observable.zip(...subscriptions);
+                    return Answer.listBySubmit(this, submit.id).map(answers => {
+                        return this.generateReportRow(exam, grades, member, answers, logs);
+                    });
+                });
+            });    
+            subscriptions.push(subscription);    
+        });        
+        return Observable.zip(...subscriptions);
     }
 
     generateReportRow(exam:Exam, grades: ExamGrade[], member: ExamMember, answers: Answer[], logs: ExamLog[]):any {
@@ -105,6 +114,6 @@ export class ExamResultReportComponent extends BaseComponent implements OnInit{
     	if (grade)
     		record["grade"] = grade.name;
 	    return record;
-    }
+    }*/
 
 }
