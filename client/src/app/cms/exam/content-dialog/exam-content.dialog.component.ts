@@ -76,6 +76,12 @@ export class ExamContentDialog extends BaseComponent {
 		}));
 	}
 
+	nodeUnSelect(event: any, level) {
+		this.selectorGroups[level]["group_ids"] = _.reject(this.selectorGroups[level]["group_ids"], (node => {
+			return event['node']['data']['id'] == node;
+		}));
+	}
+
 	createExamQuestionFromQuestionBank(questions: Question[], score): Observable<any> {
 		var createSubscriptions = _.map(questions, (question) => {
 			var examQuestion = new ExamQuestion();
@@ -94,12 +100,12 @@ export class ExamContentDialog extends BaseComponent {
 		this.sheet.finalized = true;
 		this.sheet.save(this).subscribe(() => {
 			this.examQuestions = [];
-			_.each(QUESTION_LEVEL, (val, key)=> {
-				var selectors = _.filter(this.selectors, ((sel:any)=> {
+			_.each(QUESTION_LEVEL, (val, key) => {
+				var selectors = _.filter(this.selectors, ((sel: any) => {
 					return sel.level == key;
 				}));
-				var groupIds  = [];
-				_.each(selectors, (sel:QuestionSelector)=> {
+				var groupIds = [];
+				_.each(selectors, (sel: QuestionSelector) => {
 					if (sel.group_id) {
 						var selectedGroups = this.treeUtils.getSubGroup(this.groups, sel.group_id);
 						groupIds = groupIds.concat(_.pluck(selectedGroups, 'id'));
@@ -109,7 +115,7 @@ export class ExamContentDialog extends BaseComponent {
 				if (groupIds.length > 0 && selectors[0].number)
 					Question.listByGroups(this, groupIds).subscribe(questions => {
 						questions = _.shuffle(questions);
-						questions = _.filter(questions, (obj:Question)=> {
+						questions = _.filter(questions, (obj: Question) => {
 							return obj.level == selectors[0].level;
 						});
 						var score = selectors[0].score;
@@ -168,7 +174,7 @@ export class ExamContentDialog extends BaseComponent {
 					this.sheet = sheet;
 					Group.listByCategory(this, GROUP_CATEGORY.QUESTION).subscribe(groups => {
 						this.groups = groups;
-						_.each(QUESTION_LEVEL, (val, key)=> {
+						_.each(QUESTION_LEVEL, (val, key) => {
 							this.tree[key] = this.treeUtils.buildTree(groups);
 						});
 					});
@@ -186,14 +192,14 @@ export class ExamContentDialog extends BaseComponent {
 		_.each(this.grades, (grade: ExamGrade) => {
 			subscriptions.push(grade.save(this));
 		});
-		_.each(QUESTION_LEVEL, (val, key)=> {
-			let delSelectors:any = _.filter(this.selectors, ((sel: QuestionSelector) => {
+		_.each(QUESTION_LEVEL, (val, key) => {
+			let delSelectors: any = _.filter(this.selectors, ((sel: QuestionSelector) => {
 				return sel.level == key && !_.contains(this.selectorGroups[key]["group_ids"], sel.group_id);
 			}));
 			_.each(delSelectors, ((sel: QuestionSelector) => {
 				subscriptions.push(sel.delete(this));
 			}));
-			let updateSelectors:any = _.filter(this.selectors, ((sel: QuestionSelector) => {
+			let updateSelectors: any = _.filter(this.selectors, ((sel: QuestionSelector) => {
 				return sel.level == key && _.contains(this.selectorGroups[key]["group_ids"], sel.group_id);
 			}));
 			_.each(updateSelectors, ((sel: QuestionSelector) => {

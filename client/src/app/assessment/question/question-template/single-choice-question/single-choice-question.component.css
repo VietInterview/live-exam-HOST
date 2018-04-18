@@ -21,3 +21,9 @@
 p.question{
 	margin-bottom: 0;
 }
+
+.radio{
+	width: 15px;
+	height: 15px;
+	margin-right: 5px;
+}

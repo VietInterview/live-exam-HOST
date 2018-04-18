@@ -19,3 +19,7 @@
 .ans-print{
 	margin-bottom: 20px;
 }
+
+input[type="radio"]:checked{
+    background-color: #000;
+}

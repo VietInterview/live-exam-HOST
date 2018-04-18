@@ -171,7 +171,7 @@ export class ExamStudyDialog extends BaseComponent {
 			answer.question_id = question.question_id;
 			return answer.save(this).do(ans => {
 				this.answers.push(answer);
-				if (answer.option_id != '' && typeof answer.option_id != '0') {
+				if (answer.option_id != 0) {
 					this.validAnswer = this.validAnswer + 1;
 				}
 				this.stats.attempt = this.validAnswer;
@@ -187,7 +187,7 @@ export class ExamStudyDialog extends BaseComponent {
 
 	updateProgress() {
 		var validAnswers = _.filter(this.answers, (ans: any) => {
-			return ans.option_id != "" && typeof ans.option_id != '0';
+			return ans.option_id != "" && ans.option_id != 0;
 		});
 		// console.log(validAnswers);
 		if (this.examQuestions.length) {
