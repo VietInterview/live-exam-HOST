@@ -77,8 +77,8 @@ export class ExamContentDialog extends BaseComponent {
 	}
 
 	nodeUnSelect(event: any, level) {
-		this.selectorGroups[level]["group_ids"] = _.reject(this.selectedNodes[level], (node => {
-			return !node['data']['id'];
+		this.selectorGroups[level]["group_ids"] = _.reject(this.selectorGroups[level]["group_ids"], (node => {
+			return event['node']['data']['id'] == node;
 		}));
 	}
 
