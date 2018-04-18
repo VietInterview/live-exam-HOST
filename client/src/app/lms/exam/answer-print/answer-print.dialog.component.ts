@@ -90,7 +90,7 @@ export class AnswerPrintDialog extends BaseComponent {
                     var componentHostArr =  this.questionsComponents.toArray();
                         for (var i =0;i<examQuestions.length;i++) {
                             var examQuestion =  examQuestions[i];
-                            var componentHost = componentHostArr[i];
+                            var componentHost = componentHostArr[i+1];
                             this.displayQuestion(examQuestion,componentHost);
                         }
                     }, 0); 
