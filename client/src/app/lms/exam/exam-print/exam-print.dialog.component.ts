@@ -90,32 +90,17 @@ export class ExamPrintDialog extends BaseComponent {
                   //........Customized style.......
                     .header{
                     }
-                    .name-c{
-                        float: left;
-                        width: 55%;
-                    }
 
-                    .name-e{
-                        height: 40px;
-                    }
-
-                    .name-c, .name-e{
-                        text-align: center; 
-                        text-transform: uppercase; 
-                        font-weight: bold; 
-                        margin-bottom: 10px;
+                    .align{
+                        text-align: center;
                     }
                     
                     .label{
-                        float: left;
-                        font-weight: bold;
-                        
+                        font-weight: bold;  
                     }
 
-                    .title{
+                    .content{
                         text-transform: uppercase;
-                        float: left;
-                        margin-right:40px;
                     }
 
                     .ins p{

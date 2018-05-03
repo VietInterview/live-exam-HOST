@@ -45,6 +45,7 @@ export class AnswerPrintDialog extends BaseComponent {
         this.exam = new Exam();
         this.company = new Company();
         this.member = new ExamMember();
+
     }
 
     show(exam: Exam, member: ExamMember) {
@@ -92,6 +93,7 @@ export class AnswerPrintDialog extends BaseComponent {
                             var examQuestion =  examQuestions[i];
                             var componentHost = componentHostArr[i+1];
                             this.displayQuestion(examQuestion,componentHost);
+                            var qIndex = Math.floor(this.examQuestions.length / 4);
                         }
                     }, 0); 
 
@@ -139,32 +141,17 @@ export class AnswerPrintDialog extends BaseComponent {
                   //........Customized style.......
                     .header{
                     }
-                    .name-c{
-                        float: left;
-                        width: 55%;
-                    }
-
-                    .name-e{
-                        height: 40px;
-                    }
-
-                    .name-c, .name-e{
-                        text-align: center; 
-                        text-transform: uppercase; 
-                        font-weight: bold; 
-                        margin-bottom: 10px;
-                    }
 
                     .label{
-                        float: left;
                         font-weight: bold;
-                        
                     }
 
-                    .title{
+                    .content{
                         text-transform: uppercase;
-                        float: left;
-                        margin-right:40px;
+                    }
+
+                    .align{
+                        text-align: center;
                     }
 
                     .ins p{
