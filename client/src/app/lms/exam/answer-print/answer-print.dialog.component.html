@@ -7,62 +7,24 @@
           <td colspan="3" width="50%">{{exam.name}}</td>
         </tr>
         <tr>
-          <td colspan="2" width="30%"><span class="label">{{'Subject'|translate}}:</span> <span class="content"> {{exam.subject}}</span></td>
-          <td colspan="2" width="30%"><span class="label">{{'Exam date'|translate}}:</span> <span class="content"> {{exam.start | date : "dd/MM/yyyy"}}</span></td>
-          <td colspan="2" width="30%"><span class="label">{{'Examination room'|translate}}:</span><span class="content">............</span></td>
+          <td colspan="2"><span class="label">{{'Subject'|translate}}:</span> <span class="content"> {{exam.subject}}</span></td>
+          <td colspan="2"><span class="label">{{'Exam date'|translate}}:</span> <span class="content"> {{exam.start | date : "dd/MM/yyyy"}}</span></td>
+          <td colspan="2"><span class="label">{{'Examination room'|translate}}:</span><span class="content">............</span></td>
         </tr>
         <tr>
           <td colspan="3" width="50%"><span class="label">{{'Student'|translate}}: </span><span> {{member.name}}</span></td>
           <td colspan="3" width="50%"><span class="label">{{'Class'|translate}}: </span><span>............</span></td>
         </tr>
-      </table>
-      <table border="1px" width="90%" cellspacing="0" cellpadding="10px" align="center" style="margin-bottom: 20px;">
-        <tr style="text-align: center;">
-          <td>{{'Exam code'|translate}}</td>
-          <td>{{'Test results'|translate}}</td>
-          <td>
-            <p style="margin: 0;">{{'Examiner 1'|translate}}</p>
-            <p style="margin: 0;">({{'Name, signature'|translate}})</p>
-          </td>
-          <td>
-            <p style="margin: 0;">{{'Examiner 2'|translate}}</p>
-            <p style="margin: 0;">({{'Name, signature'|translate}})</p>
-          </td>
-        </tr>
         <tr>
-          <td>{{exam.code}}</td>
-          <td>
-            <p>{{'Number of correct/total sentences'|translate}}: .../...</p>
-            <p>{{'Score'|translate}}: {{member.score}}</p>
-          </td>
-          <td></td>
-          <td></td>
+          <td colspan="3" width="50%"><span class="label">{{'Exam code'|translate}}: </span><span> {{exam.code}}</span></td>
+          <td colspan="3" width="50%"><span class="label">{{'Score'|translate}}: </span><span> {{member.score}}</span></td>
         </tr>
       </table>
-      <div class="ui-g-3 answer" *ngFor="let question of examQuestions; let idx = index">
-        <div *ngIf="idx < 4">
-        <p-table #examQuestionsTable [value]="examQuestions" [responsive]="true">
-          <!-- Math.floor(this.examQuestions.length / 4) -->
-          <ng-template pTemplate="header">
-              <tr>
-                <th>Câu</th>
-                <th>Đáp án chọn</th>
-              </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-examQuestions let-rowIndex="rowIndex">
-              <tr *ngIf="rowIndex < qIndex">
-                <td>{{rowIndex+1}}</td>
-                <td></td>
-              </tr>
-          </ng-template>
-        </p-table>
-        </div>
-      </div>
-        <!-- <p-dataList [value]="examQuestions" [rows]="examQuestions.length" styleClass="l-question">
-          <ng-template let-question pTemplate="item" question-container>
-            <div question-container></div>
-          </ng-template>
-        </p-dataList> -->
+      <p-dataList [value]="examQuestions" [rows]="examQuestions.length" styleClass="l-question">
+        <ng-template let-question pTemplate="item" question-container>
+          <div question-container></div>
+        </ng-template>
+      </p-dataList>
     </div>
   </p-scrollPanel>
   <p-footer>
