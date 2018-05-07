@@ -20,11 +20,11 @@ import 'rxjs/add/observable/timer'; import * as _ from 'underscore';
 
 @Component({
     moduleId: module.id,
-    selector: 'answer-print-dialog',
-    templateUrl: 'answer-print.dialog.component.html',
-    styleUrls: ['answer-print.dialog.component.css'],
+    selector: 'answer-summary-print-dialog',
+    templateUrl: 'answer-summary-print.dialog.component.html',
+    styleUrls: ['answer-summary-print.dialog.component.css'],
 })
-export class AnswerPrintDialog extends BaseComponent {
+export class AnswerSummaryPrintDialog extends BaseComponent {
     display: boolean;
     qIndex: number;
     examQuestions: ExamQuestion[];
@@ -93,6 +93,7 @@ export class AnswerPrintDialog extends BaseComponent {
                             var examQuestion =  examQuestions[i];
                             var componentHost = componentHostArr[i+1];
                             this.displayQuestion(examQuestion,componentHost);
+                            this.qIndex = Math.floor(this.examQuestions.length / 4);
                         }
                     }, 0); 
 
