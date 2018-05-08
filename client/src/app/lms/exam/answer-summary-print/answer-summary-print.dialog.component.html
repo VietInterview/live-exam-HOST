@@ -21,25 +21,25 @@
           <td>{{'Exam code'|translate}}</td>
           <td>{{'Test results'|translate}}</td>
           <td>
-            <p style="margin: 0;">{{'Examiner 1'|translate}}</p>
-            <p style="margin: 0;">({{'Name, signature'|translate}})</p>
+            <p class="removeM">{{'Examiner 1'|translate}}</p>
+            <p class="removeM">({{'Name, signature'|translate}})</p>
           </td>
           <td>
-            <p style="margin: 0;">{{'Examiner 2'|translate}}</p>
-            <p style="margin: 0;">({{'Name, signature'|translate}})</p>
+            <p class="removeM">{{'Examiner 2'|translate}}</p>
+            <p class="removeM">({{'Name, signature'|translate}})</p>
           </td>
         </tr>
         <tr>
           <td>{{exam.code}}</td>
           <td>
-            <p>{{'Number of correct/total sentences'|translate}}: .../...</p>
+            <p>{{'Number of correct/total sentences'|translate}}: .../{{examQuestions.length}}</p>
             <p>{{'Score'|translate}}: {{member.score}}</p>
           </td>
           <td></td>
           <td></td>
         </tr>
       </table>
-       <div class="ui-g-3 answer" *ngFor="let question of examQuestions; let idx = index">
+      <div class="ui-g-3 answer" *ngFor="let question of examQuestions; let idx = index">
         <div *ngIf="idx < 4">
         <p-table #examQuestionsTable [value]="examQuestions" [responsive]="true">
           <ng-template pTemplate="header">
