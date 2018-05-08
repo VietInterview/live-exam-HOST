@@ -18,8 +18,6 @@ import { IQuestion } from '../../../assessment/question/question-template/questi
 import { QuestionRegister } from '../../../assessment/question/question-template/question.decorator';
 import 'rxjs/add/observable/timer'; import * as _ from 'underscore';
 import { QuestionOption } from '../../../shared/models/option.model';
-import { Question } from '../../../../../dist/tmp/app/shared/models/question.model';
-import { QuestionOption } from '../../../../../dist/tmp/app/shared/models/option.model';
 
 @Component({
     moduleId: module.id,
@@ -118,21 +116,20 @@ export class AnswerSummaryPrintDialog extends BaseComponent {
                                         var index = _.findIndex(options, (opt: any) => {
                                             return anw.option_id == opt.id;
                                         });
-                                        if (index != '') {
-                                            if (index == 0) {
-                                                obj.indexAnw = "A";
-                                            } else if (index == 1) {
-                                                obj.indexAnw = "B";
-                                            } else if (index == 2) {
-                                                obj.indexAnw = "C";
-                                            } else {
-                                                obj.indexAnw = "D";
-                                            }
+                                        if (index == 0) {
+                                            obj.indexAnw = "A";
+                                        } else if (index == 1) {
+                                            obj.indexAnw = "B";
+                                        } else if (index == 2) {
+                                            obj.indexAnw = "C";
+                                        } else {
+                                            obj.indexAnw = "D";
                                         }
                                     });
                                 }
                             });
                         });
+                        console.log(this.examQuestions);
                     }
                 });
             });
