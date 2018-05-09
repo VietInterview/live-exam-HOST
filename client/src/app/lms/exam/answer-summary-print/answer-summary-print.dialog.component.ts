@@ -28,6 +28,7 @@ import { QuestionOption } from '../../../shared/models/option.model';
 export class AnswerSummaryPrintDialog extends BaseComponent {
     display: boolean;
     qIndex: number;
+    ansCorrect: number;
     examQuestions: ExamQuestion[];
     answers: Answer[];
     member: ExamMember;
@@ -59,6 +60,7 @@ export class AnswerSummaryPrintDialog extends BaseComponent {
         this.exam = exam;
         this.member = member;
         this.qIndex = 0;
+        this.ansCorrect = 0;
         Submission.byMember(this, this.member.id).subscribe((submit: Submission) => {
             if (submit) {
                 this.submission = submit;
@@ -125,11 +127,13 @@ export class AnswerSummaryPrintDialog extends BaseComponent {
                                         } else {
                                             obj.indexAnw = "D";
                                         }
+                                        if(anw.is_correct == true){
+                                            this.ansCorrect++;
+                                        }
                                     });
                                 }
                             });
                         });
-                        console.log(this.examQuestions);
                     }
                 });
             });
@@ -175,6 +179,23 @@ export class AnswerSummaryPrintDialog extends BaseComponent {
                   //........Customized style.......
                     .header{
                     }
+                    .m10{
+                        margin-bottom: 10px;
+                    }
+
+                    .m30{
+                        margin-bottom: 30px;
+                    }
+
+                    .w50{
+                        width: 50%;
+                        float: left;
+                    }
+
+                    .w30{
+                        width: 33%;
+                        float: left;
+                    }
 
                     .label{
                         font-weight: bold;
@@ -187,46 +208,22 @@ export class AnswerSummaryPrintDialog extends BaseComponent {
                     .align{
                         text-align: center;
                     }
-
-                    .ins p{
-                        text-indent: 25px;
-                    }
-
-                    .f-print{
-                        border:none;
-                        padding: 0;
-                        margin-top: -10px;
-                    }
-
-                    .f-print ul{
-                        padding-left: 10px;
-                    }
-
-                    .l-question{
-                        padding-bottom: 0;
-                        margin-bottom: 0;
-                    }
-
-                    .l-question li{
-                        list-style-type: decimal;
-                    }
-
-                    .bold{
-                        font-weight: bold;
-                    }
-
-                    .student{
+                    
+                    .float{
                         float: left;
-                        margin-right:100px;
                     }
 
-                    .radio{
+                    .answer table{
+                        border-collapse: collapse;
+                        text-align: center;
                         float: left;
-                        padding-right: 5px;
-                    } 
+                        margin-right: 20px;
+                        width:22%;
+                    }
 
-                    input[type="radio"]:checked{
-                        background-color: #000;
+                    .answer table tr, th, td{
+                        border: 1px solid black !important;
+                        padding: 5px;
                     }
                 </style>
             </head>

@@ -1,37 +1,28 @@
 <p-dialog header="{{'Answer sheet'|translate}}" [(visible)]="display" modal="true" width="960" height="100%" [responsive]="true"
   appendTo="body">
   <p-scrollPanel [style]="{width: '100%', height: '460px'}">
-    <div class="ui-g ans-print" #printSection>
-      <table width="100%" style="margin-bottom: 20px;">
-        <tr class="label content align">
-          <td colspan="3" width="50%">{{company.name}}</td>
-          <td colspan="3" width="50%">{{exam.name}}</td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <span class="label">{{'Subject'|translate}}:</span>
-            <span class="content"> {{exam.subject}}</span>
-          </td>
-          <td colspan="2">
-            <span class="label">{{'Exam date'|translate}}:</span>
-            <span class="content"> {{exam.start | date : "dd/MM/yyyy"}}</span>
-          </td>
-          <td colspan="2">
-            <span class="label">{{'Examination room'|translate}}:</span>
-            <span class="content">............</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" width="50%">
-            <span class="label">{{'Student'|translate}}: </span>
-            <span> {{member.name}}</span>
-          </td>
-          <td colspan="3" width="50%">
-            <span class="label">{{'Class'|translate}}: </span>
-            <span>............</span>
-          </td>
-        </tr>
-      </table>
+    <div class="ui-g" #printSection>
+      <div class="ui-g-6 label content align w50 m10">
+        <span>{{company.name}}</span>
+      </div>
+      <div class="ui-g-6 label content align w50 m30">
+        <span>{{exam.name}}</span>
+      </div>
+      <div class="ui-g-4 w30">
+        <span class="label">{{'Subject'|translate}}:&nbsp;</span><span>{{exam.subject}}</span>
+      </div>
+      <div class="ui-g-4 w30">
+        <span class="label">{{'Exam date'|translate}}:&nbsp;</span><span>{{exam.start | date : "dd/MM/yyyy"}}</span>
+      </div>
+      <div class="ui-g-4 w30">
+        <span class="label">{{'Examination room'|translate}}:&nbsp;</span><span>..........</span>
+      </div>
+      <div class="ui-g-6 w50 m10">
+        <span class="label">{{'Student'|translate}}:&nbsp;</span><span>{{member.name}}</span>
+      </div>
+      <div class="ui-g-6 w50 m10">
+        <span class="label">{{'Class'|translate}}:&nbsp;</span><span>.........</span>
+      </div>
       <table border="1px" width="90%" cellspacing="0" cellpadding="10px" align="center" style="margin-bottom: 20px;">
         <tr style="text-align: center;">
           <td>{{'Exam code'|translate}}</td>
@@ -46,10 +37,10 @@
           </td>
         </tr>
         <tr>
-          <td>{{exam.code}}</td>
+          <td class="align">{{exam.code}}</td>
           <td>
-            <p>{{'Number of correct/total sentences'|translate}}: .../{{examQuestions.length}}</p>
-            <p>{{'Score'|translate}}: {{member.score}}</p>
+            <p>{{'Number of correct/total sentences'|translate}}: {{ansCorrect}}/{{examQuestions.length}}</p>
+            <p class="label">{{'Score'|translate}}: {{member.score}}</p>
           </td>
           <td></td>
           <td></td>

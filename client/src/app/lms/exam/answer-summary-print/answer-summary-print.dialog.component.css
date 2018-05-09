@@ -13,11 +13,3 @@
 .ins{
     text-indent: 50px;
 }
-
-.ans-print{
-	margin-bottom: 20px;
-}
-
-input[type="radio"]:checked{
-    background-color: #3f51b5;
-}
