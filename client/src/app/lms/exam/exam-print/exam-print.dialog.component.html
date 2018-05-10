@@ -1,33 +1,41 @@
 <p-dialog header="{{'Exam paper'|translate}}" [(visible)]="display" modal="true" width="960"  [responsive]="true">
   <p-scrollPanel [style]="{width: '100%', height: '460px'}">
     <div class="ui-g" #printSection>
-      <div class="ui-g-6 name-c">
-        <span>{{company.name}}</span>
-      </div>
-      <div class="ui-g-6 name-e">
-        <span>{{exam.name}}</span>
-      </div>
-      <div class="ui-g-4">
-        <span class="label">{{'Subject'|translate}}:</span> <span class="title"> {{exam.subject}}</span>
-      </div>
-      <div class="ui-g-4">
-        <span class="label">{{'Degree'|translate}}:</span> <span class="title"> {{exam.degree}}</span>
-      </div>
-      <div class="ui-g-4">
-        <span class="label">{{'Code'|translate}}:</span> <span class="title"> {{exam.code}}</span>
-      </div>
-      <div class="ui-g-12">
-        <span class="label">{{'Duration'|translate}}:</span> <span> {{exam.duration}} {{'minutes'|translate}}</span>
-      </div>
-      <div class="ui-g-12">
-        <span class="ins" [innerHTML]="exam.instruction"></span>
-      </div>
+      <table width="100%">
+        <tr class="label content align">
+          <td width="50%">{{company.name}}</td>
+          <td>{{exam.name}}</td>
+        </tr>
+        <tr>
+          <td><span class="label">{{'Subject'|translate}}:</span> <span class="content"> {{exam.subject}}</span></td>
+          <td><span class="label">{{'Degree'|translate}}:</span> <span class="content"> {{exam.degree}}</span></td>
+        </tr>
+        <tr>
+          <td><span class="label">{{'Exam code'|translate}}:</span> <span class="content"> {{exam.code}}</span></td>
+          <td><span class="label">{{'Department'|translate}}:</span> <span class="content">............</span></td>
+        </tr>
+        <tr><td colspan="2"><span class="label">{{'Duration'|translate}}:</span> {{exam.duration}} 
+        {{'minutes'|translate}} (Không kể thời gian phát đề)</td></tr>
+        <tr><td colspan="2"><span class="ins" [innerHTML]="exam.instruction"></span></td></tr>
+      </table>
+
       <div class="ui-g-12">
         <p-dataList [value]="examQuestions" [rows]="examQuestions.length" styleClass="l-question">
           <ng-template let-question pTemplate="item" question-container>
             <div question-container></div>
           </ng-template>
         </p-dataList>
+      </div>
+
+      <div class="ui-g-12">
+        <p class="label align">-- {{'The end'|translate}} --</p>
+        <hr>
+        <table width="100%" class="align">
+          <tr>
+            <td><p class="label">Duyệt ..........</p><p>(Ký và ghi rõ họ tên)</p></td>
+            <td><p class="label">Người soạn đề</p><p>(Ký và ghi rõ họ tên)</p></td>
+          </tr>
+        </table>
       </div>
     </div>
   </p-scrollPanel>

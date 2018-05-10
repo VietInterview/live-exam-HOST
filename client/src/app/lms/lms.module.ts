@@ -10,10 +10,11 @@ import { ExamScoreDialog } from './exam/exam-score/exam-score.dialog.component';
 import { CheckinSheetDialog } from './exam/checkin-sheet/checkin-sheet.dialog.component';
 import { ExamPrintDialog } from './exam/exam-print/exam-print.dialog.component';
 import { AnswerPrintDialog } from './exam/answer-print/answer-print.dialog.component';
+import { AnswerSummaryPrintDialog } from './exam/answer-summary-print/answer-summary-print.dialog.component';
 
 @NgModule({
     imports: [ErpSharedModule, CMSModule, AssessmentModule, AuthModule],
-    declarations: [LMSComponent, ExamListComponent, ExamStudyDialog, AnswerPrintDialog, 
+    declarations: [LMSComponent, ExamListComponent, ExamStudyDialog, AnswerPrintDialog, AnswerSummaryPrintDialog,
 					 ExamScoreDialog, CheckinSheetDialog, ExamPrintDialog],
     exports: [],
     providers: []

@@ -1,0 +1,120 @@
+<p-dialog header="{{'Answer sheet'|translate}}" [(visible)]="display" modal="true" width="960" height="100%" [responsive]="true"
+  appendTo="body">
+  <p-scrollPanel [style]="{width: '100%', height: '460px'}">
+    <div class="ui-g" #printSection>
+      <div class="ui-g-6 label content align w50 m10">
+        <span>{{company.name}}</span>
+      </div>
+      <div class="ui-g-6 label content align w50 m30">
+        <span>{{exam.name}}</span>
+      </div>
+      <div class="ui-g-4 w30">
+        <span class="label">{{'Subject'|translate}}:&nbsp;</span><span>{{exam.subject}}</span>
+      </div>
+      <div class="ui-g-4 w30">
+        <span class="label">{{'Exam date'|translate}}:&nbsp;</span><span>{{exam.start | date : "dd/MM/yyyy"}}</span>
+      </div>
+      <div class="ui-g-4 w30">
+        <span class="label">{{'Examination room'|translate}}:&nbsp;</span><span>..........</span>
+      </div>
+      <div class="ui-g-6 w50 m10">
+        <span class="label">{{'Student'|translate}}:&nbsp;</span><span>{{member.name}}</span>
+      </div>
+      <div class="ui-g-6 w50 m10">
+        <span class="label">{{'Class'|translate}}:&nbsp;</span><span>.........</span>
+      </div>
+      <table border="1px" width="90%" cellspacing="0" cellpadding="10px" align="center" style="margin-bottom: 20px;">
+        <tr style="text-align: center;">
+          <td>{{'Exam code'|translate}}</td>
+          <td>{{'Test results'|translate}}</td>
+          <td>
+            <p class="removeM">{{'Examiner 1'|translate}}</p>
+            <p class="removeM">({{'Name, signature'|translate}})</p>
+          </td>
+          <td>
+            <p class="removeM">{{'Examiner 2'|translate}}</p>
+            <p class="removeM">({{'Name, signature'|translate}})</p>
+          </td>
+        </tr>
+        <tr>
+          <td class="align">{{exam.code}}</td>
+          <td>
+            <p>{{'Number of correct/total sentences'|translate}}: {{ansCorrect}}/{{examQuestions.length}}</p>
+            <p class="label">{{'Score'|translate}}: {{member.score}}</p>
+          </td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+      <div class="ui-g-3 answer">
+        <p-table #examQuestionsTable [value]="examQuestions" [responsive]="true">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Câu</th>
+              <th>Đáp án chọn</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-examQuestions let-rowIndex="rowIndex">
+            <tr *ngIf="rowIndex < qIndex">
+              <td>{{rowIndex+1}}</td>
+              <td>{{examQuestions.indexAnw}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <div class="ui-g-3 answer">
+        <p-table #examQuestionsTable [value]="examQuestions" [responsive]="true">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Câu</th>
+              <th>Đáp án chọn</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-examQuestions let-rowIndex="rowIndex">
+            <tr *ngIf="qIndex - 1 < rowIndex  && rowIndex < qIndex * 2">
+              <td>{{rowIndex+1}}</td>
+              <td>{{examQuestions.indexAnw}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <div class="ui-g-3 answer">
+        <p-table #examQuestionsTable [value]="examQuestions" [responsive]="true">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Câu</th>
+              <th>Đáp án chọn</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-examQuestions let-rowIndex="rowIndex">
+            <tr *ngIf="(qIndex * 2) - 1 < rowIndex && rowIndex < qIndex * 3">
+              <td>{{rowIndex+1}}</td>
+              <td>{{examQuestions.indexAnw}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <div class="ui-g-3 answer">
+        <p-table #examQuestionsTable [value]="examQuestions" [responsive]="true">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Câu</th>
+              <th>Đáp án chọn</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-examQuestions let-rowIndex="rowIndex">
+            <tr *ngIf="(qIndex * 3) - 1 < rowIndex && rowIndex < qIndex * 4">
+              <td>{{rowIndex+1}}</td>
+              <td>{{examQuestions.indexAnw}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </p-scrollPanel>
+  <p-footer>
+    <button type="button" pButton icon="ui-icon-print" (click)="print()" label="{{'Print'|translate}}"></button>
+    <button type="button" pButton icon="fa-close" (click)="hide()" label="{{'Close'|translate}}"></button>
+  </p-footer>
+
+</p-dialog>

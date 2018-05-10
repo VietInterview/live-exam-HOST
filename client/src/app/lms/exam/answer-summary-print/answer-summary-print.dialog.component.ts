@@ -17,25 +17,29 @@ import { QuestionContainerDirective } from '../../../assessment/question/questio
 import { IQuestion } from '../../../assessment/question/question-template/question.interface';
 import { QuestionRegister } from '../../../assessment/question/question-template/question.decorator';
 import 'rxjs/add/observable/timer'; import * as _ from 'underscore';
+import { QuestionOption } from '../../../shared/models/option.model';
 
 @Component({
     moduleId: module.id,
-    selector: 'answer-print-dialog',
-    templateUrl: 'answer-print.dialog.component.html',
-    styleUrls: ['answer-print.dialog.component.css'],
+    selector: 'answer-summary-print-dialog',
+    templateUrl: 'answer-summary-print.dialog.component.html',
+    styleUrls: ['answer-summary-print.dialog.component.css'],
 })
-export class AnswerPrintDialog extends BaseComponent {
+export class AnswerSummaryPrintDialog extends BaseComponent {
     display: boolean;
     qIndex: number;
+    ansCorrect: number;
     examQuestions: ExamQuestion[];
     answers: Answer[];
     member: ExamMember;
     company: Company;
     exam: Exam;
     submission: Submission;
+    mode: any;
+    options: QuestionOption[];
 
-     @ViewChildren(QuestionContainerDirective) questionsComponents: QueryList<QuestionContainerDirective>;
-     @ViewChild('printSection') printSection;
+    @ViewChildren(QuestionContainerDirective) questionsComponents: QueryList<QuestionContainerDirective>;
+    @ViewChild('printSection') printSection;
 
     constructor(private componentFactoryResolver: ComponentFactoryResolver) {
         super();
@@ -56,7 +60,8 @@ export class AnswerPrintDialog extends BaseComponent {
         this.exam = exam;
         this.member = member;
         this.qIndex = 0;
-        Submission.byMember(this, this.member.id).subscribe((submit:Submission) => {
+        this.ansCorrect = 0;
+        Submission.byMember(this, this.member.id).subscribe((submit: Submission) => {
             if (submit) {
                 this.submission = submit;
                 this.startReview();
@@ -79,30 +84,64 @@ export class AnswerPrintDialog extends BaseComponent {
         QuestionSheet.byExam(this, this.exam.id).subscribe(sheet => {
             ExamQuestion.listBySheet(this, sheet.id).map(examQuestions => {
                 var offset = this.member.id;
-                return _.map(examQuestions, (obj, order)=> {
-                    var index = (offset + sheet.seed+order)%examQuestions.length;
+                return _.map(examQuestions, (obj, order) => {
+                    var index = (offset + sheet.seed + order) % examQuestions.length;
                     return examQuestions[index];
                 });
             }).subscribe(examQuestions => {
                 this.examQuestions = examQuestions;
                 this.fetchAnswers().subscribe(answers => {
                     this.answers = answers;
-                    setTimeout(()=>{
-                    var componentHostArr =  this.questionsComponents.toArray();
-                        for (var i =0;i<examQuestions.length;i++) {
-                            var examQuestion =  examQuestions[i];
-                            var componentHost = componentHostArr[i+1];
-                            this.displayQuestion(examQuestion,componentHost);
+                    setTimeout(() => {
+                        var componentHostArr = this.questionsComponents.toArray();
+                        for (var i = 0; i < examQuestions.length; i++) {
+                            var examQuestion = examQuestions[i];
+                            var componentHost = componentHostArr[i + 1];
+                            this.displayQuestion(examQuestion, componentHost);
+                            this.qIndex = Math.floor(this.examQuestions.length / 4);
+                            if (this.qIndex == 0) {
+                                this.qIndex = 1;
+                            }
                         }
-                    }, 0); 
-
+                    }, 0);
+                    if (this.answers != []) {
+                        this.examQuestions.forEach((obj: any) => {
+                            this.answers.forEach(anw => {
+                                if (obj.question_id == anw.question_id) {
+                                    obj.option_id = anw.option_id;
+                                    QuestionOption.listByQuestion(this, obj.question_id).subscribe(options => {
+                                        var param = this.member.id;
+                                        options = _.map(options, (opt, order) => {
+                                            var index = (param + order) % options.length;
+                                            return options[index];
+                                        });
+                                        var index = _.findIndex(options, (opt: any) => {
+                                            return anw.option_id == opt.id;
+                                        });
+                                        if (index == 0) {
+                                            obj.indexAnw = "A";
+                                        } else if (index == 1) {
+                                            obj.indexAnw = "B";
+                                        } else if (index == 2) {
+                                            obj.indexAnw = "C";
+                                        } else {
+                                            obj.indexAnw = "D";
+                                        }
+                                        if(anw.is_correct == true){
+                                            this.ansCorrect++;
+                                        }
+                                    });
+                                }
+                            });
+                        });
+                    }
                 });
             });
         });
     }
 
     prepareAnswer(question: ExamQuestion): Observable<any> {
-        var answer = _.find(this.answers, (ans: Answer)=> {
+        var answer = _.find(this.answers, (ans: Answer) => {
             return ans.question_id == question.question_id;
         });
         if (!answer)
@@ -111,7 +150,7 @@ export class AnswerPrintDialog extends BaseComponent {
     }
 
     displayQuestion(examQuestion: ExamQuestion, componentHost) {
-        Question.get(this, examQuestion.question_id).subscribe((question)=> {
+        Question.get(this, examQuestion.question_id).subscribe((question) => {
             this.prepareAnswer(examQuestion).subscribe(answer => {
                 var detailComponent = QuestionRegister.Instance.lookup(question.type);
                 let viewContainerRef = componentHost.viewContainerRef;
@@ -120,10 +159,10 @@ export class AnswerPrintDialog extends BaseComponent {
                     viewContainerRef.clear();
                     var componentRef = viewContainerRef.createComponent(componentFactory);
                     (<IQuestion>componentRef.instance).mode = 'review';
-                    (<IQuestion>componentRef.instance).render(question,answer, {seed:this.member.id});
+                    (<IQuestion>componentRef.instance).render(question, answer, { seed: this.member.id });
                 }
             });
-            
+
         });
     }
 
@@ -140,6 +179,23 @@ export class AnswerPrintDialog extends BaseComponent {
                   //........Customized style.......
                     .header{
                     }
+                    .m10{
+                        margin-bottom: 10px;
+                    }
+
+                    .m30{
+                        margin-bottom: 30px;
+                    }
+
+                    .w50{
+                        width: 50%;
+                        float: left;
+                    }
+
+                    .w30{
+                        width: 33%;
+                        float: left;
+                    }
 
                     .label{
                         font-weight: bold;
@@ -152,46 +208,22 @@ export class AnswerPrintDialog extends BaseComponent {
                     .align{
                         text-align: center;
                     }
-
-                    .ins p{
-                        text-indent: 25px;
-                    }
-
-                    .f-print{
-                        border:none;
-                        padding: 0;
-                        margin-top: -10px;
-                    }
-
-                    .f-print ul{
-                        padding-left: 10px;
-                    }
-
-                    .l-question{
-                        padding-bottom: 0;
-                        margin-bottom: 0;
-                    }
-
-                    .l-question li{
-                        list-style-type: decimal;
-                    }
-
-                    .bold{
-                        font-weight: bold;
-                    }
-
-                    .student{
+                    
+                    .float{
                         float: left;
-                        margin-right:100px;
                     }
 
-                    .radio{
+                    .answer table{
+                        border-collapse: collapse;
+                        text-align: center;
                         float: left;
-                        padding-right: 5px;
-                    } 
+                        margin-right: 20px;
+                        width:22%;
+                    }
 
-                    input[type="radio"]:checked{
-                        background-color: #000;
+                    .answer table tr, th, td{
+                        border: 1px solid black !important;
+                        padding: 5px;
                     }
                 </style>
             </head>

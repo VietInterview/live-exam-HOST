@@ -14,14 +14,17 @@
         <div class="ui-g-12 name-e">
           <span>{{'Student list'|translate}}</span>
         </div>
-        <div class="ui-g-4 center">
+        <div class="ui-g-3 center">
           <span class="label">{{'Subject'|translate}}:&nbsp;</span> <span class="title"> {{exam.subject}}</span>
         </div>
-        <div class="ui-g-4 center">
-          <span class="label">{{'Degree'|translate}}:&nbsp;</span> <span class="title"> {{exam.degree}}</span>
-        </div>
-        <div class="ui-g-4 center">
+        <div class="ui-g-3 center">
           <span class="label">{{'Date'|translate}}:&nbsp;</span> <span class="title"> {{exam.start | date : "dd/MM/yyyy"}}</span>
+        </div>
+        <div class="ui-g-3 center">
+          <span class="label">{{'Exam form'|translate}}:&nbsp;</span> <span>..........</span>
+        </div>
+        <div class="ui-g-3 center">
+          <span class="label">{{'Class'|translate}}:&nbsp;</span> <span>.........</span>
         </div>
         <div class="ui-g-12">
           <p-table #memberTable [value]="members" [responsive]="true">
