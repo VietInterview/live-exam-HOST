@@ -8,7 +8,7 @@ class Partner(models.Model):
 
 	gender = fields.Selection(
 		[('male', 'Male'), ('female', 'Female'), ('other', 'Other')])
-
+	birthday = fields.Datetime("Birthday")
 
 class User(models.Model):
 	_name = 'res.users'
@@ -19,6 +19,7 @@ class User(models.Model):
 	class_id = fields.Many2one('res.groups', string='Class')
 	name = fields.Char(related="partner_id.name", string="Name")
 	email = fields.Char(related="partner_id.email", string="Email")
+	birthday = fields.Datetime(related="partner_id.birthday", string="Birthday")
 	phone = fields.Char(related="partner_id.phone", string="Phone")
 	banned = fields.Boolean(default=False, string="Is banned")
 	role = fields.Selection(

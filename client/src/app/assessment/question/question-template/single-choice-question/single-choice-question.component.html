@@ -49,7 +49,6 @@
     <p-fieldset styleClass="f-print">
       <ul class="options-question">
         <li *ngFor="let option of options" style="list-style-type: none;">
-          <!-- <p-radioButton [(ngModel)]="answer.option_id" inputId="{{option.id}}" value="{{option.id}}" name="option_answer{{question.id}}" label="{{option.content}}" [disabled]="true" styleClass="radio"></p-radioButton> -->
           <input type="radio" [(ngModel)]="answer.option_id" value="{{option.id}}" name="option_answer{{question.id}}" [disabled]="true" class="radio" [checked]="answer">{{option.content}}
           <i class="material-icons" *ngIf="option.is_correct">done</i>
         </li>
@@ -67,7 +66,7 @@
       <ol class="options-question">
         <li *ngFor="let option of options" style="list-style-type: upper-alpha;">
           {{option.content}}
-          <!-- <p-radioButton [(ngModel)]="answer.option_id" inputId="{{option.id}}" value="{{option.id}}" name="option_answer" label="{{option.content}}" [disabled]="true"></p-radioButton> -->
+
         </li>
       </ol>
     </p-fieldset>
