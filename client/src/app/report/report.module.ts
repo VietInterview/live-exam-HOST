@@ -7,12 +7,13 @@ import { ReportContainerDirective } from './report-container.directive';
 import { DatePipe } from '@angular/common';
 import { ReportUtils } from '../shared/helpers/report.utils';
 import { TimeConvertPipe} from '../shared/pipes/time.pipe';
+import { ResultReportPrintDialog } from './exam-result-report/result-report-print/result-report-print.dialog.component';
 
 @NgModule({
 	imports: [ErpSharedModule, AuthModule],
 	declarations: [
 	ReportComponent, 
-	ExamResultReportComponent,
+	ExamResultReportComponent, ResultReportPrintDialog,
 	ReportContainerDirective],
 	entryComponents: [
         ExamResultReportComponent,

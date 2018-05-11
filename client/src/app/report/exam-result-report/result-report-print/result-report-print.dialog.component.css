@@ -1,0 +1,49 @@
+.header{
+	text-align: center;
+	font-weight: bold;
+}
+
+.header p{
+	margin: 0 0 5px;
+}
+
+.name-c, .name-e{
+	text-align: center; 
+	text-transform: uppercase; 
+	font-weight: bold; 
+}
+
+.date{
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.date span{
+    font-style: italic;
+    float: right;
+    margin-right: 50px;
+}
+
+.center{
+    text-align: center;
+}
+
+.label{
+	
+}
+
+.title{
+	font-weight: bold;
+}
+
+.p-sign, .t-sign{
+	text-align: center;
+}
+
+.p-sign, .sup{
+	font-weight: bold;
+}
+
+.sign1{
+	padding-right: 100px;
+}

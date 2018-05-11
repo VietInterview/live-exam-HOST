@@ -17,6 +17,7 @@ import { Report } from '../report.decorator';
 import { SelectGroupDialog } from '../../shared/components/select-group-dialog/select-group-dialog.component';
 import { TimeConvertPipe} from '../../shared/pipes/time.pipe';
 import { ExcelService } from '../../shared/services/excel.service';
+import { ResultReportPrintDialog } from './result-report-print/result-report-print.dialog.component';
 
 
 @Component({
@@ -34,6 +35,8 @@ export class ExamResultReportComponent extends BaseComponent implements OnInit{
     exams: Exam[];
     selectedExam: any;
     reportUtils: ReportUtils;
+
+    @ViewChild(ResultReportPrintDialog) printDialog: ResultReportPrintDialog;
 
     constructor(private excelService: ExcelService, private datePipe: DatePipe) {
         super();
@@ -56,6 +59,10 @@ export class ExamResultReportComponent extends BaseComponent implements OnInit{
     		this.translateService.instant('Result'),
     	]
     	this.excelService.exportAsExcelFile(header.concat(this.records),'exam_result_report');
+    }
+
+    print(exam: Exam) {
+        this.printDialog.show(exam);
     }
 
     selectExam() {
