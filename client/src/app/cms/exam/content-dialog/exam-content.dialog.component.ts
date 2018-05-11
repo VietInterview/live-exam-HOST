@@ -97,7 +97,6 @@ export class ExamContentDialog extends BaseComponent {
 	}
 
 	generateQuestion() {
-		this.sheet.finalized = true;
 		this.sheet.save(this).subscribe(() => {
 			this.examQuestions = [];
 			_.each(QUESTION_LEVEL, (val, key) => {
@@ -114,17 +113,25 @@ export class ExamContentDialog extends BaseComponent {
 				groupIds = _.uniq(groupIds);
 				if (groupIds.length > 0 && selectors[0].number)
 					Question.listByGroups(this, groupIds).subscribe(questions => {
+						this.sheet.finalized = true;
 						questions = _.shuffle(questions);
 						questions = _.filter(questions, (obj: Question) => {
 							return obj.level == selectors[0].level;
 						});
 						var score = selectors[0].score;
-						questions = questions.slice(0, selectors[0].number);
-						this.createExamQuestionFromQuestionBank(questions, score).subscribe(examQuestions => {
-							this.examQuestions = this.examQuestions.concat(examQuestions);
-							this.examQuestions = _.shuffle(this.examQuestions);
-							this.totalScore = _.reduce(examQuestions, (memo, q: ExamQuestion) => { return memo + +q.score; }, 0);
-						});
+						if (questions.length > selectors[0].number) {
+							questions = questions.slice(0, selectors[0].number);
+							console.log('questions:', questions);
+							console.log('selectors:', selectors);
+							this.createExamQuestionFromQuestionBank(questions, score).subscribe(examQuestions => {
+								this.examQuestions = this.examQuestions.concat(examQuestions);
+								this.examQuestions = _.shuffle(this.examQuestions);
+								this.totalScore = _.reduce(examQuestions, (memo, q: ExamQuestion) => { return memo + +q.score; }, 0);
+							});
+						} else {
+							this.messageService.add({ severity: 'error', summary: 'Error', detail: this.translateService.instant('Not enough questions.') });
+						}
+
 					});
 			});
 		});

@@ -105,6 +105,7 @@ export class QuestionImportDialog extends BaseComponent {
 				}
 			});
 			this.records = data;
+			console.log(this.records);
 		})
 	}
 
