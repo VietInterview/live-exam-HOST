@@ -98,7 +98,7 @@ export class AnswerSummaryPrintDialog extends BaseComponent {
                             var examQuestion = examQuestions[i];
                             var componentHost = componentHostArr[i + 1];
                             this.displayQuestion(examQuestion, componentHost);
-                            this.qIndex = Math.floor(this.examQuestions.length / 4);
+                            this.qIndex = Math.ceil(this.examQuestions.length / 4);
                             if (this.qIndex == 0) {
                                 this.qIndex = 1;
                             }
