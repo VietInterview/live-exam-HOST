@@ -97,6 +97,7 @@ export class ExamContentDialog extends BaseComponent {
 	}
 
 	generateQuestion() {
+		var generateFailed = false;
 		this.sheet.save(this).subscribe(() => {
 			this.examQuestions = [];
 			_.each(QUESTION_LEVEL, (val, key) => {
@@ -111,7 +112,7 @@ export class ExamContentDialog extends BaseComponent {
 					}
 				});
 				groupIds = _.uniq(groupIds);
-				if (groupIds.length > 0 && selectors[0].number)
+				if (groupIds.length > 0 && selectors[0].number && !generateFailed)
 					Question.listByGroups(this, groupIds).subscribe(questions => {
 						this.sheet.finalized = true;
 						questions = _.shuffle(questions);
@@ -121,8 +122,6 @@ export class ExamContentDialog extends BaseComponent {
 						var score = selectors[0].score;
 						if (questions.length > selectors[0].number) {
 							questions = questions.slice(0, selectors[0].number);
-							console.log('questions:', questions);
-							console.log('selectors:', selectors);
 							this.createExamQuestionFromQuestionBank(questions, score).subscribe(examQuestions => {
 								this.examQuestions = this.examQuestions.concat(examQuestions);
 								this.examQuestions = _.shuffle(this.examQuestions);
@@ -130,6 +129,17 @@ export class ExamContentDialog extends BaseComponent {
 							});
 						} else {
 							this.messageService.add({ severity: 'error', summary: 'Error', detail: this.translateService.instant('Not enough questions.') });
+							// roll back
+							generateFailed =  true;
+							this.sheet.finalized = false;
+							this.totalScore = 0;
+							var subscriptions = _.map(this.examQuestions, (examQuestion=> {
+								return examQuestion.delete(this);
+							}));
+							if (subscriptions.length)
+								Observable.forkJoin(subscriptions).subscribe(()=> {
+									this.examQuestions = [];
+								});
 						}
 
 					});
