@@ -1,6 +1,6 @@
 
 import { Observable, Subject } from 'rxjs/Rx';
-import { Model } from './decorator';
+import { Model, FieldProperty } from './decorator';
 import { APIContext } from './context';
 import { BaseModel } from './base.model';
 import { Company } from './company.model';
@@ -23,7 +23,8 @@ export class User extends BaseModel{
         this.phone = undefined;
         this.is_admin = undefined;
         this.banned = undefined;
-		this.role = undefined;
+        this.role = undefined;
+        this.dob = undefined;
 	}
 
     image:string;
@@ -37,7 +38,9 @@ export class User extends BaseModel{
     banned: boolean;
     display_name: string;
     role: string;
-
+    @FieldProperty<Date>()
+    dob: Date;
+    
     static countAll( context:APIContext): Observable<any[]> {
         return User.count(context,"[('login','!=','admin')]");
     }
