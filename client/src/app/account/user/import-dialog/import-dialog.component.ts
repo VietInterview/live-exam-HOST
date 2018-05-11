@@ -23,10 +23,10 @@ export class UserImportDialog extends BaseComponent {
 	fileName: string;
 	records: any[];
 	importing: boolean;
-	@Input() role:string;
+	@Input() role: string;
 
 	private onImportCompleteReceiver: Subject<any> = new Subject();
-    onImportComplete:Observable<any> =  this.onImportCompleteReceiver.asObservable();
+	onImportComplete: Observable<any> = this.onImportCompleteReceiver.asObservable();
 
 	constructor(private excelService: ExcelService) {
 		super();
@@ -48,20 +48,20 @@ export class UserImportDialog extends BaseComponent {
 		var subscriptions = [];
 		Group.listByCategory(this, GROUP_CATEGORY.USER).subscribe(groups => {
 			this.importing = true;
-			_.each(this.records, (record)=> {
+			_.each(this.records, (record) => {
 				var user = new User();
 				user.role = this.role;
 				Object.assign(user, record);
 				user["password"] = DEFAULT_PASSWORD;
-				var group = _.find(groups, (obj:Group)=> {
+				var group = _.find(groups, (obj: Group) => {
 					return obj.code == record["group_code"];
 				});
-				if (group && this.role=='student') {
+				if (group && this.role == 'student') {
 					user.class_id = group.id;
 					subscriptions.push(user.save(this));
 				}
 			});
-			Observable.forkJoin(...subscriptions).subscribe(()=> {
+			Observable.forkJoin(...subscriptions).subscribe(() => {
 				this.importing = false;
 				this.onImportCompleteReceiver.next();
 				this.hide();
@@ -73,7 +73,13 @@ export class UserImportDialog extends BaseComponent {
 		var file = event.files[0];
 		this.fileName = file.name;
 		this.excelService.importFromExcelFile(file).subscribe(data => {
+			data.forEach((user: any) => {
+				if (user.first_name && user.last_name) {
+					user.name = user.first_name + ' ' + user.last_name;
+				}
+			});
 			this.records = data;
+			console.log(this.records);
 		})
 	}
 

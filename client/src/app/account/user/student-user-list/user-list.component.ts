@@ -93,7 +93,6 @@ export class StudentUserListComponent extends BaseComponent {
         if (this.selectedNode) {
             User.listByClass(this, this.selectedNode.data.id).subscribe(users => {
                 this.users = users;
-                console.log(this.selectedNode);
             });
         }
         else
