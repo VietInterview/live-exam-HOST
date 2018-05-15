@@ -14,6 +14,7 @@ import { ExamMember } from '../../../shared/models/exam-member.model';
 import { Http, Response } from '@angular/http';
 import { Company } from '../../../shared/models/company.model';
 import 'rxjs/add/observable/timer'; import * as _ from 'underscore';
+import { ExamGrade } from '../../../shared/models/exam-grade.model';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class ResultReportPrintDialog extends BaseComponent {
     exam: Exam;
     members: ExamMember[];
     company: Company;
+    records: any;
 
     @ViewChild('printSection') printSection;
 
@@ -40,12 +42,25 @@ export class ResultReportPrintDialog extends BaseComponent {
     }
 
     show(exam: Exam) {
-        this.display = true;
-        this.company = this.cacheService.UserCompany;
-        this.exam = exam;
-        ExamMember.listStudentByExam(this, this.exam.id).subscribe(members => {
-            this.members = members;
-        });
+        if (exam.id) {
+            this.display = true;
+            this.company = this.cacheService.UserCompany;
+            this.exam = exam;
+            ExamMember.listStudentByExam(this, this.exam.id).subscribe(members => {
+                ExamGrade.listByExam(this, this.exam.id).subscribe(grades => {
+                    this.records = members;
+                    _.each(members, (member: ExamMember) => {
+                        member["user_login"] = member.login;
+                        member["user_name"] = member.name;
+                        member["user_group"] = member.class_id__DESC__;
+                        member.examScore(this, this.exam.id).subscribe(score => {
+                            member["score"] = score;
+                        });
+                    });
+                    console.log(this.records);
+                });
+            });
+        }
     }
 
     hide() {
@@ -138,6 +153,6 @@ export class ResultReportPrintDialog extends BaseComponent {
         );
         popupWin.document.close();
     }
-   
+
 }
 
