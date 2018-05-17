@@ -79,17 +79,17 @@ export class ResultReportPrintDialog extends BaseComponent {
                 <style>
                   //........Customized style.......
                     .a{}
-                    .header, .p-sign, .sup{
+                    .header{
                         text-align: center;
                         font-weight: bold; 
-                        margin-bottom: 10px;
+                        margin-bottom: 20px;
                     }
 
-                    .header p{
+                    .header p, .name-c p{
                         margin: 0;
                     }
 
-                    .name-c, .p-sign{
+                    .name-c{
                         float: left;
                         width: 50%;
                     }
@@ -102,27 +102,28 @@ export class ResultReportPrintDialog extends BaseComponent {
                         text-align: center; 
                         text-transform: uppercase; 
                         font-weight: bold; 
-                        margin-bottom: 10px; 
+                        margin-bottom: 20px; 
                     }
 
                     .date{
                         text-align: right;
+                        margin-bottom: 10px;
+                        margin-top: 10px; 
                     }
 
                     .date span{
                         font-style: italic;
                     }
-
-                    .label{
-                        float: left;    
-                    }
-
-                    .title{
-                        font-weight: bold;
-                        float: left;
-                        margin-right:70px;
-                    }
                     
+                    .width-title{
+                        width:50%;
+                        float: left;
+                    }
+
+                    .center{
+                        text-align: center;
+                    }
+
                     table{
                         width: 100%;
                         margin-top: 20px;
@@ -131,20 +132,11 @@ export class ResultReportPrintDialog extends BaseComponent {
 
                     table tr, th, td{
                         border: 1px solid black;
+                        padding: 5px;
                     }
 
                     .total{
                         display: none;
-                    }
-
-                    .t-sign{
-                        float: right;
-                        width: 50%;
-                        text-align: center;
-                    }
-
-                    .sign1{
-                        padding-right: 100px;
                     }
                 </style>
             </head>

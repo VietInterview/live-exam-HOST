@@ -2,12 +2,14 @@
   <p-scrollPanel [style]="{width: '100%', height: '460px'}">
     <div class="ui-g" #printSection>
       <div class="ui-g-6 name-c">
-        <span>BỘ NÔNG NGHIỆP VÀ PTNT</span>
-        <span>{{company.name}}</span>
+        <p>BỘ NÔNG NGHIỆP VÀ PTNT</p>
+        <p>{{company.name}}</p>
+        <hr style="width: 50%;" />
       </div>
       <div class="ui-g-6 header">
         <p>Cộng hòa xã hội chủ nghĩa Việt Nam</p>
         <p>Độc lập - Tự do - Hạnh phúc</p>
+        <hr style="width: 30%" />
       </div>
       <div class="ui-g-12 date">
         <span>Bắc Ninh, Ngày &emsp; Tháng &emsp; Năm &emsp; </span>
@@ -15,20 +17,20 @@
       <div class="ui-g-12 name-e">
         <span>KẾT QUẢ THI KẾT THÚC MÔN HỌC</span>
       </div>
-      <div class="ui-g-6 center">
-        <span class="label">{{'Date'|translate}}:&nbsp;</span>
-        <span class="title"> {{exam.start | date : "dd/MM/yyyy"}}</span>
+      <div class="ui-g-6 width-title">
+        <span>{{'Date'|translate}}:&nbsp;</span>
+        <span> {{exam.start | date : "dd/MM/yyyy"}}</span>
       </div>
-      <div class="ui-g-3 center">
-        <span class="label">{{'Exam form'|translate}}:&nbsp;</span>
+      <div class="ui-g-3 width-title">
+        <span>{{'Exam form'|translate}}:&nbsp;</span>
         <span> Trắc nghiệm</span>
       </div>
-      <div class="ui-g-6 center">
-        <span class="label">{{'Subject'|translate}}:&nbsp;</span>
-        <span class="title"> {{exam.subject}}</span>
+      <div class="ui-g-6 width-title">
+        <span>{{'Subject'|translate}}:&nbsp;</span>
+        <span> {{exam.subject}}</span>
       </div>
-      <div class="ui-g-3 center">
-        <span class="label">{{'Class'|translate}}:&nbsp;</span>
+      <div class="ui-g-3 width-title">
+        <span>{{'Class'|translate}}:&nbsp;</span>
         <span>.........</span>
       </div>
       <div class="ui-g-12">
@@ -46,33 +48,33 @@
           </ng-template>
           <ng-template pTemplate="body" let-record let-rowIndex="rowIndex">
             <tr [pSelectableRow]="record">
-              <td>{{rowIndex+1}}</td>
+              <td class="center">{{rowIndex+1}}</td>
               <td>{{record.user_name}}</td>
               <td>{{record.user_login}}</td>
               <td>{{record.user_group}}</td>
-              <td>{{record.score}}</td>
+              <td class="center">{{record.score}}</td>
               <td></td>
             </tr>
           </ng-template>
         </p-table>
       </div>
       <div class="ui-g-12">
-        <span>Giám khảo 1: </span>
-        <span>Ký tên: </span>
-        <span>Họ và tên</span>
-        <span>Giám khảo 2: </span>
-        <span>Ký tên: </span>
-        <span>Họ và tên</span>
-        <span>Khoa/Bộ môn: </span>
-        <span>Ký tên: </span>
-        <span>Họ và tên</span>
-        <span>Phòng KTKĐCL: </span>
-        <span>Ký tên: </span>
-        <span>Họ và tên</span>
+        <p><span style="padding-right: 60px">Giám khảo 1: </span>
+        <span style="padding-right: 50px">Ký tên:.................... </span>
+        <span>Họ và tên:................</span></p>
+        <p><span style="padding-right: 60px">Giám khảo 2: </span>
+        <span style="padding-right: 50px">Ký tên:.................... </span>
+        <span>Họ và tên:................</span></p>
+        <p><span style="padding-right: 52px">Khoa/Bộ môn: </span>
+        <span style="padding-right: 50px">Ký tên:.................... </span>
+        <span>Họ và tên:................</span></p>
+        <p><span style="padding-right: 35px">Phòng KTKĐCL: </span>
+        <span style="padding-right: 50px">Ký tên:.................... </span>
+        <span>Họ và tên:................</span></p>
       </div>
-      <div class="ui-g-12">
-        <span>Nơi nhận:</span>
-        <ul>
+      <div class="ui-g-12" style="margin-top: 20px">
+        <span style="font-weight: bold;">Nơi nhận:</span>
+        <ul style="margin: 5px 0 20px">
           <li>GV chấm 1;</li>
           <li>Khoa (Bộ môn);</li>
           <li>Lưu: KTKĐCL.</li>
