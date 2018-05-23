@@ -6,6 +6,9 @@ import { User } from '../models/user.model';
 import { MapUtils } from '../helpers/map.utils';
 import { APIService } from './api.service'
 
+declare var escape;
+declare var unescape;
+
 @Injectable()
 export class AuthService {
 
