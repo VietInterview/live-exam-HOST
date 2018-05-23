@@ -15,6 +15,7 @@ import { SelectItem } from 'primeng/api';
 	moduleId: module.id,
 	selector: 'select-student-dialog',
 	templateUrl: 'select-student-dialog.component.html',
+	styleUrls: ['select-student-dialog.component.css'],
 })
 export class SelectStudentsDialog extends BaseComponent {
 

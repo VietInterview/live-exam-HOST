@@ -3,7 +3,7 @@
 	font-weight: bold;
 }
 
-.header p{
+.header p, .name-c p{
 	margin: 0 0 5px;
 }
 
@@ -26,24 +26,4 @@
 
 .center{
     text-align: center;
-}
-
-.label{
-	
-}
-
-.title{
-	font-weight: bold;
-}
-
-.p-sign, .t-sign{
-	text-align: center;
-}
-
-.p-sign, .sup{
-	font-weight: bold;
-}
-
-.sign1{
-	padding-right: 100px;
 }

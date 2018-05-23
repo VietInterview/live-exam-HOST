@@ -14,6 +14,7 @@ import { ExamMember } from '../../../shared/models/exam-member.model';
 import { Http, Response } from '@angular/http';
 import { Company } from '../../../shared/models/company.model';
 import 'rxjs/add/observable/timer'; import * as _ from 'underscore';
+import { ExamGrade } from '../../../shared/models/exam-grade.model';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class ResultReportPrintDialog extends BaseComponent {
     exam: Exam;
     members: ExamMember[];
     company: Company;
+    records: any;
 
     @ViewChild('printSection') printSection;
 
@@ -40,12 +42,25 @@ export class ResultReportPrintDialog extends BaseComponent {
     }
 
     show(exam: Exam) {
-        this.display = true;
-        this.company = this.cacheService.UserCompany;
-        this.exam = exam;
-        ExamMember.listStudentByExam(this, this.exam.id).subscribe(members => {
-            this.members = members;
-        });
+        if (exam.id) {
+            this.display = true;
+            this.company = this.cacheService.UserCompany;
+            this.exam = exam;
+            ExamMember.listStudentByExam(this, this.exam.id).subscribe(members => {
+                ExamGrade.listByExam(this, this.exam.id).subscribe(grades => {
+                    this.records = members;
+                    _.each(members, (member: ExamMember) => {
+                        member["user_login"] = member.login;
+                        member["user_name"] = member.name;
+                        member["user_group"] = member.class_id__DESC__;
+                        member.examScore(this, this.exam.id).subscribe(score => {
+                            member["score"] = score;
+                        });
+                    });
+                    console.log(this.records);
+                });
+            });
+        }
     }
 
     hide() {
@@ -64,17 +79,17 @@ export class ResultReportPrintDialog extends BaseComponent {
                 <style>
                   //........Customized style.......
                     .a{}
-                    .header, .p-sign, .sup{
+                    .header{
                         text-align: center;
                         font-weight: bold; 
-                        margin-bottom: 10px;
+                        margin-bottom: 20px;
                     }
 
-                    .header p{
+                    .header p, .name-c p{
                         margin: 0;
                     }
 
-                    .name-c, .p-sign{
+                    .name-c{
                         float: left;
                         width: 50%;
                     }
@@ -87,27 +102,28 @@ export class ResultReportPrintDialog extends BaseComponent {
                         text-align: center; 
                         text-transform: uppercase; 
                         font-weight: bold; 
-                        margin-bottom: 10px; 
+                        margin-bottom: 20px; 
                     }
 
                     .date{
                         text-align: right;
+                        margin-bottom: 10px;
+                        margin-top: 10px; 
                     }
 
                     .date span{
                         font-style: italic;
                     }
-
-                    .label{
-                        float: left;    
-                    }
-
-                    .title{
-                        font-weight: bold;
-                        float: left;
-                        margin-right:70px;
-                    }
                     
+                    .width-title{
+                        width:50%;
+                        float: left;
+                    }
+
+                    .center{
+                        text-align: center;
+                    }
+
                     table{
                         width: 100%;
                         margin-top: 20px;
@@ -116,20 +132,11 @@ export class ResultReportPrintDialog extends BaseComponent {
 
                     table tr, th, td{
                         border: 1px solid black;
+                        padding: 5px;
                     }
 
                     .total{
                         display: none;
-                    }
-
-                    .t-sign{
-                        float: right;
-                        width: 50%;
-                        text-align: center;
-                    }
-
-                    .sign1{
-                        padding-right: 100px;
                     }
                 </style>
             </head>
@@ -138,6 +145,6 @@ export class ResultReportPrintDialog extends BaseComponent {
         );
         popupWin.document.close();
     }
-   
+
 }
 

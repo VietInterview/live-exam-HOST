@@ -61,8 +61,8 @@ export class ExamResultReportComponent extends BaseComponent implements OnInit{
     	this.excelService.exportAsExcelFile(header.concat(this.records),'exam_result_report');
     }
 
-    print(exam: Exam) {
-        this.printDialog.show(exam);
+    print() {
+        this.printDialog.show(this.selectedExam);
     }
 
     selectExam() {
