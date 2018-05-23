@@ -7,6 +7,9 @@ import { MapUtils } from '../helpers/map.utils';
 import { AuthService } from './auth.service'
 import { APIService } from './api.service'
 
+declare var escape;
+declare var unescape;
+
 @Injectable()
 export class CacheService {
 
