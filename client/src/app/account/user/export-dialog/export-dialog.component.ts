@@ -27,8 +27,9 @@ export class UserExportDialog extends BaseComponent {
 		this.users = [];
 		this.fields = [
 			{ value: 'name', label: this.translateService.instant('Name') },
-			{ value: 'email', label: this.translateService.instant('Email') },
 			{ value: 'login', label: this.translateService.instant('Login') },
+			{ value: 'email', label: this.translateService.instant('Email') },
+			{ value: 'phone', label: this.translateService.instant('Phone') },
 			{ value: 'group_code', label: this.translateService.instant('Group') }
 		];
 		this.selectedFields = [];
