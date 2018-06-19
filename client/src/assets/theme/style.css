@@ -1,74 +1,76 @@
 html {
-    height: 100%;
-    box-sizing: border-box;
-    }
-  
-  *,
-  *:before,
-  *:after {
-    box-sizing: inherit;
-  }
-  
-body 
-  {
-    position: relative;
-    min-height: 100%;
-  }
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: calc(100% - 100px);
-  }
-.layout-content{
-    padding-bottom: 65px !important;
+  height: 100%;
+  box-sizing: border-box;
 }
 
-.ui-table-tbody td{
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  position: relative;
+  min-height: 100%;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: calc(100% - 100px);
+}
+
+.layout-content {
+  padding-bottom: 65px !important;
+}
+
+.ui-table-tbody td {
   text-align: center;
 }
 
-body p-schedule .ui-state-highlight{
+body p-schedule .ui-state-highlight {
   background-color: #161e840d;
 }
 
-.ui-scrollpanel-bar{
+.ui-scrollpanel-bar {
   display: none;
 }
 
-body .ui-dialog .ui-dialog-titlebar{
+body .ui-dialog .ui-dialog-titlebar {
   padding-bottom: 0;
 }
 
-.ui-scrollpanel-content{
+.ui-scrollpanel-content {
   width: 100%;
 }
 
-body .language .ui-dropdown .ui-dropdown-trigger{
+body .language .ui-dropdown .ui-dropdown-trigger {
   height: 28px;
   margin-top: 0;
 }
 
-.language .fa{
+.language .fa {
   line-height: 30px;
 }
 
-.card h1{
+.card h1 {
   margin: 16px 0;
 }
 
-.ui-table .ui-table-tbody > tr:nth-child(even){
+.ui-table .ui-table-tbody>tr:nth-child(even) {
   background-color: #fff;
 }
 
-.ui-table .ui-table-tbody > tr:nth-child(even).ui-state-highlight{
+.ui-table .ui-table-tbody>tr:nth-child(even).ui-state-highlight {
   background-color: #ffef8f;
 }
 
-.ui-treetable td.group-code{
+.ui-treetable td.group-code {
   text-align: center;
 }
 
 /*dropdown report*/
+
 body .ui-dropdown.report-items {
   height: 29px;
   padding: 4px 10px;
@@ -78,97 +80,106 @@ body .ui-dropdown.report-items {
   /*border-color: #2e6da4;*/
 }
 
-.ui-dropdown.report-items:not(.ui-state-disabled):hover{
+.ui-dropdown.report-items:not(.ui-state-disabled):hover {
   background-color: #337ab7;
 }
 
-.report-items .ui-inputtext{
+.report-items .ui-inputtext {
   color: #fff;
 }
 
-body .ui-dropdown.report-items .ui-dropdown-trigger{
+body .ui-dropdown.report-items .ui-dropdown-trigger {
   background-color: #337ab7;
   height: 27px;
   margin-top: 0;
 }
 
-body .ui-dropdown.report-items .ui-dropdown-trigger .fa{
+body .ui-dropdown.report-items .ui-dropdown-trigger .fa {
   color: #fff;
   line-height: 30px;
 }
+
 /**/
 
 /*dropdown report exam*/
-body .drop-report .ui-dropdown{
+
+body .drop-report .ui-dropdown {
   height: 29px;
   padding: 4px 10px;
   border-radius: 2px;
   margin-top: 0;
 }
 
-body .drop-report .ui-dropdown .ui-dropdown-trigger{
+body .drop-report .ui-dropdown .ui-dropdown-trigger {
   height: 27px;
   margin-top: 0;
 }
 
-body .drop-report .ui-dropdown .ui-dropdown-trigger .fa{
+body .drop-report .ui-dropdown .ui-dropdown-trigger .fa {
   line-height: 30px;
 }
+
 /**/
 
-.options-question .md-inputfield .ui-inputtext{
+.options-question .md-inputfield .ui-inputtext {
   width: 550px;
 }
 
-.layout-wrapper .layout-main .layout-topbar{
+.layout-wrapper .layout-main .layout-topbar {
   z-index: 999;
 }
 
-.layout-wrapper .layout-sidebar{
+.layout-wrapper .layout-sidebar {
   z-index: 1000;
 }
 
-.ui-tree{
+.ui-tree {
   width: 40%;
 }
 
-body .ui-fieldset .ui-fieldset-legend{
+body .ui-fieldset .ui-fieldset-legend {
   background-color: #fff;
 }
 
-body .ui-fieldset.f-print{
+body .ui-fieldset.f-print {
   border: none;
   padding: 0;
   margin-top: -10px;
 }
 
-body .ui-fieldset.f-print .ui-fieldset-legend{
+body .ui-fieldset.f-print .ui-fieldset-legend {
   border: none;
   margin: 0;
   padding: 0;
 }
 
-.question p, .content-question p{
+.question p,
+.content-question p {
   margin: 0;
 }
 
-.ins p{
+.ins p {
   margin-top: 0;
 }
 
-.card-exam .ui-button{
+.card-exam .ui-button {
   margin-bottom: 5px;
 }
 
-.table-content{
+.table-content {
   margin-bottom: 20px;
 }
 
-.ui-state-default{
+.ui-state-default {
   border: none;
   background: none;
 }
 
-.language .ui-state-default, .drop-report .ui-state-default {
-    background: #d7ebf9;
+.language .ui-state-default,
+.drop-report .ui-state-default {
+  background: #d7ebf9;
+}
+
+.content-question p img {
+  width: 100%;
 }

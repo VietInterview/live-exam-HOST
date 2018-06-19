@@ -1,29 +1,33 @@
-.options-question li{
+.options-question li {
   margin-bottom: 10px;
   list-style: none;
 }
 
-.options-question p-checkbox{
+.options-question p-checkbox {
   float: left;
 }
 
-.options-question .md-inputfield{
+.options-question .md-inputfield {
   float: left;
   margin-left: 5px;
 }
 
-.options-question .ui-button.ui-button-icon-only{
+.options-question .ui-button.ui-button-icon-only {
   margin-left: 10px;
   width: 2em;
   height: 2em;
 }
 
-p.question{
-	margin-bottom: 0;
+p.question {
+  margin-bottom: 0;
 }
 
-.radio{
-	width: 15px;
-	height: 15px;
-	margin-right: 5px;
+.radio {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+}
+
+.question img {
+  width: 100%;
 }

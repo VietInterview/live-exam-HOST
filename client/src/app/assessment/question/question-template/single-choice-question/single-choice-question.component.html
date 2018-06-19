@@ -28,7 +28,7 @@
 <div *ngIf="mode=='study'">
   <div class="ui-g-12 removePd">
     <!-- <label>{{'Content'|translate}}</label> -->
-    <p [innerHTML]="question.content"></p>
+    <p class="question" [innerHTML]="question.content"></p>
   </div>
   <div class="ui-g-12">
     <p-fieldset legend="{{'Options'|translate}}">
