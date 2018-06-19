@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { Observable, Subject } from 'rxjs/Rx';
 import { Question } from '../../../../shared/models/question.model';
 import { QuestionOption } from '../../../../shared/models/option.model';
@@ -15,6 +15,7 @@ import { IQuestion } from '../question.interface';
 	selector: 'live-exam-single-choice-question',
 	templateUrl: 'single-choice-question.component.html',
 	styleUrls: ['single-choice-question.component.css'],
+	encapsulation: ViewEncapsulation.None
 })
 @QuestionTemplate({
 	type: 'sc'
