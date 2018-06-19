@@ -84,7 +84,7 @@ class ExamQuestion(models.Model):
 	order = fields.Integer(string='Order')
 	group_id = fields.Many2one('res.groups', related="question_id.group_id", string='Group', readonly=True)
 	option_ids = fields.One2many('liveexam.option','question_id', related="question_id.option_ids", string="Options", readonly=True)
-	content = fields.Html(string="Content",related="question_id.content", readonly=True)
+	content = fields.Text(string="Content",related="question_id.content", readonly=True)
 	title = fields.Text(string="Title",related="question_id.title", readonly=True)
 	explanation = fields.Text(string="Explanation",related="question_id.explanation", readonly=True)
 	level = fields.Selection(string="Level",related="question_id.level", readonly=True)

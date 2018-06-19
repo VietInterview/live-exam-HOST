@@ -8,7 +8,7 @@ class Question(models.Model):
 
 	group_id = fields.Many2one('res.groups', string='Group')
 	option_ids = fields.One2many('liveexam.option','question_id', string="Options")
-	content = fields.Html(string="Content")
+	content = fields.Text(string="Content")
 	title = fields.Text(string="Title")
 	explanation = fields.Text(string="Explanation")
 	level = fields.Selection(
